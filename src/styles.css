@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+/*
+Color Palette variables
+ */
+:root {
+  --pingado: #AE7C6E;
+  --cappuccino: #745249;
+  --espresso: #392925;
+
+  --sucesso: #5BA9E0;
+  --erro: #DB3732;
+  --alerta: #E0D54A;
+
+  --branco: #FEFEFE;
+  --topo: #352B2A;
+  --bege: #F5E7C9;
+
+  --double: #261B18;
+}
