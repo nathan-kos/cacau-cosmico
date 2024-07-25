@@ -23,8 +23,14 @@
   /*
   Font Family variables
   */
-  --lemon: font-family: 'Lemon', cursive;
-  --lato: font-family: 'Lato', sans-serif;
-  --inter: font-family: 'Inter', sans-serif;
-  --lemonada: font-family: 'Lemonada', cursive;
+  --lemon: 'Lemon', cursive;
+  --lato: 'Lato', sans-serif;
+  --inter: 'Inter', sans-serif;
+  --lemonada: 'Lemonada', cursive;
+}
+
+body{
+  margin: 0%;
+  width: 100vw;
+  padding: none;
 }
