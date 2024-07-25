@@ -1,0 +1,58 @@
+header{
+  background-image: url('../../../../assets/img/galaxia.jpg');
+  background-size: cover;
+  background-position: left;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 7vh;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.5rem;
+
+  box-sizing: border-box;
+
+}
+
+h1{
+  font-size: 1.8rem;
+  color: var(--bege);
+  font-family: var(--lemon);
+}
+
+i{
+  font-size: 2rem;
+  color: var(--bege);
+  cursor: pointer;
+}
+
+button{
+  background-color: transparent;
+  border: none;
+}
+
+input{
+  width: 12rem;
+  height: 1.8rem;
+  border-radius: 1rem;
+  border: none;
+  padding: 0.5rem 1.8rem 0.5rem 0.5rem;
+  font-size: 1rem;
+  font-family: var(--lato);
+
+  margin-left: 0.8rem;
+
+  background-image: url('../../../../assets/icon/search.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 1.5rem;
+  background-color: var(--bege);
+}
+
+.menu{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
