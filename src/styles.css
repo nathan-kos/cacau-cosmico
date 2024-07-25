@@ -1,7 +1,11 @@
-/*
-Color Palette variables
- */
+@import url('https://fonts.googleapis.com/css2?family=Lemon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lemon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lemon&family=Lemonada:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Lemon&family=Lemonada:wght@300..700&display=swap');
 :root {
+  /*
+  Color Palette variables
+  */
   --pingado: #AE7C6E;
   --cappuccino: #745249;
   --espresso: #392925;
@@ -15,4 +19,12 @@ Color Palette variables
   --bege: #F5E7C9;
 
   --double: #261B18;
+
+  /*
+  Font Family variables
+  */
+  --lemon: font-family: 'Lemon', cursive;
+  --lato: font-family: 'Lato', sans-serif;
+  --inter: font-family: 'Inter', sans-serif;
+  --lemonada: font-family: 'Lemonada', cursive;
 }
