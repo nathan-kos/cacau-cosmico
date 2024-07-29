@@ -4,7 +4,7 @@
     <div class="infos">
       <h1>{{nome}}</h1>
       <h2>{{preco}}</h2>
-      <h3>{{categoria}}</h3>
+      <app-badge [text]="'categoria'" [color]="'var(--pingado)'" [size]="'sm'" [textColor]="'var(--branco)'"></app-badge>
     </div>
     <button (click)="openProduct()">
       <i class="ri-shopping-cart-2-fill"></i>

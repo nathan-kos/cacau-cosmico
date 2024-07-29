@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { BadgeComponent } from '../badge/badge.component';
 
 @Component({
   selector: 'app-produto',
   standalone: true,
-  imports: [],
+  imports: [BadgeComponent],
   templateUrl: './produto.component.html',
   styleUrl: './produto.component.css',
 })
