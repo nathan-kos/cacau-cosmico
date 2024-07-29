@@ -17,6 +17,7 @@ i{
   align-items: center;
   justify-content: center;
   width: 16.8rem;
+  height: 24rem;
   border: 0.1rem solid #ccc;
   border-radius: 0.6rem;
   padding: 0.9rem;
@@ -26,7 +27,7 @@ i{
 }
 
 .container img {
-  width: 100%;
+  width: 90%;
   height: auto;
   margin-bottom: 10px;
 }
