@@ -1,0 +1,14 @@
+<div class="container">
+  <img src="https://img.freepik.com/vetores-premium/chocolate-cacau-comida-vetor-sobremesa-doce-ilustracao-fundo-isolado-cacau-irmao-escuro_1013341-4754.jpg" alt="chocolate">
+  <div class="data">
+    <div class="infos">
+      <h1>{{nome}}</h1>
+      <h2>{{preco}}</h2>
+      <app-badge [text]="'categoria'" [color]="'var(--pingado)'" [size]="'sm'" [textColor]="'var(--branco)'"></app-badge>
+    </div>
+    <button (click)="openProduct()">
+      <i class="ri-shopping-cart-2-fill"></i>
+    </button>
+  </div>
+</div>
+
