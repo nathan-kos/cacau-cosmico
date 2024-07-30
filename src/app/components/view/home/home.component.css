@@ -1,17 +1,17 @@
 header{
-  background-image: url('../../../../assets/img/galaxia.jpg');
+  background-image: url('../../../../assets/img/Chocolate\ Espacial.png');
   background-size: cover;
   background-position: left;
   background-repeat: no-repeat;
   width: 100%;
-  height: 80vh;
+  height: 100vh;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
 
-  /* padding: 0.5rem; */
+  padding: 0.5rem;
 
   box-sizing: border-box;
 }
@@ -73,11 +73,13 @@ a{
 
 .presentatio{
   width: 100%;
-
+  height: 100%;
 
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+
+  padding-bottom: 5rem;
 }
 
 .presentatio h1{
@@ -90,8 +92,8 @@ a{
 }
 
 .presentatio img{
-  max-width: fit-content;
-  max-height: max-content;
+  max-width: 400px;
+  max-height: 400px;
   margin-left: 2rem;
 }
 
