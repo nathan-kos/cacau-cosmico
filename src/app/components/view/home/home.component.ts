@@ -1,11 +1,12 @@
 import { NgIf } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { ProdutoComponent } from '../../resources/produto/produto.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, ProdutoComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

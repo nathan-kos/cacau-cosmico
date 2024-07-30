@@ -21,7 +21,6 @@ i{
   border: 0.1rem solid #ccc;
   border-radius: 0.6rem;
   padding: 0.9rem;
-  margin: 1.2rem;
   box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.2);
   background-color: var(--branco);
 }
