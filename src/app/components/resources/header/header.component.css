@@ -20,6 +20,8 @@ h1{
   font-size: 1.8rem;
   color: var(--bege);
   font-family: var(--lemon);
+
+  cursor: pointer;
 }
 
 i{
@@ -51,8 +53,59 @@ input{
   background-color: var(--bege);
 }
 
+a{
+  text-decoration: none;
+  color: var(--bege);
+}
+
 .menu{
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.categories {
+  position: absolute;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  left: 1vw;
+  top: 7vh;
+  z-index: 100;
+
+  font-family: var(--lemon);
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.branco {
+  background-color: var(--branco);
+  color: var(--espresso);
+}
+
+.amargo {
+  background-color: var(--espresso);
+  color: var(--bege);
+}
+
+.leite {
+  background-color: var(--pingado);
+  color: var(--bege);
+}
+
+.todos{
+  background-color: var(--cappuccino);
+  color: var(--bege);
+}
+
+.category img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
 }
