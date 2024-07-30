@@ -1,0 +1,53 @@
+<div>
+  <header>
+    <div class="default">
+      <div class="menu">
+        <button (click)="togleMenu(); $event.stopPropagation()">
+          <i class="ri-menu-fill menu"></i>
+        </button>
+        <input type="search">
+      </div>
+
+      <h1 class="title" (click)="goTo('home')">Cacau Cósmico</h1>
+
+      <div>
+        <button (click)="goTo('usuario')">
+          <i class="ri-user-fill"></i>
+        </button>
+
+        <button (click)="goTo('adm')">
+          <i class="ri-admin-fill"></i>
+        </button>
+
+        <button (click)="goTo('carrinho')">
+          <i class="ri-shopping-cart-2-fill"></i>
+        </button>
+      </div>
+    </div>
+    <div class="presentatio">
+      <h1>
+        Nossos chocolates são de outro mundo!
+      </h1>
+      <img src="../../../../assets/img/hero.png" alt="Mulher segurando uma barra de chocolate, com outros chocolates ao redor como orbitando">
+    </div>
+  </header>
+</div>
+
+<div *ngIf="menuVisible" class="categories">
+  <div class="category todos" (click)="goTo('todos')">
+    <img src="../../../../assets/icon/todos.svg" alt="Ícone de universo">
+    <span>Todos os produtos</span>
+  </div>
+  <div class="category branco" (click)="goTo('branco')">
+    <img src="../../../../assets/icon/ana-chocolate-branco-preto.svg" alt="Ícone Anã Chocolate Branco">
+    <span>Anã Chocolate Branco</span>
+  </div>
+  <div class="category amargo" (click)="goTo('amargo')">
+    <img src="../../../../assets/icon/buraco-negro-meio-amargo-branco.svg" alt="Ícone Buraco Negro Meio Amargo">
+    <span>Buraco Negro Meio Amargo</span>
+  </div>
+  <div class="category leite" (click)="goTo('leite')">
+    <img src="../../../../assets/icon/planeta-ao-leite-branco.svg" alt="Ícone Planeta ao Leite">
+    <span>Planeta ao Leite</span>
+  </div>
+</div>

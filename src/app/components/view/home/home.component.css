@@ -1,0 +1,148 @@
+header{
+  background-image: url('../../../../assets/img/galaxia.jpg');
+  background-size: cover;
+  background-position: left;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 80vh;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+
+  /* padding: 0.5rem; */
+
+  box-sizing: border-box;
+}
+
+.title{
+  font-size: 1.8rem;
+  color: var(--bege);
+  font-family: var(--lemon);
+
+  cursor: pointer;
+}
+
+i{
+  font-size: 2rem;
+  color: var(--bege);
+  cursor: pointer;
+}
+
+button{
+  background-color: transparent;
+  border: none;
+}
+
+input{
+  width: 12rem;
+  height: 1.8rem;
+  border-radius: 1rem;
+  border: none;
+  padding: 0.5rem 1.8rem 0.5rem 0.5rem;
+  font-size: 1rem;
+  font-family: var(--lato);
+
+  margin-left: 0.8rem;
+
+  background-image: url('../../../../assets/icon/search.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 1.5rem;
+  background-color: var(--bege);
+}
+
+a{
+  text-decoration: none;
+  color: var(--bege);
+}
+
+.default{
+  width: 100%;
+  height: 7%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.5rem;
+
+  box-sizing: border-box;
+}
+
+.presentatio{
+  width: 100%;
+
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.presentatio h1{
+  font-size: 2rem;
+  font-family: var(--lemon);
+  color: var(--bege);
+
+  width: 40%;
+  text-align: right;
+}
+
+.presentatio img{
+  max-width: fit-content;
+  max-height: max-content;
+  margin-left: 2rem;
+}
+
+.menu{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.categories {
+  position: absolute;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  left: 1vw;
+  top: 7vh;
+  z-index: 100;
+
+  font-family: var(--lemon);
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.branco {
+  background-color: var(--branco);
+  color: var(--espresso);
+}
+
+.amargo {
+  background-color: var(--espresso);
+  color: var(--bege);
+}
+
+.leite {
+  background-color: var(--pingado);
+  color: var(--bege);
+}
+
+.todos{
+  background-color: var(--cappuccino);
+  color: var(--bege);
+}
+
+.category img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
