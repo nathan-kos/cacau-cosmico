@@ -37,7 +37,28 @@
     <app-produto></app-produto>
     <app-produto></app-produto>
     <app-produto></app-produto>
+    <app-produto></app-produto>
   </div>
+
+  <!-- footer -->
+   <div class="footer">
+      <div class="top">
+          <button class="ana" (click)="goTo('branco')">
+            <img src="../../../../assets/icon/ana-chocolate-branco.svg" alt="">
+            <p>Anã chocolate branco</p>
+          </button>
+          <button class="planeta" (click)="goTo('leite')">
+            <img src="../../../../assets/icon/planeta-ao-leite.svg" alt="">
+            <p>Planeta ao leite</p>
+          </button>
+      </div>
+      <div class="bottom">
+          <button class="buraco" (click)="goTo('amargo')">
+            <img src="../../../../assets/icon/buraco-negro-meio-amargo.svg" alt="">
+            <p>Buraco negro meio amargo</p>
+          </button>
+      </div>
+   </div>
 </div>
 
 <div *ngIf="menuVisible" class="categories">

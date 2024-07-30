@@ -12,6 +12,7 @@ header{
   flex-direction: column;
 
   box-sizing: border-box;
+  margin-bottom: 5rem;
 }
 
 .title{
@@ -161,7 +162,55 @@ a{
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-
-  padding: 0 0 8rem 0;
 }
 
+/* footer */
+
+.footer{
+  background-image: url('../../../../assets/img/ChocolateBottom.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 45rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.footer p{
+  font-size: 1.7rem;
+}
+
+.footer button{
+  cursor: pointer;
+}
+
+.top{
+  width: 100%;
+  height: 50%;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  margin-top: 7rem;
+}
+
+.ana{
+  color: var(--bege);
+  font-family: var(--lemon);
+}
+
+.planeta{
+  color: var(--pingado);
+  font-family: var(--lemon);
+}
+
+.buraco{
+  color: var(--espresso);
+  font-family: var(--lemon);
+}
