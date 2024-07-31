@@ -1,0 +1,216 @@
+header{
+  background-image: url('../../../../assets/img/Chocolate\ Espacial.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 45rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+
+  box-sizing: border-box;
+  margin-bottom: 5rem;
+}
+
+.title{
+  font-size: 1.8rem;
+  color: var(--bege);
+  font-family: var(--lemon);
+
+  cursor: pointer;
+}
+
+i{
+  font-size: 2rem;
+  color: var(--bege);
+  cursor: pointer;
+}
+
+button{
+  background-color: transparent;
+  border: none;
+}
+
+input{
+  width: 12rem;
+  height: 1.8rem;
+  border-radius: 1rem;
+  border: none;
+  padding: 0.5rem 1.8rem 0.5rem 0.5rem;
+  font-size: 1rem;
+  font-family: var(--lato);
+
+  margin-left: 0.8rem;
+
+  background-image: url('../../../../assets/icon/search.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 1.5rem;
+  background-color: var(--bege);
+}
+
+a{
+  text-decoration: none;
+  color: var(--bege);
+}
+
+.default{
+  width: 100%;
+  height: 7%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.5rem;
+
+  box-sizing: border-box;
+}
+
+.presentation{
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  padding-bottom: 8rem;
+}
+
+.presentation h1{
+  font-size: 2rem;
+  font-family: var(--lemon);
+  color: var(--bege);
+
+  width: 40%;
+  text-align: right;
+}
+
+.presentation img{
+  max-width: 400px;
+  max-height: 400px;
+  margin-left: 2rem;
+}
+
+.menu{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.categories {
+  position: absolute;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  left: 1vw;
+  top: 7vh;
+  z-index: 100;
+
+  font-family: var(--lemon);
+}
+
+.category {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+
+  cursor: pointer;
+}
+
+.branco {
+  background-color: var(--branco);
+  color: var(--espresso);
+}
+
+.amargo {
+  background-color: var(--espresso);
+  color: var(--bege);
+}
+
+.leite {
+  background-color: var(--pingado);
+  color: var(--bege);
+
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.todos{
+  background-color: var(--cappuccino);
+  color: var(--bege);
+
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.category img {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+}
+
+/* produtos */
+
+.produtos{
+  width: 100%;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+/* footer */
+
+.footer{
+  background-image: url('../../../../assets/img/ChocolateBottom.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 45rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.footer p{
+  font-size: 1.7rem;
+}
+
+.footer button{
+  cursor: pointer;
+}
+
+.top{
+  width: 100%;
+  height: 50%;
+
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+  margin-top: 7rem;
+}
+
+.ana{
+  color: var(--bege);
+  font-family: var(--lemon);
+}
+
+.planeta{
+  color: var(--pingado);
+  font-family: var(--lemon);
+}
+
+.buraco{
+  color: var(--espresso);
+  font-family: var(--lemon);
+}
