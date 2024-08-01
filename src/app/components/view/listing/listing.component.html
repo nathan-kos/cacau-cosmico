@@ -34,7 +34,7 @@
   <button *ngIf="produtos.page > 1" (click)="paginaAnterior()" aria-label="Página anterior">
     <i class="ri-arrow-left-s-line"></i>
   </button>
-  {{ pagina }}
+  <p>{{ pagina }}</p>
   <button *ngIf="produtos.page < paginasTotal()" (click)="proximaPagina()" aria-label="Próxima página">
     <i class="ri-arrow-right-s-line"></i>
   </button>

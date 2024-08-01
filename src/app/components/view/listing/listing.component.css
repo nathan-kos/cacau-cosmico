@@ -68,4 +68,7 @@
   border-radius: 1rem;
   border: none;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
