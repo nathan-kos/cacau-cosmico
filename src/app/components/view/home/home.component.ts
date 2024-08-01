@@ -30,16 +30,16 @@ export class HomeComponent {
   goTo(category: string) {
     switch (category) {
       case 'branco':
-        this.router.navigate(['/ana-chocolate-branco']);
+        this.router.navigate(['/produtos/ana-chocolate-branco']);
         break;
       case 'amargo':
-        this.router.navigate(['/buraco-negro-meio-amargo']);
+        this.router.navigate(['/produtos/buraco-negro-meio-amargo']);
         break;
       case 'leite':
-        this.router.navigate(['/planeta-ao-leite']);
+        this.router.navigate(['/produtos/planeta-ao-leite']);
         break;
       case 'todos':
-        this.router.navigate(['/universo-de-chocolate']);
+        this.router.navigate(['/produtos/universo-de-chocolate']);
         break;
       case 'usuario':
         this.router.navigate(['/usuario']);

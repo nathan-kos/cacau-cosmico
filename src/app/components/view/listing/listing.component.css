@@ -1,0 +1,74 @@
+.categorias{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2rem;
+}
+
+.categoria{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 1rem;
+  cursor: pointer;
+  gap: 10px;
+
+  border: none;
+}
+
+.categoria img{
+  max-height: 30px;
+}
+
+.categoria p {
+  font-family: var(--lemon);
+}
+
+.branco {
+  background-color: var(--branco);
+  color: var(--espresso);
+}
+
+.amargo {
+  background-color: var(--espresso);
+  color: var(--bege);
+}
+
+.leite {
+  background-color: var(--pingado);
+  color: var(--bege);
+}
+
+.todos{
+  background-color: var(--cappuccino);
+  color: var(--bege);
+}
+
+.produtos{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  flex-direction: row;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+
+  font-family: var(--lemon);
+}
+
+.pagination-controls button {
+  padding: 10px;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,41 @@
+<app-header></app-header>
+
+<div class="container">
+  <div class="categorias">
+    <button class="categoria todos" (click)="ChangeCategoria('Universo')">
+      <img src="../../../../assets/icon/todos.svg" alt="Universo de chocolate">
+      <p>Todos os produtos</p>
+    </button>
+    <button class="categoria leite" (click)="ChangeCategoria('AoLeite')">
+      <img src="../../../../assets/icon/planeta-ao-leite-branco.svg" alt="">
+      <p>Planeta ao leite</p>
+    </button>
+    <button class="categoria amargo" (click)="ChangeCategoria('Amargo')">
+      <img src="../../../../assets/icon/buraco-negro-meio-amargo-branco.svg" alt="">
+      <p>Buraco negro meio amargo</p>
+    </button>
+    <button class="categoria branco" (click)="ChangeCategoria('Branco')">
+      <img src="../../../../assets/icon/ana-chocolate-branco-preto.svg" alt="">
+      <p>Anã chocolate branco</p>
+    </button>
+  </div>
+</div>
+<div class="produtos">
+  <app-produto
+   *ngFor="let produto of produtos.data"
+   [id]="produto.id"
+   [nome]="produto.nome"
+   [preco]="produto.preco"
+   [categoria]="produto.categoria"
+   ></app-produto>
+</div>
+
+<div class="pagination-controls">
+  <button *ngIf="produtos.page > 1" (click)="paginaAnterior()" aria-label="Página anterior">
+    <i class="ri-arrow-left-s-line"></i>
+  </button>
+  <p>{{ pagina }}</p>
+  <button *ngIf="produtos.page < paginasTotal()" (click)="proximaPagina()" aria-label="Próxima página">
+    <i class="ri-arrow-right-s-line"></i>
+  </button>
+</div>
