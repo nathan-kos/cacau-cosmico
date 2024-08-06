@@ -1,0 +1,50 @@
+h1{
+  text-align: center;
+  font-family: var(--lemon);
+}
+
+.content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 5rem;
+}
+
+.inputs{
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.input{
+  display: flex;
+  flex-direction: column;
+}
+
+.input label{
+  font-family: var(--lato);
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.input :placeholder-shown{
+  font-family: var(--lato);
+  font-size: 1.2rem;
+}
+
+.enviar{
+  border-radius: 7px;
+  border: 1px solid #000;
+  width: 100%;
+
+  font-family: var(--lato);
+  font-size: 1.2rem;
+}
+
+.nasc{
+  display: flex;
+  justify-content: center;
+}
