@@ -21,6 +21,12 @@ export class SignUpComponent {
 
   public error: string | undefined;
 
+  // estagios do cadastro
+  public showStageUser = true;
+  public showStageAddress = false;
+  public showStageCard = false;
+  public hasNext = true;
+
   constructor(private formBuilder: FormBuilder) {
     this.signUpForm = this.formBuilder.group({
       nome: ['', Validators.required],
@@ -69,6 +75,64 @@ export class SignUpComponent {
     const { nome, email, senha, cpf, dataNascimento, genero, telefone } =
       this.signUpForm.value;
 
+    // manda para o backend
+
+    // muda para a próxima etapa
+    this.changeToAddress();
+
     window.alert('Função não implementada... ainda');
+  }
+
+  // funções para mudar de etapa
+  public changeToAddress(): void {
+    this.showStageUser = false;
+    this.showStageAddress = true;
+    this.showStageCard = false;
+
+    // muda o style das divs etapas
+    const user = document.getElementById('user');
+    const address = document.getElementById('endereco');
+    const card = document.getElementById('cartao');
+
+    if (!user || !address || !card) return;
+
+    //muda a classe para a div atual
+    user.className = 'unstaged';
+    address.className = 'staged';
+    card.className = 'unstaged';
+  }
+
+  public changeToCard(): void {
+    this.showStageUser = false;
+    this.showStageAddress = false;
+    this.showStageCard = true;
+
+    this.hasNext = false;
+
+    const user = document.getElementById('user');
+    const address = document.getElementById('endereco');
+    const card = document.getElementById('cartao');
+
+    if (!user || !address || !card) return;
+
+    user.className = 'unstaged';
+    address.className = 'unstaged';
+    card.className = 'staged';
+  }
+
+  public changeToUser(): void {
+    this.showStageUser = true;
+    this.showStageAddress = false;
+    this.showStageCard = false;
+
+    const user = document.getElementById('user');
+    const address = document.getElementById('endereco');
+    const card = document.getElementById('cartao');
+
+    if (!user || !address || !card) return;
+
+    user.className = 'staged';
+    address.className = 'unstaged';
+    card.className = 'unstaged';
   }
 }
