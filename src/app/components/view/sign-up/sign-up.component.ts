@@ -7,12 +7,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
+import { EnderecoComponent } from '../../resources/endereco/endereco.component';
 import { HeaderComponent } from '../../resources/header/header.component';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [HeaderComponent, ReactiveFormsModule, NgxMaskDirective, NgIf],
+  imports: [
+    HeaderComponent,
+    ReactiveFormsModule,
+    NgxMaskDirective,
+    NgIf,
+    EnderecoComponent,
+  ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css',
 })

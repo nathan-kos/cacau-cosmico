@@ -8,7 +8,7 @@
       <div id="endereco" class="unstaged"> </div>
       <div id="cartao" class="unstaged"></div>
     </div>
-    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" *ngIf="showStageUser">
       <div class="inputs">
         <div class="input">
           <label for="nome">Nome do astronauta</label>
@@ -56,6 +56,8 @@
         </div>
       </div>
     </form>
+
+    <app-endereco *ngIf="showStageAddress" (doneEvent)="changeToCard()"></app-endereco>
 
     <div class="erro" *ngIf="error">
       <p>{{ error }}</p>
