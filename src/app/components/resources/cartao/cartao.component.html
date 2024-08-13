@@ -1,0 +1,35 @@
+<form [formGroup]="cartaoForm" (ngSubmit)="onSubmit()">
+  <div class="inputs">
+    <div class="input">
+      <label for="nome">Nome Impresso no cartão</label>
+      <input type="text" id="nome" formControlName="nome"/>
+    </div>
+    <div class="input">
+      <label for="numero">Número do cartão</label>
+      <input type="text" id="numero" formControlName="numero"/>
+    </div>
+  </div>
+  <div class="inputs">
+    <div class="input">
+      <label for="validade">Validade</label>
+      <input type="text" id="validade" formControlName="validade" mask="00/00"/>
+    </div>
+    <div class="input">
+      <label for="cvv">CVV</label>
+      <input type="text" id="cvv" formControlName="cvv" mask="000"/>
+    </div>
+    <div class="input">
+      <label for="bandeira">Bandeira</label>
+      <select id="bandeira" formControlName="bandeira">
+        <option value="VISA">Visa</option>
+        <option value="MASTERCARD">Mastercard</option>
+        <option value="ELO">Elo</option>
+        <option value="AMERICAMEXPRESS">Amex</option>
+        <option value="HIPERCARD">Hipercard</option>
+      </select>
+    </div>
+  </div>
+  <div class="continuar">
+    <input type="submit" value="Enviar" class="enviar">
+  </div>
+</form>

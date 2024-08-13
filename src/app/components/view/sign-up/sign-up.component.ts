@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
+import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
 import { HeaderComponent } from '../../resources/header/header.component';
 
@@ -19,6 +20,7 @@ import { HeaderComponent } from '../../resources/header/header.component';
     NgxMaskDirective,
     NgIf,
     EnderecoComponent,
+    CartaoComponent,
   ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css',
@@ -37,7 +39,7 @@ export class SignUpComponent {
   constructor(private formBuilder: FormBuilder) {
     this.signUpForm = this.formBuilder.group({
       nome: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
+      email: ['', Validators.required],
       senha: ['', Validators.required],
       cpf: ['', Validators.required],
       dataNascimento: ['', Validators.required],
