@@ -2,7 +2,7 @@
   <div class="inputs">
     <div class="input">
       <label for="cep">CEP</label>
-      <input type="text" id="cep" formControlName="cep"/>
+      <input type="text" id="cep" formControlName="cep" mask="99.999-999"/>
     </div>
     <div class="input">
       <label for="rua">Rua</label>
@@ -15,7 +15,7 @@
   </div>
   <div class="inputs">
     <div class="input">
-      <label for="bairro">bairro</label>
+      <label for="bairro">Bairro</label>
       <input type="text" id="bairro" formControlName="bairro"/>
     </div>
     <div class="input">
@@ -57,7 +57,7 @@
   </div>
   <div class="inputs">
     <div class="input">
-      <label for="tipo">tipo</label>
+      <label for="tipo">Tipo</label>
       <select name="tipo" id="tipo" formControlName="tipo">
         <option value="RESIDENCIAL">Residencial</option>
         <option value="PREDIO">Comercial</option>

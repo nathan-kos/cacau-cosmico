@@ -79,6 +79,7 @@ export class EnderecoComponent {
 
     window.alert('Funcionalidade não implementada ...ainda');
 
+    //perguntar se quer adicionar outro endereço
     // se o backend retornar sucesso, avança para o próximo
     this.doneEvent.emit();
   }

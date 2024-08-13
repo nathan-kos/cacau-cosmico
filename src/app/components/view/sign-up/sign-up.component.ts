@@ -37,7 +37,7 @@ export class SignUpComponent {
   constructor(private formBuilder: FormBuilder) {
     this.signUpForm = this.formBuilder.group({
       nome: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', Validators.required, Validators.email],
       senha: ['', Validators.required],
       cpf: ['', Validators.required],
       dataNascimento: ['', Validators.required],
