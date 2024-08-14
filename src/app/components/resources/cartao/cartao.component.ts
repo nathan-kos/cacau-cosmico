@@ -8,11 +8,12 @@ import {
 } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
 import { Cartao } from '../../../DTO/cartao/Cartão';
+import { ConfirmacaoComponent } from '../confirmacao/confirmacao.component';
 
 @Component({
   selector: 'app-cartao',
   standalone: true,
-  imports: [ReactiveFormsModule, NgxMaskDirective, NgIf],
+  imports: [ReactiveFormsModule, NgxMaskDirective, NgIf, ConfirmacaoComponent],
   templateUrl: './cartao.component.html',
   styleUrl: './cartao.component.css',
 })
@@ -24,6 +25,8 @@ export class CartaoComponent {
   @Input() cartao: Cartao | undefined;
 
   public cartaoForm: FormGroup;
+
+  public showConfirmacao: boolean = false;
 
   public error: string | undefined;
 
@@ -60,12 +63,23 @@ export class CartaoComponent {
       if (this.cartaoForm.controls['bandeira'].invalid) {
         this.error += '\nBandeira inválida';
       }
+    } else {
+      const cartao = this.cartaoForm.value as Cartao;
+
+      window.alert('Cartão cadastrado com sucesso!');
+
+      this.showConfirmacao = true;
     }
+  }
 
-    const cartao = this.cartaoForm.value as Cartao;
-
-    window.alert('Cartão cadastrado com sucesso!');
-
+  public onDone(): void {
+    console.log('submeteu');
     this.doneEvent.emit();
+  }
+
+  public newCartao(): void {
+    console.log('bugou');
+    this.showConfirmacao = false;
+    this.cartaoForm.reset();
   }
 }
