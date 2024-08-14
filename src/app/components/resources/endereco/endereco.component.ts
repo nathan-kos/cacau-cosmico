@@ -8,11 +8,12 @@ import {
 } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
 import { Endereco } from '../../../DTO/endereco/Endereco';
+import { ConfirmacaoComponent } from '../confirmacao/confirmacao.component';
 
 @Component({
   selector: 'app-endereco',
   standalone: true,
-  imports: [ReactiveFormsModule, NgxMaskDirective, NgIf],
+  imports: [ReactiveFormsModule, NgxMaskDirective, NgIf, ConfirmacaoComponent],
   templateUrl: './endereco.component.html',
   styleUrl: './endereco.component.css',
 })
@@ -24,6 +25,7 @@ export class EnderecoComponent {
   @Input() endereco: Endereco | undefined;
 
   public enderecoForm: FormGroup;
+  public showConfirmacao: boolean = false;
 
   public error: string | undefined;
 
@@ -69,18 +71,28 @@ export class EnderecoComponent {
       if (this.enderecoForm.controls['tipo'].invalid) {
         this.error += '\nTipo inválido';
       }
+    } else {
+      const endereco = this.enderecoForm.value as Endereco;
+
+      // se estiver válido, chama o backend para salvar
+
+      // se o backend retornar erro, exibe a mensagem de erro
+
+      window.alert('Funcionalidade não implementada ...ainda');
+
+      //perguntar se quer adicionar outro endereço
+      // se o backend retornar sucesso, avança para o próximo
+
+      this.showConfirmacao = true;
     }
+  }
 
-    const endereco = this.enderecoForm.value as Endereco;
-
-    // se estiver válido, chama o backend para salvar
-
-    // se o backend retornar erro, exibe a mensagem de erro
-
-    window.alert('Funcionalidade não implementada ...ainda');
-
-    //perguntar se quer adicionar outro endereço
-    // se o backend retornar sucesso, avança para o próximo
+  public onDone(): void {
     this.doneEvent.emit();
+  }
+
+  public newEndereco(): void {
+    this.showConfirmacao = false;
+    this.enderecoForm.reset();
   }
 }

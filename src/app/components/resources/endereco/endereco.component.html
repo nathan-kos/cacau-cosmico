@@ -10,7 +10,7 @@
     </div>
     <div class="input">
       <label for="numero">Número</label>
-      <input type="text" id="numero" formControlName="numero"/>
+      <input type="text" id="numero" formControlName="numero" mask="0*"/>
     </div>
   </div>
   <div class="inputs">
@@ -73,6 +73,12 @@
     <input type="submit" value="Enviar" class="enviar">
   </div>
 </form>
+
+<div *ngIf="showConfirmacao" class="modal-overlay">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-confirmacao [text]="'Deseja adicionar mais um endereço?'" (confirmEvent)="newEndereco()" (cancelEvent)="onDone()"></app-confirmacao>
+  </div>
+</div>
 
 <div class="erro" *ngIf="error">
   <p>{{ error }}</p>
