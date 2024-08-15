@@ -1,0 +1,36 @@
+<app-header></app-header>
+
+<div class="content">
+  <h1>
+    Usuários
+  </h1>
+
+  <div class="tabela">
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>CPF</th>
+          <th>Editar</th>
+          <th>Excluir</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.usu_Nome }}</td>
+          <td>{{ usuario.usu_CPF }}</td>
+          <td>
+            <!-- <a [routerLink]="['/edit-user', user.id]"></a> -->
+            <i class="ri-edit-fill"></i>
+            <!-- </a> -->
+          </td>
+          <td>
+            <!-- <a (click)="deleteUser(user.id)"> -->
+            <i class="ri-delete-bin-7-fill"></i>
+            <!-- </a> -->
+          </td>
+        </tr>
+    </table>
+  </div>
+</div>
+
