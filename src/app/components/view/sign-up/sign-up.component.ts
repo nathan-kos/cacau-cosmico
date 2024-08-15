@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
@@ -36,7 +37,7 @@ export class SignUpComponent {
   public showStageCard = false;
   public hasNext = true;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private router: Router) {
     this.signUpForm = this.formBuilder.group({
       nome: ['', Validators.required],
       email: ['', Validators.required],
@@ -129,19 +130,7 @@ export class SignUpComponent {
     card.className = 'staged';
   }
 
-  public changeToUser(): void {
-    this.showStageUser = true;
-    this.showStageAddress = false;
-    this.showStageCard = false;
-
-    const user = document.getElementById('user');
-    const address = document.getElementById('endereco');
-    const card = document.getElementById('cartao');
-
-    if (!user || !address || !card) return;
-
-    user.className = 'staged';
-    address.className = 'unstaged';
-    card.className = 'unstaged';
+  public Done(): void {
+    this.router.navigate(['/']);
   }
 }

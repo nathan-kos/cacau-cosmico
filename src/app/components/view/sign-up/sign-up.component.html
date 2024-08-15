@@ -58,7 +58,7 @@
     </form>
 
     <app-endereco *ngIf="showStageAddress" (doneEvent)="changeToCard()"></app-endereco>
-    <app-cartao *ngIf="showStageCard" (doneEvent)="changeToUser()"></app-cartao>
+    <app-cartao *ngIf="showStageCard" (doneEvent)="Done()"></app-cartao>
 
     <div class="erro" *ngIf="error">
       <p>{{ error }}</p>
