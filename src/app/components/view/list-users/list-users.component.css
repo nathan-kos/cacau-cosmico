@@ -11,3 +11,14 @@ h1{
 
   padding: 2rem;
 }
+
+.tabela{
+  width: 90%;
+  border-collapse: separate;
+  border-spacing: 0 0.3rem;
+  overflow-x: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

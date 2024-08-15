@@ -26,7 +26,7 @@
           </td>
           <td>
             <!-- <a (click)="deleteUser(user.id)"> -->
-            <i class="ri-delete-bin-7-fill"></i>
+            <i class="ri-delete-bin-7-fill" (click)="openDeleteModal(usuario)"></i>
             <!-- </a> -->
           </td>
         </tr>
@@ -34,3 +34,8 @@
   </div>
 </div>
 
+<div *ngIf="showDeleteModal" class="modal-overlay" (click)="closeDeleteModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-confirmacao [text]="'Tem certeza que deseja excluir o usuário?'" (confirmEvent)="deleteUser()" (cancelEvent)="closeDeleteModal()"></app-confirmacao>
+  </div>
+</div>
