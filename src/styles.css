@@ -60,3 +60,31 @@ body{
   z-index: 1001;
   padding: 1rem;
 }
+
+/* fim modal */
+
+/* tabela */
+table {
+  border-collapse: separate;
+  border-spacing: 0 0.3rem;
+}
+
+thead th {
+  border-bottom: 2px solid var(--double);
+  padding: 1.5rem;
+  background-color: var(--branco);
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
+  /* text-align: left; */
+}
+
+tbody td {
+  padding: 1.5rem;
+  background-color: var(--branco);
+}
+
+tfoot td {
+  padding: 0.5rem;
+}
+
+/* fim tabela */
