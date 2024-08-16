@@ -1,5 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
 import { ConfirmacaoComponent } from '../../resources/confirmacao/confirmacao.component';
 import { HeaderComponent } from '../../resources/header/header.component';
@@ -12,6 +13,8 @@ import { HeaderComponent } from '../../resources/header/header.component';
   styleUrl: './list-users.component.css',
 })
 export class ListUsersComponent {
+  constructor(private router: Router) {}
+
   public usuarios: Usuario[] = [
     {
       usu_Id: '1',
@@ -46,7 +49,6 @@ export class ListUsersComponent {
   public selectedUser: Usuario | null = null;
 
   public showDeleteModal = false;
-  public showEditModal = false;
 
   public openDeleteModal(user: Usuario) {
     this.selectedUser = user;
@@ -61,5 +63,10 @@ export class ListUsersComponent {
     this.showDeleteModal = false;
     // chama o backend para deletar o usuário
     window.alert('Usuário deletado com sucesso');
+  }
+
+  public goToEdit(usuario: Usuario) {
+    const route = '/usuario/editar/' + usuario.usu_Id;
+    this.router.navigate([route]);
   }
 }

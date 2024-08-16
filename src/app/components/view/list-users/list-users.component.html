@@ -21,7 +21,7 @@
           <td>{{ usuario.usu_CPF }}</td>
           <td>
             <!-- <a [routerLink]="['/edit-user', user.id]"></a> -->
-            <i class="ri-edit-fill"></i>
+            <i class="ri-edit-fill" (click)="goToEdit(usuario)"></i>
             <!-- </a> -->
           </td>
           <td>
