@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -7,6 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
+import { Bandeira } from '../../../DTO/cartao/Bandeira';
+import { Cartao } from '../../../DTO/cartao/Cartão';
+import { Endereco } from '../../../DTO/endereco/Endereco';
+import { Tipo } from '../../../DTO/endereco/Tipo';
+import { UF } from '../../../DTO/endereco/UF';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
@@ -22,6 +27,7 @@ import { HeaderComponent } from '../../resources/header/header.component';
     NgIf,
     EnderecoComponent,
     CartaoComponent,
+    NgFor,
   ],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css',
@@ -43,6 +49,55 @@ export class EditUserComponent implements OnInit {
     usu_Senha: 'fds',
     usu_pap: 'fds',
   };
+
+  public enderecos: Endereco[] = [
+    {
+      end_Bairro: 'fds',
+      end_CEP: 'fds',
+      end_Cidade: 'fds',
+      end_Complemento: 'fds',
+      end_UF: UF.AC,
+      end_Id: 'fds',
+      end_Rua: 'fds',
+      end_Numero: 'fds',
+      end_Tipo: Tipo.COBRANCA,
+      end_usu_id: 'fds',
+      end_Ativo: true,
+      end_AtualizadoEm: 'fds',
+      end_CriadoEm: 'fds',
+    },
+
+    {
+      end_Bairro: 'fds',
+      end_CEP: 'fds',
+      end_Cidade: 'fds',
+      end_Complemento: 'fds',
+      end_UF: UF.AC,
+      end_Id: 'fds',
+      end_Rua: 'fds',
+      end_Numero: 'fds',
+      end_Tipo: Tipo.ENTREGA,
+      end_usu_id: 'fds',
+      end_Ativo: true,
+      end_AtualizadoEm: 'fds',
+      end_CriadoEm: 'fds',
+    },
+  ];
+
+  public cartoes: Cartao[] = [
+    {
+      car_Bandeira: Bandeira.ELO,
+      car_CVV: 'fds',
+      car_Nome: 'fds',
+      car_Numero: 'fds',
+      car_Validade: 'fds',
+      car_Id: 'fds',
+      car_usu_id: 'fds',
+      car_Ativo: true,
+      car_AtualizadoEm: 'fds',
+      car_CriadoEm: 'fds',
+    },
+  ];
 
   constructor(private formBuilder: FormBuilder) {
     this.editUserForm = this.formBuilder.group({
