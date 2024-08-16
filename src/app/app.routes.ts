@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { EditUserComponent } from './components/view/edit-user/edit-user.component';
 import { HomeComponent } from './components/view/home/home.component';
 import { ListUsersComponent } from './components/view/list-users/list-users.component';
 import { ListingComponent } from './components/view/listing/listing.component';
@@ -39,6 +40,12 @@ export const routes: Routes = [
   {
     path: 'usuario/listagem',
     component: ListUsersComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'usuario/editar/:id',
+    component: EditUserComponent,
     pathMatch: 'full',
   },
 
