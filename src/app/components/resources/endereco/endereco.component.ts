@@ -28,6 +28,8 @@ export class EnderecoComponent {
   public showConfirmacaoNew: boolean = false;
   public showConfirmacaoDelete: boolean = false;
 
+  public buttonText: string = this.setButtonText();
+
   public error: string | undefined;
 
   constructor(private formBuilder: FormBuilder) {
@@ -50,27 +52,27 @@ export class EnderecoComponent {
   public onSubmit(): void {
     if (!this.enderecoForm.valid) {
       // passa um por um e verifica se está válido e soma na mensagem de erro para exibir
-      this.error = 'Formulário inválido';
+      this.error = 'Formulário inválido<br>';
       if (this.enderecoForm.controls['cep'].invalid) {
-        this.error += '\nCEP inválido';
+        this.error += 'CEP inválido<br>';
       }
       if (this.enderecoForm.controls['rua'].invalid) {
-        this.error += '\nRua inválida';
+        this.error += 'Rua inválida<br>';
       }
       if (this.enderecoForm.controls['numero'].invalid) {
-        this.error += '\nNúmero inválido';
+        this.error += 'Número inválido<br>';
       }
       if (this.enderecoForm.controls['bairro'].invalid) {
-        this.error += '\nBairro inválido';
+        this.error += 'Bairro inválido<br>';
       }
       if (this.enderecoForm.controls['cidade'].invalid) {
-        this.error += '\nCidade inválida';
+        this.error += 'Cidade inválida<br>';
       }
       if (this.enderecoForm.controls['UF'].invalid) {
-        this.error += '\nUF inválido';
+        this.error += 'UF inválido<br>';
       }
       if (this.enderecoForm.controls['tipo'].invalid) {
-        this.error += '\nTipo inválido';
+        this.error += 'Tipo inválido<br>';
       }
     } else {
       const endereco = this.enderecoForm.value as Endereco;
@@ -109,5 +111,13 @@ export class EnderecoComponent {
 
   public closeModal(): void {
     this.showConfirmacaoDelete = false;
+  }
+
+  private setButtonText() {
+    if (this.isEdit) {
+      return 'Enviar';
+    } else {
+      return 'Continuar';
+    }
   }
 }
