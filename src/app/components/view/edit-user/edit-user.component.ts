@@ -17,6 +17,7 @@ import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
 import { HeaderComponent } from '../../resources/header/header.component';
 import { ConfirmacaoComponent } from "../../resources/confirmacao/confirmacao.component";
+import { TrocarSenhaComponent } from "../../resources/trocar-senha/trocar-senha.component";
 
 @Component({
   selector: 'app-edit-user',
@@ -29,7 +30,8 @@ import { ConfirmacaoComponent } from "../../resources/confirmacao/confirmacao.co
     EnderecoComponent,
     CartaoComponent,
     NgFor,
-    ConfirmacaoComponent
+    ConfirmacaoComponent,
+    TrocarSenhaComponent
 ],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css',
@@ -45,6 +47,8 @@ export class EditUserComponent implements OnInit {
 
   public deleteEnderecoModal: boolean = false;
   public deleteCartaoModal: boolean = false;
+
+  public alterarSenhaModal: boolean = false;
 
   public selectedEndereco: Endereco | undefined;
   public selectedCartao: Cartao | undefined;
@@ -172,6 +176,8 @@ export class EditUserComponent implements OnInit {
 
     this.deleteEnderecoModal = false;
     this.deleteCartaoModal = false;
+
+    this.alterarSenhaModal = false;
   }
 
   public openDeleteEnderecoModal(endereco: Endereco): void {
@@ -193,6 +199,10 @@ export class EditUserComponent implements OnInit {
   public deleteCartao(): void {
     // chamada ao serviço para deletar o cartão
     window.alert('Cartão deletado com sucesso');
+  }
+
+  public openAlterarSenhaModal(): void {
+    this.alterarSenhaModal = true;
   }
 
   private formatDate(dateString: string): string {
