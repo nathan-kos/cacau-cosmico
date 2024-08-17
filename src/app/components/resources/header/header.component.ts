@@ -44,7 +44,7 @@ export class HeaderComponent {
         this.router.navigate(['/usuario']);
         break;
       case 'adm':
-        this.router.navigate(['/adm']);
+        this.router.navigate(['/usuario/listagem']);
         break;
       case 'home':
         this.router.navigate(['home']);
