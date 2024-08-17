@@ -8,7 +8,7 @@
 
 h2{
   font-family: var(--lemon);
-  color: var(--topo);
+  color: var(--espresso);
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -20,24 +20,3 @@ h2{
   gap: 2rem;
   margin-bottom: 1rem;
 }
-
-.cancelar{
-  border-radius: 7px;
-
-  font-family: var(--lemon);
-  font-size: 1rem;
-  padding: 0.5rem 0.5rem;
-  background-color: var(--erro);
-  color: var(--branco);
-}
-
-.confirmar{
-  border-radius: 7px;
-
-  font-family: var(--lemon);
-  font-size: 1rem;
-  color: var(--branco);
-  padding: 0.5rem 0.5rem;
-  background-color: var(--sucesso);
-}
-
