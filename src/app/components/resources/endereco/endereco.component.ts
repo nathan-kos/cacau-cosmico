@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -17,7 +17,7 @@ import { ConfirmacaoComponent } from '../confirmacao/confirmacao.component';
   templateUrl: './endereco.component.html',
   styleUrl: './endereco.component.css',
 })
-export class EnderecoComponent {
+export class EnderecoComponent implements OnInit {
   @Output() doneEvent = new EventEmitter<void>();
   @Input() isNew: boolean = true;
   @Input() isEdit: boolean = false;
@@ -32,16 +32,35 @@ export class EnderecoComponent {
 
   public error: string | undefined;
 
+  ngOnInit(): void {
+    if (this.isNew) {
+      this.setAction();
+      this.enderecoForm.enable();
+    }
+
+    if (this.isEdit && this.endereco) {
+      this.setAction();
+      this.setValues();
+      this.enderecoForm.enable();
+    }
+
+    if (this.isView && this.endereco) {
+      this.setAction();
+      this.setValues();
+      this.enderecoForm.disable();
+    }
+  }
+
   constructor(private formBuilder: FormBuilder) {
     this.enderecoForm = this.formBuilder.group({
-      cep: ['', Validators.required],
-      rua: ['', Validators.required],
-      numero: ['', Validators.required],
-      complemento: [''],
-      bairro: ['', Validators.required],
-      cidade: ['', Validators.required],
-      UF: ['', Validators.required],
-      tipo: ['', Validators.required],
+      cep: [{ value: '', disabled: true }, Validators.required],
+      rua: [{ value: '', disabled: true }, Validators.required],
+      numero: [{ value: '', disabled: true }, Validators.required],
+      complemento: [{ value: '', disabled: true }],
+      bairro: [{ value: '', disabled: true }, Validators.required],
+      cidade: [{ value: '', disabled: true }, Validators.required],
+      UF: [{ value: '', disabled: true }, Validators.required],
+      tipo: [{ value: '', disabled: true }, Validators.required],
     });
 
     this.enderecoForm.valueChanges.subscribe(() => {
@@ -119,5 +138,46 @@ export class EnderecoComponent {
     } else {
       return 'Continuar';
     }
+  }
+
+  public setAction(): void {
+    if (this.isEdit) {
+      this.isEdit = true;
+      this.isNew = false;
+      this.isView = false;
+    }
+    if (this.isNew) {
+      this.isEdit = false;
+      this.isNew = true;
+      this.isView = false;
+    }
+    if (this.isView) {
+      this.isEdit = false;
+      this.isNew = false;
+      this.isView = true;
+    }
+  }
+
+  public startEdit(): void {
+    this.isEdit = true;
+    this.isNew = false;
+    this.isView = false;
+  }
+
+  public setValues(): void {
+    if (!this.endereco) {
+      return;
+    }
+
+    this.enderecoForm.setValue({
+      cep: this.endereco.end_CEP,
+      rua: this.endereco.end_Rua,
+      numero: this.endereco.end_Numero,
+      complemento: this.endereco.end_Complemento,
+      bairro: this.endereco.end_Bairro,
+      cidade: this.endereco.end_Cidade,
+      UF: this.endereco.end_UF,
+      tipo: this.endereco.end_Tipo,
+    });
   }
 }
