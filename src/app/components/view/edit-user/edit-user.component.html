@@ -1,43 +1,45 @@
 <div class="geral">
   <div class="content">
     <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
-      <div class="inputs">
-        <div class="input">
-          <label for="nome">Nome do astronauta</label>
-          <input type="text" id="nome" name="nome" formControlName="nome" placeholder="Nome">
+      <div class="grid">
+        <div class="row">
+          <div class="col-4 input">
+            <label for="nome">Nome do astronauta</label>
+            <input type="text" id="nome" name="nome" formControlName="nome" placeholder="Nome">
+          </div>
+          <div class="col-4 input">
+            <label for="cpf">Código do astronauta</label>
+            <input type="text" id="cpf" name="cpf" formControlName="cpf" placeholder="CPF" mask="000.000.000-00">
+          </div>
+          <div class="col-4 input">
+            <label for="genero">Gênero do astronauta</label>
+            <select id="genero" name="genero" formControlName="genero">
+              <option value="masculino">Masculino</option>
+              <option value="feminino">Feminino</option>
+              <option value="naoInformar">Prefiro não informar</option>
+            </select>
+          </div>
         </div>
-        <div class="input">
-          <label for="cpf">Código do astronauta</label>
-          <input type="text" id="cpf" name="cpf" formControlName="cpf" placeholder="CPF" mask="000.000.000-00">
+        <div class="row">
+          <div class="col-6 input">
+            <label for="dataNasc">Data de Nascimento</label>
+            <input type="date" id="dataNasc" name="dataNasc" formControlName="dataNascimento">
+          </div>
+          <div class="col-6 input">
+            <label for="telefone">Telefone espacial</label>
+            <input type="tel" id="telefone" name="telefone" formControlName="telefone" placeholder="Telefone" mask="(00) 00000-0000">
+          </div>
         </div>
-        <div class="input">
-          <label for="genero">Gênero do astronauta</label>
-          <select id="genero" name="genero" formControlName="genero">
-            <option value="masculino">Masculino</option>
-            <option value="feminino">Feminino</option>
-            <option value="naoInformar">Prefiro não informar</option>
-          </select>
+        <div class="row">
+          <div class="col-12 input">
+            <label for="email">Email da agência espacial</label>
+            <input type="email" id="email" name="email" formControlName="email" placeholder="Seu email normal haha">
+          </div>
         </div>
-      </div>
-      <div class="inputs">
-        <div class="input">
-          <label for="dataNasc">Data de Nascimento</label>
-          <input type="date" id="dataNasc" name="dataNasc" formControlName="dataNascimento">
-        </div>
-        <div class="input">
-          <label for="telefone">Telefone espacial</label>
-          <input type="tel" id="telefone" name="telefone" formControlName="telefone" placeholder="Telefone" mask="(00) 00000-0000">
-        </div>
-      </div>
-      <div class="inputs">
-        <div class="input">
-          <label for="email">Email da agência espacial</label>
-          <input type="email" id="email" name="email" formControlName="email" placeholder="Seu email normal haha">
-        </div>
-      </div>
-      <div class="inputs">
-        <div class="continuar">
-          <input type="submit" value="Salvar" class="enviar">
+        <div class="row">
+          <div class="continuar">
+            <input type="submit" value="Salvar" class="btn-primary">
+          </div>
         </div>
       </div>
     </form>
@@ -51,7 +53,7 @@
       <hr>
     </div>
     <!-- adicionar novo -->
-    <button (click)="openEnderecoModal()">Adicionar novo endereço</button>
+    <button (click)="openEnderecoModal()" class="btn-secondary">Novo endereço</button>
 
      <!-- cartões -->
       <div>
@@ -62,7 +64,7 @@
         <hr>
       </div>
       <!-- adicionar novo -->
-      <button (click)="openCartaoModal()">Adicionar novo cartão</button>
+      <button (click)="openCartaoModal()" class="btn-secondary">Novo cartão</button>
   </div>
 </div>
 
