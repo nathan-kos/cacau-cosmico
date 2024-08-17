@@ -3,6 +3,21 @@ h1 {
   color: var(--espresso)
 }
 
+input {
+  width: 95%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid var(--cappuccino);
+  border-radius: 0.5rem;
+}
+
+label {
+  font-family: var(--lato);
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+  color: var(--espresso);
+}
+
 .center {
   display: flex;
   flex-direction: column;
