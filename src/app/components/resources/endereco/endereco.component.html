@@ -1,3 +1,4 @@
+<i class="ri-delete-bin-7-fill" (click)="deleteEndereco()" *ngIf="isView"></i>
 <form [formGroup]="enderecoForm" (ngSubmit)="onSubmit()">
   <div class="inputs">
     <div class="input">
@@ -74,10 +75,15 @@
   </div>
 </form>
 
-<div *ngIf="showConfirmacao" class="modal-overlay">
+<div *ngIf="showConfirmacaoNew" class="modal-overlay">
   <div class="modal" (click)="$event.stopPropagation()">
     <app-confirmacao [text]="'Deseja adicionar mais um endereço?'" (confirmEvent)="newEndereco()" (cancelEvent)="onDone()"></app-confirmacao>
   </div>
+</div>
+
+<div *ngIf="showConfirmacaoDelete" class="modal-overlay" (click)="closeModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-confirmacao [text]="'Deseja editar o endereço?'" (confirmEvent)="callDelete()" (cancelEvent)="closeModal()"></app-confirmacao>
 </div>
 
 <div class="erro" *ngIf="error">

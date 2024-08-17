@@ -25,7 +25,8 @@ export class EnderecoComponent {
   @Input() endereco: Endereco | undefined;
 
   public enderecoForm: FormGroup;
-  public showConfirmacao: boolean = false;
+  public showConfirmacaoNew: boolean = false;
+  public showConfirmacaoDelete: boolean = false;
 
   public error: string | undefined;
 
@@ -83,7 +84,7 @@ export class EnderecoComponent {
       //perguntar se quer adicionar outro endereço
       // se o backend retornar sucesso, avança para o próximo
 
-      this.showConfirmacao = true;
+      this.showConfirmacaoNew = true;
     }
   }
 
@@ -92,7 +93,21 @@ export class EnderecoComponent {
   }
 
   public newEndereco(): void {
-    this.showConfirmacao = false;
+    this.showConfirmacaoNew = false;
     this.enderecoForm.reset();
+  }
+
+  public deleteEndereco(): void {
+    this.showConfirmacaoDelete = true;
+  }
+
+  public callDelete(): void {
+    window.alert('Endereço deletado com sucesso!');
+    this.showConfirmacaoDelete = false;
+    this.doneEvent.emit();
+  }
+
+  public closeModal(): void {
+    this.showConfirmacaoDelete = false;
   }
 }
