@@ -1,0 +1,11 @@
+h1 {
+  font-family: var(--lemon);
+  color: var(--espresso)
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
