@@ -1,3 +1,8 @@
+hr{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 .geral{
   display: flex;
   justify-content: center;

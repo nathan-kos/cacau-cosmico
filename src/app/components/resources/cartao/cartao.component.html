@@ -1,3 +1,4 @@
+<i class="ri-delete-bin-7-fill" (click)="deleteCartao()" *ngIf="isView"></i>
 <form [formGroup]="cartaoForm" (ngSubmit)="onSubmit()">
   <div class="inputs">
     <div class="input">
@@ -29,13 +30,24 @@
       </select>
     </div>
   </div>
-  <div class="continuar">
+  <div class="continuar" *ngIf="!isView">
     <input type="submit" value="Enviar" class="enviar">
   </div>
 </form>
 
-<div *ngIf="showConfirmacao" class="modal-overlay">
+<div class="erro" *ngIf="error">
+  <p>{{ error }}</p>
+</div>
+
+
+<div *ngIf="showConfirmacaoNew" class="modal-overlay">
   <div class="modal" (click)="$event.stopPropagation()">
     <app-confirmacao [text]="'Deseja adicionar mais um cartão?'" (confirmEvent)="newCartao()" (cancelEvent)="onDone()"></app-confirmacao>
+  </div>
+</div>
+
+<div *ngIf="showConfirmacaoDelete" class="modal-overlay">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-confirmacao [text]="'Tem certeza que deseja deletar este cartão?'" (confirmEvent)="callDelete()" (cancelEvent)="closeModal()"></app-confirmacao>
   </div>
 </div>

@@ -35,6 +35,10 @@ import { HeaderComponent } from '../../resources/header/header.component';
 export class EditUserComponent implements OnInit {
   public editUserForm: FormGroup;
   public error: string | undefined;
+
+  public enderecoModal: boolean = false;
+  public cartaoModal: boolean = false;
+
   public user: Usuario = {
     usu_Ativo: true,
     usu_CPF: '123.456.789-00',
@@ -87,10 +91,10 @@ export class EditUserComponent implements OnInit {
   public cartoes: Cartao[] = [
     {
       car_Bandeira: Bandeira.ELO,
-      car_CVV: 'fds',
+      car_CVV: '1111',
       car_Nome: 'fds',
-      car_Numero: 'fds',
-      car_Validade: 'fds',
+      car_Numero: '111111111',
+      car_Validade: '11/11',
       car_Id: 'fds',
       car_usu_id: 'fds',
       car_Ativo: true,
@@ -135,6 +139,19 @@ export class EditUserComponent implements OnInit {
     const updatedUserData = { nome, email, telefone };
 
     // Chama o serviço para atualizar os dados no backend
+  }
+
+  public openEnderecoModal(): void {
+    this.enderecoModal = true;
+  }
+
+  public openCartaoModal(): void {
+    this.cartaoModal = true;
+  }
+
+  public closeModals(): void {
+    this.enderecoModal = false;
+    this.cartaoModal = false;
   }
 
   private formatDate(dateString: string): string {
