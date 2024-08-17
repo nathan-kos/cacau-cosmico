@@ -24,24 +24,3 @@ hr{
   justify-content: center;
   align-items: center;
 }
-
-.input {
-  display: flex;
-  flex-direction: column;
-  font-size: 1.2rem;
-}
-
-.input input,
-.input select {
-  font-size: 1.2rem;
-  padding: 0.3rem;
-  border-radius: 7px;
-  border: 0.063px solid var(--pingado);
-}
-
-.input label {
-  font-family: var(--lato);
-  font-size: 1.2rem;
-  margin-bottom: 0.3rem;
-  color: var(--espresso);
-}
