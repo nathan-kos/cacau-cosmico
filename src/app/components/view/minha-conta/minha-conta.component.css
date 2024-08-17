@@ -1,0 +1,34 @@
+h2 {
+  font-family: var(--lemon);
+  color: var(--double);
+}
+
+.inside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-right: 1px solid var(--double);
+  width: 25%;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  width: 75%;
+}
+
+.w-100 {
+  width: 100%;
+}
