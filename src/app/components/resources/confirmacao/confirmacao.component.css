@@ -1,11 +1,3 @@
-.content{
-  display: flex;
-  background-color: var(--pingado);
-  justify-content: center;
-  align-items: center;
-  padding: 2rem 5rem 2rem 0;
-}
-
 h2{
   font-family: var(--lemon);
   color: var(--espresso);
