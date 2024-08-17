@@ -5,6 +5,7 @@ import { ListUsersComponent } from './components/view/list-users/list-users.comp
 import { ListingComponent } from './components/view/listing/listing.component';
 import { NotFoundComponent } from './components/view/not-found/not-found.component';
 import { SignUpComponent } from './components/view/sign-up/sign-up.component';
+import { MinhaContaComponent } from './components/view/minha-conta/minha-conta.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,12 @@ export const routes: Routes = [
   {
     path: 'produtos/:categoria',
     component: ListingComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'usuario/conta/:id',
+    component: MinhaContaComponent,
     pathMatch: 'full',
   },
 
