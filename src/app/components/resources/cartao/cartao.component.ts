@@ -66,21 +66,21 @@ export class CartaoComponent implements OnInit {
   public onSubmit(): void {
     if (!this.cartaoForm.valid) {
       // passa um por um e verifica se está válido e soma na mensagem de erro para exibir
-      this.error = 'Formulário inválido';
+      this.error = 'Formulário inválido<br>';
       if (this.cartaoForm.controls['nome'].invalid) {
-        this.error += '\nNome inválido';
+        this.error += 'Nome inválido<br>';
       }
       if (this.cartaoForm.controls['numero'].invalid) {
-        this.error += '\nNúmero inválido';
+        this.error += 'Número inválido<br>';
       }
       if (this.cartaoForm.controls['validade'].invalid) {
-        this.error += '\nValidade inválida';
+        this.error += 'Validade inválida<br>';
       }
       if (this.cartaoForm.controls['cvv'].invalid) {
-        this.error += '\nCVV inválido';
+        this.error += 'CVV inválido<br>';
       }
       if (this.cartaoForm.controls['bandeira'].invalid) {
-        this.error += '\nBandeira inválida';
+        this.error += 'Bandeira inválida<br>';
       }
     } else {
       const cartao = this.cartaoForm.value as Cartao;
