@@ -86,3 +86,158 @@ tfoot td {
 }
 
 /* fim tabela */
+
+/* grid */
+
+.grid {
+  margin-top: 20px;
+  width: 55vw;
+}
+
+.row {
+  width: 100%;
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+[class*="col-"] {
+  float: left;
+  /* padding: 15px; */
+}
+
+.col-1 {
+  width: calc(8.33% - 1rem);
+  margin: 0.5rem;
+}
+
+.col-2 {
+  width: calc(16.66% - 1rem);
+  margin: 0.5rem;
+}
+
+.col-3 {
+  width: calc(25% - 1rem);
+  margin: 0.5rem;
+}
+
+.col-4 {
+  width: calc(33.33% - 1rem);
+  margin: 0.5rem;
+}
+
+.col-5 {
+  width: calc(41.66% - 1rem);
+  margin: 0.5rem;
+}
+
+.col-6 {
+  width: calc(50% - 1rem);
+  margin: 0.5rem;
+}
+
+.col-7 {
+  width: calc(58.33% - 1rem);
+  margin: 0.5rem;
+}
+
+.col-8 {
+  width: calc(66.66% - 1rem);
+  margin: 0.5rem;
+}
+
+.col-9 {
+  width: calc(75% - 1rem);
+  margin: 0.5rem;
+}
+
+.col-10 {
+  width: calc(83.33% - 1rem);
+  margin: 0.5rem;
+}
+
+.col-11 {
+  width: calc(91.66% - 1rem);
+  margin: 0.5rem;
+}
+
+.col-12 {
+  width: calc(100% - 1rem);
+  margin: 0.5rem;
+}
+
+/* fim grid */
+
+/* erro */
+.erro {
+  color: var(--erro);
+  font-size: 1.2rem;
+  font-family: var(--lato);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* fim erro */
+
+/* botões */
+
+.btn-primary{
+  border-radius: 7px;
+  font-family: var(--lemon);
+  font-size: 1.2rem;
+  color: var(--branco);
+  padding: 0.5rem 1rem;
+  background-color: var(--cappuccino);
+  margin-top: 1rem;
+  width: 10rem;
+}
+
+.btn-secondary{
+  border-radius: 7px;
+  font-family: var(--lemon);
+  font-size: 1.2rem;
+  color: var(--branco);
+  padding: 0.5rem 1rem;
+  background-color: var(--pingado);
+  margin-top: 1rem;
+  width: 15rem;
+}
+
+.btn-success{
+  border-radius: 7px;
+  font-family: var(--lemon);
+  font-size: 1.2rem;
+  color: var(--branco);
+  padding: 0.5rem 1rem;
+  background-color: var(--sucesso);
+  margin-top: 1rem;
+  width: 10rem;
+}
+
+.btn-danger{
+  border-radius: 7px;
+  font-family: var(--lemon);
+  font-size: 1.2rem;
+  color: var(--branco);
+  padding: 0.5rem 1rem;
+  background-color: var(--erro);
+  margin-top: 1rem;
+  width: 10rem;
+}
+
+.btn-warning{
+  border-radius: 7px;
+  font-family: var(--lemon);
+  font-size: 1.2rem;
+  color: var(--branco);
+  padding: 0.5rem 1rem;
+  background-color: var(--alerta);
+  margin-top: 1rem;
+  width: 10rem;
+}
+
+/* fim botões */
