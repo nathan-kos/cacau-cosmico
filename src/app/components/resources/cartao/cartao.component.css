@@ -7,10 +7,3 @@
   background-color: var(--pingado);
   margin-top: 1rem;
 }
-
-.continuar{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
