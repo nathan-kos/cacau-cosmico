@@ -65,20 +65,28 @@ body{
 
 /* tabela */
 table {
+  width: 100%;
   border-collapse: separate;
   border-spacing: 0 0.3rem;
   overflow-x: auto;
 }
 
-thead th {
-  border-bottom: 2px solid var(--double);
-  padding: 1.5rem;
-  background-color: var(--branco);
+th {
+  font-family: var(--lato);
+  font-size: 1.2rem;
+  color: var(--espresso);
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--espresso);
 }
 
-tbody td {
-  padding: 1.5rem;
-  background-color: var(--branco);
+td {
+  font-family: var(--lato);
+  font-size: 1.2rem;
+  color: var(--espresso);
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px dashed var(--espresso);
 }
 
 tfoot td {
@@ -87,11 +95,36 @@ tfoot td {
 
 /* fim tabela */
 
+.content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--branco);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  width: 90%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+.center-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+}
+
 /* grid */
 
 .grid {
   margin-top: 20px;
-  width: 55vw;
 }
 
 .row {
@@ -205,6 +238,17 @@ tfoot td {
   background-color: var(--pingado);
   margin-top: 1rem;
   width: 15rem;
+}
+
+.btn-small-secondary{
+  border-radius: 7px;
+  font-family: var(--lemon);
+  font-size: 1rem;
+  color: var(--branco);
+  padding: 0.4rem 0.7rem;
+  background-color: var(--pingado);
+  margin-top: 1rem;
+  width: 13rem;
 }
 
 .btn-success{
