@@ -16,6 +16,7 @@ import { Usuario } from '../../../DTO/Usuario/Usuario';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
 import { HeaderComponent } from '../../resources/header/header.component';
+import { ConfirmacaoComponent } from "../../resources/confirmacao/confirmacao.component";
 
 @Component({
   selector: 'app-edit-user',
@@ -28,7 +29,8 @@ import { HeaderComponent } from '../../resources/header/header.component';
     EnderecoComponent,
     CartaoComponent,
     NgFor,
-  ],
+    ConfirmacaoComponent
+],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css',
 })
@@ -36,55 +38,47 @@ export class EditUserComponent implements OnInit {
   public editUserForm: FormGroup;
   public error: string | undefined;
 
-  public enderecoModal: boolean = false;
-  public cartaoModal: boolean = false;
+  public enderecoModalNew: boolean = false;
+  public enderecoModalEdit: boolean = false;
+  public cartaoModalNew: boolean = false;
+  public cartaoModalEdit: boolean = false;
+
+  public deleteEnderecoModal: boolean = false;
+  public deleteCartaoModal: boolean = false;
+
+  public selectedEndereco: Endereco | undefined;
+  public selectedCartao: Cartao | undefined;
 
   public user: Usuario = {
     usu_Ativo: true,
     usu_CPF: '123.456.789-00',
-    usu_Email: 'fds',
-    usu_Nome: 'fds',
-    usu_Telefone: '11111111111',
+    usu_Email: 'email@email.com',
+    usu_Nome: 'Nome Sobrenome',
+    usu_Telefone: '(11) 12345-6789',
     usu_Nasc: '2000-10-31T00:00:00.000Z',
     usu_Genero: 'masculino',
-    usu_AtualizadoEm: 'fds',
-    usu_CriadoEm: 'fds',
-    usu_Id: 'ads',
-    usu_Senha: 'fds',
-    usu_pap: 'fds',
+    usu_AtualizadoEm: '2024-10-31T00:00:00.000Z',
+    usu_CriadoEm: '2024-10-31T00:00:00.000Z',
+    usu_Id: '1',
+    usu_Senha: '123456',
+    usu_pap: '1',
   };
 
   public enderecos: Endereco[] = [
     {
-      end_Bairro: 'fds',
-      end_CEP: 'fds',
-      end_Cidade: 'fds',
-      end_Complemento: 'fds',
-      end_UF: UF.AC,
-      end_Id: 'fds',
-      end_Rua: 'fds',
-      end_Numero: 'fds',
+      end_Bairro: 'Bairro',
+      end_CEP: '12345-678',
+      end_Cidade: 'Cidade',
+      end_Complemento: 'Complemento',
+      end_UF: UF.SP,
+      end_Id: '1',
+      end_Rua: 'Rua',
+      end_Numero: '123',
       end_Tipo: Tipo.COBRANCA,
-      end_usu_id: 'fds',
+      end_usu_id: '1',
       end_Ativo: true,
-      end_AtualizadoEm: 'fds',
-      end_CriadoEm: 'fds',
-    },
-
-    {
-      end_Bairro: 'fds',
-      end_CEP: 'fds',
-      end_Cidade: 'fds',
-      end_Complemento: 'fds',
-      end_UF: UF.AC,
-      end_Id: 'fds',
-      end_Rua: 'fds',
-      end_Numero: 'fds',
-      end_Tipo: Tipo.ENTREGA,
-      end_usu_id: 'fds',
-      end_Ativo: true,
-      end_AtualizadoEm: 'fds',
-      end_CriadoEm: 'fds',
+      end_AtualizadoEm: '2024-10-31T00:00:00.000Z',
+      end_CriadoEm: '2024-10-31T00:00:00.000Z',
     },
   ];
 
@@ -92,14 +86,26 @@ export class EditUserComponent implements OnInit {
     {
       car_Bandeira: Bandeira.ELO,
       car_CVV: '1111',
-      car_Nome: 'fds',
-      car_Numero: '111111111',
-      car_Validade: '11/11',
-      car_Id: 'fds',
-      car_usu_id: 'fds',
+      car_Nome: 'Nome Cartão',
+      car_Numero: '1234 5678 1234 5678',
+      car_Validade: '11/1111',
+      car_Id: '1',
+      car_usu_id: '1',
       car_Ativo: true,
-      car_AtualizadoEm: 'fds',
-      car_CriadoEm: 'fds',
+      car_AtualizadoEm: '2024-10-31T00:00:00.000Z',
+      car_CriadoEm: '2024-10-31T00:00:00.000Z',
+    },
+    {
+      car_Bandeira: Bandeira.MASTERCARD,
+      car_CVV: '2222',
+      car_Nome: 'Nome Cartão',
+      car_Numero: '1234 5678 1234 5678',
+      car_Validade: '11/1111',
+      car_Id: '2',
+      car_usu_id: '1',
+      car_Ativo: true,
+      car_AtualizadoEm: '2024-10-31T00:00:00.000Z',
+      car_CriadoEm: '2024-10-31T00:00:00.000Z',
     },
   ];
 
@@ -141,17 +147,52 @@ export class EditUserComponent implements OnInit {
     // Chama o serviço para atualizar os dados no backend
   }
 
-  public openEnderecoModal(): void {
-    this.enderecoModal = true;
+  public openEnderecoModalNew(): void {
+    this.enderecoModalNew = true;
   }
 
-  public openCartaoModal(): void {
-    this.cartaoModal = true;
+  public openEnderecoModalEdit(endereco: Endereco): void {
+    this.selectedEndereco = endereco;
+    this.enderecoModalEdit = true;
+  }
+
+  public openCartaoModalNew(): void {
+    this.cartaoModalNew = true;
+  }
+
+  public openCartaoModalEdit(): void {
+    this.cartaoModalEdit = true;
   }
 
   public closeModals(): void {
-    this.enderecoModal = false;
-    this.cartaoModal = false;
+    this.enderecoModalNew = false;
+    this.cartaoModalNew = false;
+    this.enderecoModalEdit = false;
+    this.cartaoModalEdit = false;
+
+    this.deleteEnderecoModal = false;
+    this.deleteCartaoModal = false;
+  }
+
+  public openDeleteEnderecoModal(endereco: Endereco): void {
+    this.selectedEndereco = endereco;
+    this.deleteEnderecoModal = true;
+  }
+
+  public openDeleteCartaoModal(cartao: Cartao): void {
+    this.selectedCartao = cartao;
+    this.deleteCartaoModal = true;
+  }
+
+
+  public deleteEndereco(): void {
+    // chamada ao serviço para deletar o endereço
+    window.alert('Endereço deletado com sucesso');
+  }
+
+  public deleteCartao(): void {
+    // chamada ao serviço para deletar o cartão
+    window.alert('Cartão deletado com sucesso');
   }
 
   private formatDate(dateString: string): string {

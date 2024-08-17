@@ -1,5 +1,7 @@
+<app-header></app-header>
 <div class="geral">
   <div class="content">
+    <h1>Editar Usuário</h1>
     <form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
       <div class="grid">
         <div class="row">
@@ -44,38 +46,104 @@
       </div>
     </form>
 
+    <hr>
+
     <!-- endereços -->
-    <div>
-        <h2>Endereços</h2>
-    </div>
-    <div *ngFor="let endereco of enderecos" >
-      <app-endereco  [endereco]="endereco" [isView]="true"></app-endereco>
-      <hr>
+    <h2>Endereços</h2>
+    <div class="tabela">
+      <table>
+        <thead>
+          <tr>
+            <th>Rua</th>
+            <th>Número</th>
+            <th>Bairro</th>
+            <th>CEP</th>
+            <th>Cidade</th>
+            <th>UF</th>
+            <th>Tipo</th>
+            <th>Editar</th>
+            <th>Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let endereco of enderecos">
+            <td>{{ endereco.end_Rua }}</td>
+            <td>{{ endereco.end_Numero }}</td>
+            <td>{{ endereco.end_Bairro }}</td>
+            <td>{{ endereco.end_CEP }}</td>
+            <td>{{ endereco.end_Cidade }}</td>
+            <td>{{ endereco.end_UF }}</td>
+            <td>{{ endereco.end_Tipo }}</td>
+            <td>
+              <i class="ri-edit-fill" (click)="openEnderecoModalEdit(endereco)"></i>
+            </td>
+            <td>
+              <i class="ri-delete-bin-7-fill" (click)="openDeleteEnderecoModal(endereco)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <!-- adicionar novo -->
-    <button (click)="openEnderecoModal()" class="btn-secondary">Novo endereço</button>
+    <button (click)="openEnderecoModalNew()" class="btn-secondary">Novo Endereço</button>
+
+    <hr>
 
      <!-- cartões -->
-      <div>
-        <h2>Cartões</h2>
-      </div>
-      <div>
-        <app-cartao *ngFor="let cartao of cartoes" [cartao]="cartao" [isView]="true"></app-cartao>
-        <hr>
+      <h2>Cartões</h2>
+      <div class="tabela">
+        <table>
+          <thead>
+            <tr>
+              <th>Número</th>
+              <th>Nome</th>
+              <th>Validade</th>
+              <th>Excluir</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cartao of cartoes">
+              <td>{{ cartao.car_Numero }}</td>
+              <td>{{ cartao.car_Nome }}</td>
+              <td>{{ cartao.car_Validade }}</td>
+              <td>
+                <i class="ri-delete-bin-7-fill" (click)="openDeleteCartaoModal(cartao)"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <!-- adicionar novo -->
-      <button (click)="openCartaoModal()" class="btn-secondary">Novo cartão</button>
+      <button (click)="openCartaoModalNew()" class="btn-secondary">Novo Cartão</button>
   </div>
 </div>
 
-<div *ngIf="enderecoModal" class="modal-overlay" (click)="closeModals()">
+<div *ngIf="enderecoModalNew" class="modal-overlay" (click)="closeModals()">
   <div class="modal" (click)="$event.stopPropagation()">
     <app-endereco [isNew]="true" (doneEvent)="closeModals()"></app-endereco>
   </div>
 </div>
 
-<div *ngIf="cartaoModal" class="modal-overlay" (click)="closeModals()">
+<div *ngIf="enderecoModalEdit" class="modal-overlay" (click)="closeModals()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-endereco [isEdit]="true" [endereco]="selectedEndereco" (doneEvent)="closeModals()"></app-endereco>
+  </div>
+</div>
+
+<div *ngIf="cartaoModalNew" class="modal-overlay" (click)="closeModals()">
   <div class="modal" (click)="$event.stopPropagation()">
     <app-cartao [isNew]="true" (doneEvent)="closeModals()"></app-cartao>
+  </div>
+</div>
+
+<div *ngIf="deleteEnderecoModal" class="modal-overlay" (click)="closeModals()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-confirmacao [text]="'Deseja deletar este endereço?'" (cancelEvent)="closeModals()" (confirmEvent)="deleteEndereco()" ></app-confirmacao>
+  </div>
+</div>
+
+<div *ngIf="deleteCartaoModal" class="modal-overlay" (click)="closeModals()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-confirmacao [text]="'Deseja deletar este cartão?'" (cancelEvent)="closeModals()" (confirmEvent)="deleteCartao()"></app-confirmacao>
   </div>
 </div>
