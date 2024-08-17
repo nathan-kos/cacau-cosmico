@@ -4,31 +4,6 @@ h1{
   color: var(--espresso)
 }
 
-.geral{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-}
-
-.content{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  background-color: var(--branco);
-  border-radius: 1.5rem;
-  padding: 2rem;
-}
-
-
-.continuar{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-
 .stage{
   display: flex;
   justify-content: center;
@@ -51,4 +26,3 @@ h1{
   background-color: var(--cappuccino);
   height: 0.7rem;
 }
-
