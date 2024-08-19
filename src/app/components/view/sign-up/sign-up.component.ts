@@ -8,10 +8,11 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
+import { fieldsMatchValidator } from '../../../utils/Validators/FildsMatch.validator';
+import { passwordStrengthValidator } from '../../../utils/Validators/Password.validator';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
 import { HeaderComponent } from '../../resources/header/header.component';
-import { fieldsMatchValidator } from '../../../utils/Validators/FildsMatch.validator';
 
 @Component({
   selector: 'app-sign-up',
@@ -39,18 +40,24 @@ export class SignUpComponent {
   public hasNext = true;
 
   constructor(private formBuilder: FormBuilder, private router: Router) {
-    this.signUpForm = this.formBuilder.group({
-      nome: ['', Validators.required],
-      email: ['', Validators.required],
-      senha: ['', Validators.required],
-      confirmarSenha: ['', Validators.required,],
-      cpf: ['', Validators.required],
-      dataNascimento: ['', Validators.required],
-      genero: ['', Validators.required],
-      telefone: ['', Validators.required],
-    },
-      { validator: fieldsMatchValidator('senha', 'confirmarSenha') }
-  );
+    this.signUpForm = this.formBuilder.group(
+      {
+        nome: ['', Validators.required],
+        email: ['', Validators.required],
+        senha: ['', Validators.required],
+        confirmarSenha: ['', Validators.required],
+        cpf: ['', Validators.required],
+        dataNascimento: ['', Validators.required],
+        genero: ['', Validators.required],
+        telefone: ['', Validators.required],
+      },
+      {
+        validators: [
+          fieldsMatchValidator('senha', 'confirmarSenha'),
+          passwordStrengthValidator('senha'),
+        ],
+      }
+    );
 
     this.signUpForm.valueChanges.subscribe(() => {
       this.error = undefined;
@@ -86,8 +93,25 @@ export class SignUpComponent {
       if (this.signUpForm.controls['confirmarSenha'].invalid) {
         this.error += 'Confirmação de senha inválida<br>';
       }
-      if (this.signUpForm.controls['senha'].value !== this.signUpForm.controls['confirmarSenha'].value) {
+      if (
+        this.signUpForm.controls['senha'].value !==
+        this.signUpForm.controls['confirmarSenha'].value
+      ) {
         this.error += 'Senhas não conferem<br>';
+      }
+      if (this.signUpForm.controls['senha'].value.length < 8) {
+        this.error += 'Senha deve conter no mínimo 8 caracteres<br>';
+      }
+      if (!/[A-Z]/.test(this.signUpForm.controls['senha'].value)) {
+        this.error += 'Senha deve conter pelo menos uma letra maiúscula<br>';
+      }
+      if (!/[a-z]/.test(this.signUpForm.controls['senha'].value)) {
+        this.error += 'Senha deve conter pelo menos uma letra minúscula<br>';
+      }
+      if (
+        !/[!@#$%^&*(),.?":{}|<>]/.test(this.signUpForm.controls['senha'].value)
+      ) {
+        this.error += 'Senha deve conter pelo menos um caractere especial<br>';
       }
       return;
     }
