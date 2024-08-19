@@ -11,6 +11,7 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
 import { HeaderComponent } from '../../resources/header/header.component';
+import { fieldsMatchValidator } from '../../../utils/Validators/FildsMatch.validator';
 
 @Component({
   selector: 'app-sign-up',
@@ -42,11 +43,14 @@ export class SignUpComponent {
       nome: ['', Validators.required],
       email: ['', Validators.required],
       senha: ['', Validators.required],
+      confirmarSenha: ['', Validators.required,],
       cpf: ['', Validators.required],
       dataNascimento: ['', Validators.required],
       genero: ['', Validators.required],
       telefone: ['', Validators.required],
-    });
+    },
+      { validator: fieldsMatchValidator('senha', 'confirmarSenha') }
+  );
 
     this.signUpForm.valueChanges.subscribe(() => {
       this.error = undefined;
@@ -78,6 +82,12 @@ export class SignUpComponent {
       }
       if (this.signUpForm.controls['telefone'].invalid) {
         this.error += 'Telefone inválido<br>';
+      }
+      if (this.signUpForm.controls['confirmarSenha'].invalid) {
+        this.error += 'Confirmação de senha inválida<br>';
+      }
+      if (this.signUpForm.controls['senha'].value !== this.signUpForm.controls['confirmarSenha'].value) {
+        this.error += 'Senhas não conferem<br>';
       }
       return;
     }
