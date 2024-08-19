@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
   FormBuilder,
@@ -6,11 +7,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
+import { fieldsMatchValidator } from '../../../utils/Validators/FildsMatch.validator';
+import { passwordStrengthValidator } from '../../../utils/Validators/Password.validator';
 
 @Component({
   selector: 'app-trocar-senha',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './trocar-senha.component.html',
   styleUrl: './trocar-senha.component.css',
 })
@@ -23,11 +26,19 @@ export class TrocarSenhaComponent {
   public error: string | null = null;
 
   constructor(private formBuilder: FormBuilder) {
-    this.trocarSenhaForm = this.formBuilder.group({
-      senhaAtual: ['', [Validators.required]],
-      novaSenha: ['', [Validators.required]],
-      confirmarNovaSenha: ['', [Validators.required]],
-    });
+    this.trocarSenhaForm = this.formBuilder.group(
+      {
+        senhaAtual: ['', [Validators.required]],
+        novaSenha: ['', [Validators.required]],
+        confirmarNovaSenha: ['', [Validators.required]],
+      },
+      {
+        validators: [
+          fieldsMatchValidator('novaSenha', 'confirmarNovaSenha'),
+          passwordStrengthValidator('novaSenha'),
+        ],
+      }
+    );
 
     this.trocarSenhaForm.valueChanges.subscribe(() => {
       this.error = null;
@@ -35,16 +46,44 @@ export class TrocarSenhaComponent {
   }
 
   public onSubmit(): void {
-    if (!this.trocarSenhaForm.valid) {
-      this.error = 'Formulário inválido';
-      return;
-    }
+    this.error = '';
 
-    if (
-      this.trocarSenhaForm.value.novaSenha !==
-      this.trocarSenhaForm.value.confirmarNovaSenha
-    ) {
-      this.error = 'As senhas não coincidem';
+    if (!this.trocarSenhaForm.valid) {
+      // Verifica e adiciona mensagens de erro para cada campo
+      if (this.trocarSenhaForm.controls['senhaAtual'].invalid) {
+        this.error += 'Senha atual é obrigatória<br>';
+      }
+      if (this.trocarSenhaForm.controls['novaSenha'].invalid) {
+        this.error += 'Nova senha é obrigatória<br>';
+      }
+      if (this.trocarSenhaForm.controls['confirmarNovaSenha'].invalid) {
+        this.error += 'Confirmação da nova senha é obrigatória<br>';
+      }
+      if (
+        this.trocarSenhaForm.controls['novaSenha'].value !==
+        this.trocarSenhaForm.controls['confirmarNovaSenha'].value
+      ) {
+        this.error += 'As novas senhas não coincidem<br>';
+      }
+      if (this.trocarSenhaForm.controls['novaSenha'].value.length < 8) {
+        this.error += 'A nova senha deve conter no mínimo 8 caracteres<br>';
+      }
+      if (!/[A-Z]/.test(this.trocarSenhaForm.controls['novaSenha'].value)) {
+        this.error +=
+          'A nova senha deve conter pelo menos uma letra maiúscula<br>';
+      }
+      if (!/[a-z]/.test(this.trocarSenhaForm.controls['novaSenha'].value)) {
+        this.error +=
+          'A nova senha deve conter pelo menos uma letra minúscula<br>';
+      }
+      if (
+        !/[!@#$%^&*(),.?":{}|<>]/.test(
+          this.trocarSenhaForm.controls['novaSenha'].value
+        )
+      ) {
+        this.error +=
+          'A nova senha deve conter pelo menos um caractere especial<br>';
+      }
       return;
     }
 

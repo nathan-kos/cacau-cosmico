@@ -14,11 +14,13 @@
       <input type="password" formControlName="confirmarNovaSenha" id="confirmarNovaSenha">
     </div>
 
-  </form>
-  <button type="submit" class="btn-secondary">Salvar</button>
+    <button type="submit" class="btn-secondary">Salvar</button>
 
-  <div class="erro">
-    <p>{{error}}</p>
+  </form>
+
+
+  <div class="erro" *ngIf="error">
+    <p [innerHTML]="error"></p>
   </div>
 
 </div>
