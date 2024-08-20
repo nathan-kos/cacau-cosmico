@@ -41,10 +41,10 @@ export class HeaderComponent {
         this.router.navigate(['/produtos/universo-de-chocolate']);
         break;
       case 'usuario':
-        this.router.navigate(['/usuario']);
+        this.router.navigate(['/usuario/conta/id']);
         break;
       case 'adm':
-        this.router.navigate(['/adm']);
+        this.router.navigate(['/usuario/listagem']);
         break;
       case 'home':
         this.router.navigate(['home']);

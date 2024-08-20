@@ -1,0 +1,26 @@
+<div class="center">
+  <h1>Alterar Senha</h1>
+  <form [formGroup]="trocarSenhaForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="senhaAtual">Senha atual</label>
+      <input type="password" formControlName="senhaAtual" id="senhaAtual">
+    </div>
+    <div>
+      <label for="novaSenha">Nova senha</label>
+      <input type="password" formControlName="novaSenha" id="novaSenha">
+    </div>
+    <div>
+      <label for="confirmarNovaSenha">Confirmar nova senha</label>
+      <input type="password" formControlName="confirmarNovaSenha" id="confirmarNovaSenha">
+    </div>
+
+    <button type="submit" class="btn-secondary">Salvar</button>
+
+  </form>
+
+
+  <div class="erro" *ngIf="error">
+    <p [innerHTML]="error"></p>
+  </div>
+
+</div>

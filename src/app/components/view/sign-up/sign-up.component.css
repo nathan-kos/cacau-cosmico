@@ -1,0 +1,28 @@
+h1{
+  text-align: center;
+  font-family: var(--lemon);
+  color: var(--espresso)
+}
+
+.stage{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  height: 5px;
+  margin: 0.5rem 0;
+}
+
+/* id user */
+.staged{
+  width: 0.7rem;
+  background-color: var(--topo);
+  height: 0.7rem;
+}
+
+.unstaged{
+  width: 0.7rem;
+  background-color: var(--cappuccino);
+  height: 0.7rem;
+}

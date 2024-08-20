@@ -1,0 +1,55 @@
+<i class="ri-delete-bin-7-fill" (click)="deleteCartao()" *ngIf="isView"></i>
+<form [formGroup]="cartaoForm" (ngSubmit)="onSubmit()">
+  <div class="grid">
+    <div class="row">
+      <div class="col-6 input">
+        <label for="nome">Nome Impresso no cartão</label>
+        <input type="text" id="nome" formControlName="nome"/>
+      </div>
+      <div class="col-6 input">
+        <label for="numero">Número do cartão</label>
+        <input type="text" id="numero" formControlName="numero"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4 input">
+        <label for="validade">Validade</label>
+        <input type="text" id="validade" formControlName="validade" mask="00/00 || 00/0000"/>
+      </div>
+      <div class="col-4 input">
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" formControlName="cvv" mask="000 || 0000"/>
+      </div>
+      <div class="col-4 input">
+        <label for="bandeira">Bandeira</label>
+        <select id="bandeira" formControlName="bandeira">
+          <option value="VISA">Visa</option>
+          <option value="MASTERCARD">Mastercard</option>
+          <option value="ELO">Elo</option>
+          <option value="AMERICAMEXPRESS">Amex</option>
+          <option value="HIPERCARD">Hipercard</option>
+        </select>
+      </div>
+    </div>
+    <div class="center" *ngIf="!isView">
+      <input type="submit" value="Enviar" class="btn-primary">
+    </div>
+  </div>
+</form>
+
+<div class="erro" *ngIf="error">
+  <p [innerHTML]="error"></p>
+</div>
+
+
+<div *ngIf="showConfirmacaoNew" class="modal-overlay">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-confirmacao [text]="'Deseja adicionar mais um cartão?'" (confirmEvent)="newCartao()" (cancelEvent)="onDone()"></app-confirmacao>
+  </div>
+</div>
+
+<div *ngIf="showConfirmacaoDelete" class="modal-overlay">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-confirmacao [text]="'Tem certeza que deseja deletar este cartão?'" (confirmEvent)="callDelete()" (cancelEvent)="closeModal()"></app-confirmacao>
+  </div>
+</div>

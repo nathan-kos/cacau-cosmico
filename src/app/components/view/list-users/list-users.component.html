@@ -1,0 +1,42 @@
+<app-header></app-header>
+<div class="center">
+  <div class="content">
+    <h1>
+      Usuários
+    </h1>
+
+    <div class="tabela">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Editar</th>
+            <th>Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios">
+            <td>{{ usuario.usu_Nome }}</td>
+            <td>{{ usuario.usu_CPF }}</td>
+            <td>
+              <!-- <a [routerLink]="['/edit-user', user.id]"></a> -->
+              <i class="ri-edit-fill" (click)="goToEdit(usuario)"></i>
+              <!-- </a> -->
+            </td>
+            <td>
+              <!-- <a (click)="deleteUser(user.id)"> -->
+              <i class="ri-delete-bin-7-fill" (click)="openDeleteModal(usuario)"></i>
+              <!-- </a> -->
+            </td>
+          </tr>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="showDeleteModal" class="modal-overlay" (click)="closeDeleteModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <app-confirmacao [text]="'Tem certeza que deseja excluir o usuário?'" (confirmEvent)="deleteUser()" (cancelEvent)="closeDeleteModal()"></app-confirmacao>
+    </div>
+  </div>
+</div>
