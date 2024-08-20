@@ -6,17 +6,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { NgxMaskDirective } from 'ngx-mask';
 import { Bandeira } from '../../../DTO/cartao/Bandeira';
 import { Cartao } from '../../../DTO/cartao/Cartão';
 import { Endereco } from '../../../DTO/endereco/Endereco';
 import { Tipo } from '../../../DTO/endereco/Tipo';
 import { UF } from '../../../DTO/endereco/UF';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
+import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { ConfirmacaoComponent } from '../../resources/confirmacao/confirmacao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
 import { HeaderComponent } from '../../resources/header/header.component';
 import { TrocarSenhaComponent } from '../../resources/trocar-senha/trocar-senha.component';
-import { CartaoComponent } from "../../resources/cartao/cartao.component";
 
 @Component({
   selector: 'app-minha-conta',
@@ -29,8 +30,9 @@ import { CartaoComponent } from "../../resources/cartao/cartao.component";
     NgFor,
     EnderecoComponent,
     ConfirmacaoComponent,
-    CartaoComponent
-],
+    CartaoComponent,
+    NgxMaskDirective,
+  ],
   templateUrl: './minha-conta.component.html',
   styleUrl: './minha-conta.component.css',
 })
