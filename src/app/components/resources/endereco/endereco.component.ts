@@ -131,7 +131,6 @@ export class EnderecoComponent implements OnInit {
         await this.enderecoService.create(endereco, usu_Id);
 
         this.showConfirmacaoNew = true;
-        window.alert('Endereço criado com sucesso!');
       }
 
       return;
