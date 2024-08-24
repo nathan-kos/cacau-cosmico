@@ -16,3 +16,5 @@ class UpdateUsuario {
     this.usu_Ativo = usu_Ativo;
   }
 }
+
+export { UpdateUsuario };

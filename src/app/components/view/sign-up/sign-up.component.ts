@@ -8,6 +8,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
+import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
+import { UsuarioService } from '../../../Services/usuario/usuario.service';
 import { fieldsMatchValidator } from '../../../utils/Validators/FildsMatch.validator';
 import { passwordStrengthValidator } from '../../../utils/Validators/Password.validator';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
@@ -39,7 +41,11 @@ export class SignUpComponent {
   public showStageCard = false;
   public hasNext = true;
 
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private usuarioService: UsuarioService
+  ) {
     this.signUpForm = this.formBuilder.group(
       {
         nome: ['', Validators.required],
@@ -64,7 +70,7 @@ export class SignUpComponent {
     });
   }
 
-  public onSubmit(): void {
+  public async onSubmit(): Promise<void> {
     if (!this.signUpForm.valid) {
       // passa um por um e verifica se está válido e soma na mensagem de erro para exibir
       this.error = 'Formulário inválido<br>';
@@ -120,11 +126,30 @@ export class SignUpComponent {
       this.signUpForm.value;
 
     // manda para o backend
+    try {
+      const response = await this.usuarioService.create({
+        usu_Nome: nome,
+        usu_Email: email,
+        usu_Senha: senha,
+        usu_CPF: cpf,
+        usu_Nasc: dataNascimento,
+        usu_Genero: genero,
+        usu_Telefone: telefone,
+        usu_pap: 'USER',
+      });
+
+      if (response instanceof ErrorDTO) {
+        this.error = response.mensagem;
+        return;
+      } else {
+        window.alert('Usuário criado com sucesso');
+      }
+    } catch (error) {
+      window.alert('Erro ao criar usuário');
+    }
 
     // muda para a próxima etapa
     this.changeToAddress();
-
-    window.alert('Função não implementada... ainda');
   }
 
   // funções para mudar de etapa

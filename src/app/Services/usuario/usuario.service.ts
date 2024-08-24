@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { ErrorDTO } from '../../DTO/Error/ErrorDTO';
 import { IPaginatedResponse } from '../../DTO/Pagination/IPaginatedResponse';
+import { CreateUserDTO } from '../../DTO/Usuario/CrateUsuarioDTO';
+import { UpdateUsuario } from '../../DTO/Usuario/UpdateUsuarioDTO';
 import { Usuario } from '../../DTO/Usuario/Usuario';
 import { GlobalService } from '../global.service';
 
@@ -13,10 +15,11 @@ export class UsuarioService {
   constructor(private globalService: GlobalService, private http: HttpClient) {}
 
   // create user
-  public async create(data: Usuario): Promise<Usuario | ErrorDTO> {
+  public async create(data: CreateUserDTO): Promise<Usuario | ErrorDTO> {
     try {
+      data.usu_Genero = data.usu_Genero.toUpperCase();
       const response = await firstValueFrom(
-        this.http.post<any>(`${this.globalService.baseUrl}usuario`, data)
+        this.http.post<any>(`${this.globalService.baseUrl}user`, data)
       );
       return response;
     } catch (error) {
