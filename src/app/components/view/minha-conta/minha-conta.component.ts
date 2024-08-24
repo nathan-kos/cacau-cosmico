@@ -6,13 +6,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { Bandeira } from '../../../DTO/cartao/Bandeira';
 import { Cartao } from '../../../DTO/cartao/Cartão';
 import { Endereco } from '../../../DTO/endereco/Endereco';
 import { Tipo } from '../../../DTO/endereco/Tipo';
 import { UF } from '../../../DTO/endereco/UF';
+import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
+import { UsuarioService } from '../../../Services/usuario/usuario.service';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { ConfirmacaoComponent } from '../../resources/confirmacao/confirmacao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
@@ -45,12 +48,18 @@ export class MinhaContaComponent implements OnInit {
   public deleteContaModal: boolean = false;
   public pedidoTab: boolean = false;
 
-  ngOnInit(): void {
-    this.getUser();
+  public error: string | undefined;
+
+  async ngOnInit(): Promise<void> {
+    await this.getUser();
     this.setUserForm();
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private service: UsuarioService
+  ) {
     // user form
 
     this.editUserForm = this.formBuilder.group({
@@ -125,9 +134,22 @@ export class MinhaContaComponent implements OnInit {
     this.senhaModal = false;
   }
 
-  public getUser() {
-    // pega o usuario no back end
-    // window.alert('Usuario pego');
+  public async getUser() {
+    //pega o id do parametro da url
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (!id) {
+      return;
+    }
+
+    const response = await this.service.get(id);
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    this.user = response;
   }
 
   public setUserForm() {
