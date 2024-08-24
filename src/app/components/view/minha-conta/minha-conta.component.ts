@@ -15,6 +15,7 @@ import { Tipo } from '../../../DTO/endereco/Tipo';
 import { UF } from '../../../DTO/endereco/UF';
 import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
+import { CartaoService } from '../../../Services/cartao/cartao.service';
 import { EnderecoService } from '../../../Services/endereco/endereco.service';
 import { UsuarioService } from '../../../Services/usuario/usuario.service';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
@@ -53,8 +54,9 @@ export class MinhaContaComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.getUser();
-    this.setUserForm();
     await this.getEnderecos();
+    await this.getCartoes();
+    this.setUserForm();
   }
 
   constructor(
@@ -62,7 +64,8 @@ export class MinhaContaComponent implements OnInit {
     private route: ActivatedRoute,
     private service: UsuarioService,
     private router: Router,
-    private enderecoService: EnderecoService
+    private enderecoService: EnderecoService,
+    private cartaoService: CartaoService
   ) {
     // user form
 
@@ -261,8 +264,8 @@ export class MinhaContaComponent implements OnInit {
 
     const response = await this.enderecoService.getAll(
       usu_Id,
-      this.enderecoPage,
-      this.enderecoLimit
+      this.enderecoLimit,
+      this.enderecoPage
     );
 
     if (response instanceof ErrorDTO) {
@@ -295,8 +298,9 @@ export class MinhaContaComponent implements OnInit {
     this.closeEnderecoModals();
     window.alert('endereco deletado');
   }
-
-  // cartoes
+  //////////////////////////////////////
+  // cartoes                         //
+  /////////////////////////////////////
   public cartoes: Cartao[] = [
     {
       car_Id: '1',
@@ -329,14 +333,37 @@ export class MinhaContaComponent implements OnInit {
 
   public selectedCartao: Cartao | undefined;
 
+  public cartaoPage: number = 1;
+  public cartaoLimit: number = 10;
+  public cartaoTotal: number = 0;
+
   public closeCartaoModals() {
     this.cartaoDeleteModal = false;
     this.cartaoNewModal = false;
   }
 
-  public getCartoes() {
-    // busca no backend
-    window.alert('cartao pego');
+  public async getCartoes() {
+    const usu_Id = this.route.snapshot.paramMap.get('id');
+
+    if (!usu_Id) {
+      return;
+    }
+
+    console.log(usu_Id);
+
+    const response = await this.cartaoService.getAll(
+      usu_Id,
+      this.cartaoLimit,
+      this.cartaoPage
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    this.cartoes = response.results;
+    this.cartaoTotal = response.total;
   }
 
   public openCartaoModalNew() {
