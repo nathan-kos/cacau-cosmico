@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { Bandeira } from '../../../DTO/cartao/Bandeira';
 import { Cartao } from '../../../DTO/cartao/Cartão';
@@ -58,7 +58,8 @@ export class MinhaContaComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private service: UsuarioService
+    private service: UsuarioService,
+    private router: Router
   ) {
     // user form
 
@@ -326,15 +327,23 @@ export class MinhaContaComponent implements OnInit {
   // pedidos
 
   // deletar conta
-  public deleteAccount() {
+  public async deleteAccount() {
     // deleta no backend
-    window.alert('conta deletada');
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (!id) {
+      return;
+    }
+
+    await this.service.delete(id);
+
     this.contaDeletada();
   }
 
   public contaDeletada() {
     //redireciona pra home
     this.closeContaModals();
+    this.router.navigate(['/']);
   }
 
   public closeContaModals() {
