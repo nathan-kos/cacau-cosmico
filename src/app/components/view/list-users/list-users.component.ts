@@ -48,10 +48,8 @@ export class ListUsersComponent implements OnInit {
       return;
     }
 
-    console.log(this.selectedUser.usu_Id);
     await this.usuarioService.delete(this.selectedUser.usu_Id);
 
-    console.log('deletado');
     this.getUsuarios();
   }
 
