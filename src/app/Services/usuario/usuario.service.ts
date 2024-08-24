@@ -47,13 +47,15 @@ export class UsuarioService {
     }
   }
 
-  public async update(data: UpdateUsuario): Promise<Usuario | ErrorDTO> {
+  public async update(
+    data: UpdateUsuario,
+    usu_Id: string
+  ): Promise<Usuario | ErrorDTO> {
     try {
       const response = await firstValueFrom(
-        this.http.put<any>(
-          `${this.globalService.baseUrl}usuario/${data.usu_Id}`,
-          { ...data }
-        )
+        this.http.put<any>(`${this.globalService.baseUrl}user/${usu_Id}`, {
+          ...data,
+        })
       );
       return response;
     } catch (error) {

@@ -148,7 +148,7 @@ export class EditUserComponent implements OnInit {
     });
   }
 
-  public onSubmit(): void {
+  public async onSubmit(): Promise<void> {
     if (!this.editUserForm.valid) {
       this.error = 'Formulário inválido';
       return;
@@ -158,7 +158,23 @@ export class EditUserComponent implements OnInit {
     const { nome, email, telefone } = this.editUserForm.value;
     const updatedUserData = { nome, email, telefone };
 
-    // Chama o serviço para atualizar os dados no backend
+    const response = await this.service.update(
+      {
+        usu_Ativo: this.user.usu_Ativo,
+        usu_Email: updatedUserData.email,
+        usu_Nome: updatedUserData.nome,
+        usu_Telefone: updatedUserData.telefone,
+      },
+      this.user.usu_Id
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    // Atualiza os dados do usuário
+    await this.getUser();
   }
 
   public async getUser() {
