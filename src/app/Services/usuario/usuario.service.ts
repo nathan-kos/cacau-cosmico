@@ -69,7 +69,7 @@ export class UsuarioService {
   public async delete(id: number): Promise<Usuario | ErrorDTO> {
     try {
       const response = await firstValueFrom(
-        this.http.delete<any>(`${this.globalService.baseUrl}usuario/${id}`)
+        this.http.delete<any>(`${this.globalService.baseUrl}user/${id}`)
       );
       return response;
     } catch (error) {
@@ -88,7 +88,7 @@ export class UsuarioService {
   ): Promise<IPaginatedResponse<Usuario> | ErrorDTO> {
     try {
       const response = await firstValueFrom(
-        this.http.get<any>(`${this.globalService.baseUrl}usuario`, {
+        this.http.get<any>(`${this.globalService.baseUrl}user`, {
           params: {
             limit: limit.toString(),
             page: page.toString(),
