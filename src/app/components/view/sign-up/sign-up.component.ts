@@ -142,7 +142,7 @@ export class SignUpComponent {
         this.error = response.mensagem;
         return;
       } else {
-        window.alert('Usuário criado com sucesso');
+        sessionStorage.setItem('last_usu_Id', response.usu_Id);
       }
     } catch (error) {
       window.alert('Erro ao criar usuário');

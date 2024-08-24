@@ -60,7 +60,7 @@
       </div>
     </form>
 
-    <app-endereco *ngIf="showStageAddress" (doneEvent)="changeToCard()"></app-endereco>
+    <app-endereco [isNew]="true" *ngIf="showStageAddress" (doneEvent)="changeToCard()"></app-endereco>
     <app-cartao *ngIf="showStageCard" (doneEvent)="Done()" [isNew]="true"></app-cartao>
 
     <div class="erro" *ngIf="error">

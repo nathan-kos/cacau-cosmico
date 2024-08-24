@@ -7,7 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
+import { CreateEnderecoDTO } from '../../../DTO/endereco/CreateEnderecoDTO';
 import { Endereco } from '../../../DTO/endereco/Endereco';
+import { EnderecoService } from '../../../Services/endereco/endereco.service';
 import { ConfirmacaoComponent } from '../confirmacao/confirmacao.component';
 
 @Component({
@@ -51,7 +53,10 @@ export class EnderecoComponent implements OnInit {
     }
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private enderecoService: EnderecoService
+  ) {
     this.enderecoForm = this.formBuilder.group({
       cep: [{ value: '', disabled: true }, Validators.required],
       rua: [{ value: '', disabled: true }, Validators.required],
@@ -68,7 +73,7 @@ export class EnderecoComponent implements OnInit {
     });
   }
 
-  public onSubmit(): void {
+  public async onSubmit(): Promise<void> {
     if (!this.enderecoForm.valid) {
       // passa um por um e verifica se está válido e soma na mensagem de erro para exibir
       this.error = 'Formulário inválido<br>';
@@ -94,18 +99,42 @@ export class EnderecoComponent implements OnInit {
         this.error += 'Tipo inválido<br>';
       }
     } else {
-      const endereco = this.enderecoForm.value as Endereco;
+      const endereco: CreateEnderecoDTO = {
+        end_Bairro: this.enderecoForm.get('bairro')?.value,
+        end_CEP: this.enderecoForm.get('cep')?.value,
+        end_Cidade: this.enderecoForm.get('cidade')?.value,
+        end_Complemento: this.enderecoForm.get('complemento')?.value,
+        end_Numero: this.enderecoForm.get('numero')?.value,
+        end_Rua: this.enderecoForm.get('rua')?.value,
+        end_Tipo: this.enderecoForm.get('tipo')?.value,
+        end_UF: this.enderecoForm.get('UF')?.value,
+      };
 
-      // se estiver válido, chama o backend para salvar
+      if (this.enderecoForm.get('complemento')?.value === '') {
+        endereco.end_Complemento = undefined;
+      }
 
-      // se o backend retornar erro, exibe a mensagem de erro
+      if (this.isEdit) {
+        // chama o backend para editar o endereço
+        window.alert('Endereço editado com sucesso!');
+      }
 
-      window.alert('Funcionalidade não implementada ...ainda');
+      if (this.isNew) {
+        // chama o backend para criar um novo endereço
+        const usu_Id = sessionStorage.getItem('last_usu_Id');
 
-      //perguntar se quer adicionar outro endereço
-      // se o backend retornar sucesso, avança para o próximo
+        if (!usu_Id) {
+          window.alert('Usuário não encontrado!');
+          return;
+        }
 
-      this.showConfirmacaoNew = true;
+        await this.enderecoService.create(endereco, usu_Id);
+
+        this.showConfirmacaoNew = true;
+        window.alert('Endereço criado com sucesso!');
+      }
+
+      return;
     }
   }
 

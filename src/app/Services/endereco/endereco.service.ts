@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { ErrorDTO } from '../../DTO/Error/ErrorDTO';
+import { CreateEnderecoDTO } from '../../DTO/endereco/CreateEnderecoDTO';
 import { Endereco } from '../../DTO/endereco/Endereco';
 import { GlobalService } from '../global.service';
 
