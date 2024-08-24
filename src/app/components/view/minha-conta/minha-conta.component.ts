@@ -15,6 +15,7 @@ import { Tipo } from '../../../DTO/endereco/Tipo';
 import { UF } from '../../../DTO/endereco/UF';
 import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
+import { EnderecoService } from '../../../Services/endereco/endereco.service';
 import { UsuarioService } from '../../../Services/usuario/usuario.service';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { ConfirmacaoComponent } from '../../resources/confirmacao/confirmacao.component';
@@ -53,13 +54,15 @@ export class MinhaContaComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     await this.getUser();
     this.setUserForm();
+    await this.getEnderecos();
   }
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private service: UsuarioService,
-    private router: Router
+    private router: Router,
+    private enderecoService: EnderecoService
   ) {
     // user form
 
@@ -195,7 +198,9 @@ export class MinhaContaComponent implements OnInit {
     await this.getUser();
   }
 
-  // enderecos
+  //////////////////////////////////////
+  // enderecos                       //
+  /////////////////////////////////////
   public enderecos: Endereco[] = [
     {
       end_Bairro: 'Bairro',
@@ -235,15 +240,40 @@ export class MinhaContaComponent implements OnInit {
 
   public selectedEndereco: Endereco | undefined;
 
+  public enderecoPage: number = 1;
+  public enderecoLimit: number = 10;
+  public enderecoTotal: number = 0;
+
   public closeEnderecoModals() {
     this.enderecoEditModal = false;
     this.enderecoDeleteModal = false;
     this.enderecoNewModal = false;
   }
 
-  public getEnderecos() {
+  public async getEnderecos() {
     // busca no backend
-    window.alert('endereco pego');
+
+    const usu_Id = this.route.snapshot.paramMap.get('id');
+
+    if (!usu_Id) {
+      return;
+    }
+
+    const response = await this.enderecoService.getAll(
+      usu_Id,
+      this.enderecoPage,
+      this.enderecoLimit
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    this.enderecos = response.results;
+    this.enderecoTotal = response.total;
+
+    console.log(response);
   }
 
   public openEnderecoModalEdit(endereco: Endereco) {

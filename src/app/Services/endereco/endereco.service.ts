@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { ErrorDTO } from '../../DTO/Error/ErrorDTO';
+import { IPaginatedResponse } from '../../DTO/Pagination/IPaginatedResponse';
 import { CreateEnderecoDTO } from '../../DTO/endereco/CreateEnderecoDTO';
 import { Endereco } from '../../DTO/endereco/Endereco';
 import { GlobalService } from '../global.service';
@@ -104,7 +105,7 @@ export class EnderecoService {
     usu_Id: string,
     limit: number,
     page: number
-  ): Promise<Endereco[] | ErrorDTO> {
+  ): Promise<IPaginatedResponse<Endereco> | ErrorDTO> {
     try {
       const response = await firstValueFrom(
         this.http.get<any>(
@@ -117,6 +118,9 @@ export class EnderecoService {
           }
         )
       );
+
+      // console.log(response);
+
       return response;
     } catch (error) {
       if (error instanceof HttpErrorResponse) {
