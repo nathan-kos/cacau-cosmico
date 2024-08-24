@@ -20,7 +20,7 @@ export class ListUsersComponent implements OnInit {
   public usuarios: Usuario[] = [];
 
   public page = 1;
-  public limit = 1;
+  public limit = 10;
   public total = 0;
 
   ngOnInit(): void {
