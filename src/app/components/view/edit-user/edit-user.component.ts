@@ -6,18 +6,21 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { Bandeira } from '../../../DTO/cartao/Bandeira';
 import { Cartao } from '../../../DTO/cartao/Cartão';
 import { Endereco } from '../../../DTO/endereco/Endereco';
 import { Tipo } from '../../../DTO/endereco/Tipo';
 import { UF } from '../../../DTO/endereco/UF';
+import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
+import { UsuarioService } from '../../../Services/usuario/usuario.service';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
+import { ConfirmacaoComponent } from '../../resources/confirmacao/confirmacao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
 import { HeaderComponent } from '../../resources/header/header.component';
-import { ConfirmacaoComponent } from "../../resources/confirmacao/confirmacao.component";
-import { TrocarSenhaComponent } from "../../resources/trocar-senha/trocar-senha.component";
+import { TrocarSenhaComponent } from '../../resources/trocar-senha/trocar-senha.component';
 
 @Component({
   selector: 'app-edit-user',
@@ -31,8 +34,8 @@ import { TrocarSenhaComponent } from "../../resources/trocar-senha/trocar-senha.
     CartaoComponent,
     NgFor,
     ConfirmacaoComponent,
-    TrocarSenhaComponent
-],
+    TrocarSenhaComponent,
+  ],
   templateUrl: './edit-user.component.html',
   styleUrl: './edit-user.component.css',
 })
@@ -113,7 +116,11 @@ export class EditUserComponent implements OnInit {
     },
   ];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private service: UsuarioService
+  ) {
     this.editUserForm = this.formBuilder.group({
       nome: [, Validators.required],
       email: ['', Validators.required],
@@ -125,7 +132,10 @@ export class EditUserComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.getUser();
+    console.log(this.user);
+
     // Simula a chamada ao backend para buscar os dados do usuário
     this.editUserForm.patchValue({
       nome: this.user.usu_Nome,
@@ -149,6 +159,24 @@ export class EditUserComponent implements OnInit {
     const updatedUserData = { nome, email, telefone };
 
     // Chama o serviço para atualizar os dados no backend
+  }
+
+  public async getUser() {
+    //pega o id do parametro da url
+    const id = this.route.snapshot.paramMap.get('id');
+
+    if (!id) {
+      return;
+    }
+
+    const response = await this.service.get(id);
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    this.user = response;
   }
 
   public openEnderecoModalNew(): void {
@@ -189,7 +217,6 @@ export class EditUserComponent implements OnInit {
     this.selectedCartao = cartao;
     this.deleteCartaoModal = true;
   }
-
 
   public deleteEndereco(): void {
     // chamada ao serviço para deletar o endereço

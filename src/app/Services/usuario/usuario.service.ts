@@ -32,10 +32,10 @@ export class UsuarioService {
   }
 
   // get user
-  public async get(id: number): Promise<Usuario | ErrorDTO> {
+  public async get(id: string): Promise<Usuario | ErrorDTO> {
     try {
       const response = await firstValueFrom(
-        this.http.get<any>(`${this.globalService.baseUrl}usuario/${id}`)
+        this.http.get<any>(`${this.globalService.baseUrl}user/${id}`)
       );
       return response;
     } catch (error) {
