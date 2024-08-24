@@ -13,3 +13,22 @@ h1{
   justify-content: center;
   align-items: center;
 }
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+
+  font-family: var(--lemon);
+}
+
+.pagination-controls button {
+  padding: 10px;
+  border-radius: 1rem;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

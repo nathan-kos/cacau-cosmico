@@ -1,7 +1,9 @@
 import { NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
+import { UsuarioService } from '../../../Services/usuario/usuario.service';
 import { ConfirmacaoComponent } from '../../resources/confirmacao/confirmacao.component';
 import { HeaderComponent } from '../../resources/header/header.component';
 
@@ -12,39 +14,18 @@ import { HeaderComponent } from '../../resources/header/header.component';
   templateUrl: './list-users.component.html',
   styleUrl: './list-users.component.css',
 })
-export class ListUsersComponent {
-  constructor(private router: Router) {}
+export class ListUsersComponent implements OnInit {
+  constructor(private router: Router, private usuarioService: UsuarioService) {}
 
-  public usuarios: Usuario[] = [
-    {
-      usu_Id: '1',
-      usu_Nome: 'João',
-      usu_Email: 'jkhdsjhkd',
-      usu_Ativo: true,
-      usu_CPF: '123123123',
-      usu_CriadoEm: '2021-07-07',
-      usu_AtualizadoEm: '2021-07-07',
-      usu_Genero: 'M',
-      usu_Nasc: '1999-07-07',
-      usu_pap: '1',
-      usu_Senha: '123123',
-      usu_Telefone: '123123123',
-    },
-    {
-      usu_Id: '2',
-      usu_Nome: 'Maria',
-      usu_Email: 'jkhdsjhkd',
-      usu_Ativo: true,
-      usu_CPF: '123123123',
-      usu_CriadoEm: '2021-07-07',
-      usu_AtualizadoEm: '2021-07-07',
-      usu_Genero: 'F',
-      usu_Nasc: '1999-07-07',
-      usu_pap: '1',
-      usu_Senha: '123123',
-      usu_Telefone: '123123123',
-    },
-  ];
+  public usuarios: Usuario[] = [];
+
+  public page = 1;
+  public limit = 1;
+  public total = 0;
+
+  ngOnInit(): void {
+    this.getUsuarios();
+  }
 
   public selectedUser: Usuario | null = null;
 
@@ -68,5 +49,30 @@ export class ListUsersComponent {
   public goToEdit(usuario: Usuario) {
     const route = '/usuario/editar/' + usuario.usu_Id;
     this.router.navigate([route]);
+  }
+
+  public async getUsuarios() {
+    const response = await this.usuarioService.getAll(this.limit, this.page);
+
+    if (response instanceof ErrorDTO) {
+      window.alert(response.mensagem);
+    } else {
+      this.usuarios = response.results;
+      this.total = response.total;
+    }
+  }
+
+  public async nextPage() {
+    this.page++;
+    this.getUsuarios();
+  }
+
+  public async previousPage() {
+    this.page--;
+    this.getUsuarios();
+  }
+
+  public totalPages() {
+    return Math.ceil(this.total / this.limit);
   }
 }

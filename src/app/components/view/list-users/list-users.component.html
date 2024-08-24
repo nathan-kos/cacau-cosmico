@@ -32,6 +32,19 @@
           </tr>
       </table>
     </div>
+
+    <div class="pagination-controls">
+      <button *ngIf="page > 1" (click)="previousPage()" aria-label="Página anterior">
+        <i class="ri-arrow-left-s-line"></i>
+      </button>
+      <p>{{ page }}</p>
+      <button *ngIf="page < totalPages()" (click)="nextPage()" aria-label="Próxima página">
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
+    </div>
+
+
+
   </div>
 
   <div *ngIf="showDeleteModal" class="modal-overlay" (click)="closeDeleteModal()">
