@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { Cartao } from '../../DTO/cartao/Cartão';
 import { CreateCartDTO } from '../../DTO/cartao/CreateCartDTO';
 import { ErrorDTO } from '../../DTO/Error/ErrorDTO';
+import { IPaginatedResponse } from '../../DTO/Pagination/IPaginatedResponse';
 import { GlobalService } from '../global.service';
 
 @Injectable({
@@ -79,7 +80,7 @@ export class CartaoService {
     usu_Id: string,
     limit: number,
     page: number
-  ): Promise<Cartao[] | ErrorDTO> {
+  ): Promise<IPaginatedResponse<Cartao> | ErrorDTO> {
     try {
       const response = await firstValueFrom(
         this.http.get<any>(
