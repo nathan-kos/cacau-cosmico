@@ -164,14 +164,34 @@ export class MinhaContaComponent implements OnInit {
     });
   }
 
-  public onSubmitUser() {
+  public async onSubmitUser() {
     if (!this.editUserForm.valid) {
       this.userError = 'Preencha todos os campos corretamente';
       return;
     }
 
     // atualiza o usuario no back end
-    window.alert('Usuario atualizado');
+    // Processa o envio do formulário (somente os campos editáveis serão enviados)
+    const { nome, email, telefone } = this.editUserForm.value;
+    const updatedUserData = { nome, email, telefone };
+
+    const response = await this.service.update(
+      {
+        usu_Ativo: this.user.usu_Ativo,
+        usu_Email: updatedUserData.email,
+        usu_Nome: updatedUserData.nome,
+        usu_Telefone: updatedUserData.telefone,
+      },
+      this.user.usu_Id
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    // Atualiza os dados do usuário
+    await this.getUser();
   }
 
   // enderecos
