@@ -40,10 +40,19 @@ export class ListUsersComponent implements OnInit {
     this.showDeleteModal = false;
   }
 
-  public deleteUser() {
+  public async deleteUser() {
     this.showDeleteModal = false;
     // chama o backend para deletar o usuário
-    window.alert('Usuário deletado com sucesso');
+
+    if (!this.selectedUser) {
+      return;
+    }
+
+    console.log(this.selectedUser.usu_Id);
+    await this.usuarioService.delete(this.selectedUser.usu_Id);
+
+    console.log('deletado');
+    this.getUsuarios();
   }
 
   public goToEdit(usuario: Usuario) {

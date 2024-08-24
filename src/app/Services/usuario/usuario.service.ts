@@ -68,7 +68,7 @@ export class UsuarioService {
   }
 
   // delete user
-  public async delete(id: number): Promise<Usuario | ErrorDTO> {
+  public async delete(id: string): Promise<Usuario | ErrorDTO> {
     try {
       const response = await firstValueFrom(
         this.http.delete<any>(`${this.globalService.baseUrl}user/${id}`)
