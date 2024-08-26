@@ -15,6 +15,8 @@ import { Tipo } from '../../../DTO/endereco/Tipo';
 import { UF } from '../../../DTO/endereco/UF';
 import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
+import { CartaoService } from '../../../Services/cartao/cartao.service';
+import { EnderecoService } from '../../../Services/endereco/endereco.service';
 import { UsuarioService } from '../../../Services/usuario/usuario.service';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { ConfirmacaoComponent } from '../../resources/confirmacao/confirmacao.component';
@@ -55,6 +57,13 @@ export class EditUserComponent implements OnInit {
 
   public selectedEndereco: Endereco | undefined;
   public selectedCartao: Cartao | undefined;
+
+  public cartaoPage: number = 1;
+  public enderecoPage: number = 1;
+  public cartaoLimit: number = 5;
+  public enderecoLimit: number = 5;
+  public cartaoTotal: number = 0;
+  public enderecoTotal: number = 0;
 
   public user: Usuario = {
     usu_Ativo: true,
@@ -119,7 +128,9 @@ export class EditUserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private service: UsuarioService
+    private service: UsuarioService,
+    private serviceEndereco: EnderecoService,
+    private serviceCartao: CartaoService
   ) {
     this.editUserForm = this.formBuilder.group({
       nome: [, Validators.required],
@@ -134,7 +145,8 @@ export class EditUserComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.getUser();
-    console.log(this.user);
+    await this.getEnderecos();
+    await this.getCartoes();
 
     // Simula a chamada ao backend para buscar os dados do usuário
     this.editUserForm.patchValue({
@@ -193,6 +205,38 @@ export class EditUserComponent implements OnInit {
     }
 
     this.user = response;
+  }
+
+  public async getEnderecos() {
+    const response = await this.serviceEndereco.getAll(
+      this.user.usu_Id,
+      this.enderecoLimit,
+      this.enderecoPage
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    this.enderecos = response.results;
+    this.enderecoTotal = response.total;
+  }
+
+  public async getCartoes() {
+    const response = await this.serviceCartao.getAll(
+      this.user.usu_Id,
+      this.cartaoLimit,
+      this.cartaoPage
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    this.cartoes = response.results;
+    this.cartaoTotal = response.total;
   }
 
   public openEnderecoModalNew(): void {
