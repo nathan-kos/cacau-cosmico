@@ -162,7 +162,7 @@
 <!-- cartoes -->
 <div *ngIf="cartaoNewModal" class="modal-overlay" (click)="closeCartaoModals()">
   <div class="modal" (click)="$event.stopPropagation()">
-    <app-cartao (doneEvent)="closeCartaoModals()"></app-cartao>
+    <app-cartao (doneEvent)="closeCartaoModals()" [isNew]="true"></app-cartao>
   </div>
 </div>
 

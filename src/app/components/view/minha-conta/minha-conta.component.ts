@@ -342,7 +342,9 @@ export class MinhaContaComponent implements OnInit {
   public cartaoLimit: number = 10;
   public cartaoTotal: number = 0;
 
-  public closeCartaoModals() {
+  public async closeCartaoModals() {
+    await this.getCartoes();
+
     this.cartaoDeleteModal = false;
     this.cartaoNewModal = false;
   }
@@ -353,8 +355,6 @@ export class MinhaContaComponent implements OnInit {
     if (!usu_Id) {
       return;
     }
-
-    console.log(usu_Id);
 
     const response = await this.cartaoService.getAll(
       usu_Id,
@@ -380,10 +380,26 @@ export class MinhaContaComponent implements OnInit {
     this.cartaoDeleteModal = true;
   }
 
-  public deleteCartao() {
+  public async deleteCartao() {
     // deleta no backend
+
+    if (!this.selectedCartao) {
+      return;
+    }
+
+    const response = this.cartaoService.delete(
+      this.selectedCartao.car_usu_id,
+      this.selectedCartao.car_Id
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    await this.getCartoes();
+
     this.closeCartaoModals();
-    window.alert('cartao deletado');
   }
 
   // pedidos
