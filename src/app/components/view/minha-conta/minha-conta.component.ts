@@ -247,12 +247,9 @@ export class MinhaContaComponent implements OnInit {
   public enderecoLimit: number = 10;
   public enderecoTotal: number = 0;
 
-  public async updatedEndereco() {
+  public async closeEnderecoModals() {
     await this.getEnderecos();
-    this.closeEnderecoModals();
-  }
 
-  public closeEnderecoModals() {
     this.enderecoEditModal = false;
     this.enderecoDeleteModal = false;
     this.enderecoNewModal = false;
@@ -260,7 +257,6 @@ export class MinhaContaComponent implements OnInit {
 
   public async getEnderecos() {
     // busca no backend
-
     const usu_Id = this.route.snapshot.paramMap.get('id');
 
     if (!usu_Id) {
@@ -280,8 +276,6 @@ export class MinhaContaComponent implements OnInit {
 
     this.enderecos = response.results;
     this.enderecoTotal = response.total;
-
-    console.log(response);
   }
 
   public openEnderecoModalEdit(endereco: Endereco) {
@@ -298,10 +292,26 @@ export class MinhaContaComponent implements OnInit {
     this.enderecoDeleteModal = true;
   }
 
-  public deleteEndereco() {
+  public async deleteEndereco() {
     // deleta no backend
+
+    if (!this.selectedEndereco) {
+      return;
+    }
+
+    const response = this.enderecoService.delete(
+      this.selectedEndereco.end_usu_id,
+      this.selectedEndereco.end_Id
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    await this.getEnderecos();
+
     this.closeEnderecoModals();
-    window.alert('endereco deletado');
   }
   //////////////////////////////////////
   // cartoes                         //

@@ -143,7 +143,7 @@
 <!-- ederecos  -->
 <div *ngIf="enderecoEditModal" class="modal-overlay" (click)="closeEnderecoModals()">
   <div class="modal" (click)="$event.stopPropagation()">
-    <app-endereco [endereco]="selectedEndereco" [isEdit]="true" (doneEvent)="updatedEndereco()"></app-endereco>
+    <app-endereco [endereco]="selectedEndereco" [isEdit]="true" (doneEvent)="closeEnderecoModals()"></app-endereco>
   </div>
 </div>
 
