@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { CreateEnderecoDTO } from '../../../DTO/endereco/CreateEnderecoDTO';
 import { Endereco } from '../../../DTO/endereco/Endereco';
@@ -55,7 +56,8 @@ export class EnderecoComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private enderecoService: EnderecoService
+    private enderecoService: EnderecoService,
+    private route: ActivatedRoute
   ) {
     this.enderecoForm = this.formBuilder.group({
       cep: [{ value: '', disabled: true }, Validators.required],
@@ -140,11 +142,15 @@ export class EnderecoComponent implements OnInit {
 
       if (this.isNew) {
         // chama o backend para criar um novo endereço
-        const usu_Id = sessionStorage.getItem('last_usu_Id');
+        let usu_Id = sessionStorage.getItem('last_usu_Id');
 
         if (!usu_Id) {
-          window.alert('Usuário não encontrado!');
-          return;
+          usu_Id = this.route.snapshot.paramMap.get('id');
+
+          if (!usu_Id) {
+            window.alert('Usuário não encontrado!');
+            return;
+          }
         }
 
         await this.enderecoService.create(endereco, usu_Id);
