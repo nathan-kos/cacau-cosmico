@@ -116,7 +116,26 @@ export class EnderecoComponent implements OnInit {
 
       if (this.isEdit) {
         // chama o backend para editar o endereço
-        window.alert('Endereço editado com sucesso!');
+
+        if (!this.endereco) {
+          window.alert('Endereço não encontrado!');
+          return;
+        }
+
+        const usu_Id = this.endereco.end_usu_id;
+
+        if (!usu_Id) {
+          window.alert('Usuário não encontrado!');
+          return;
+        }
+
+        await this.enderecoService.update(
+          endereco,
+          usu_Id,
+          this.endereco.end_Id
+        );
+
+        this.doneEvent.emit();
       }
 
       if (this.isNew) {

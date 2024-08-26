@@ -247,6 +247,11 @@ export class MinhaContaComponent implements OnInit {
   public enderecoLimit: number = 10;
   public enderecoTotal: number = 0;
 
+  public async updatedEndereco() {
+    await this.getEnderecos();
+    this.closeEnderecoModals();
+  }
+
   public closeEnderecoModals() {
     this.enderecoEditModal = false;
     this.enderecoDeleteModal = false;
