@@ -6,8 +6,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { Cartao } from '../../../DTO/cartao/Cartão';
+import { CreateCartDTO } from '../../../DTO/cartao/CreateCartDTO';
+import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
+import { CartaoService } from '../../../Services/cartao/cartao.service';
 import { ConfirmacaoComponent } from '../confirmacao/confirmacao.component';
 
 @Component({
@@ -30,7 +34,11 @@ export class CartaoComponent implements OnInit {
 
   public error: string | undefined;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private cartaoService: CartaoService,
+    private route: ActivatedRoute
+  ) {
     this.cartaoForm = this.formBuilder.group({
       nome: [{ value: '', disabled: true }, Validators.required],
       numero: [{ value: '', disabled: true }, Validators.required],
@@ -63,7 +71,7 @@ export class CartaoComponent implements OnInit {
     }
   }
 
-  public onSubmit(): void {
+  public async onSubmit(): Promise<void> {
     if (!this.cartaoForm.valid) {
       // passa um por um e verifica se está válido e soma na mensagem de erro para exibir
       this.error = 'Formulário inválido<br>';
@@ -83,16 +91,37 @@ export class CartaoComponent implements OnInit {
         this.error += 'Bandeira inválida<br>';
       }
     } else {
-      const cartao = this.cartaoForm.value as Cartao;
+      const cartao = new CreateCartDTO(
+        this.cartaoForm.controls['nome'].value,
+        this.cartaoForm.controls['numero'].value,
+        this.cartaoForm.controls['validade'].value,
+        this.cartaoForm.controls['cvv'].value,
+        this.cartaoForm.controls['bandeira'].value
+      );
 
-      window.alert('Cartão cadastrado com sucesso!');
+      let usu_Id = sessionStorage.getItem('last_usu_Id');
+
+      if (!usu_Id) {
+        usu_Id = this.route.snapshot.paramMap.get('id');
+
+        if (!usu_Id) {
+          window.alert('Usuário não encontrado!');
+          return;
+        }
+      }
+
+      const response = await this.cartaoService.create(cartao, usu_Id);
+
+      if (response instanceof ErrorDTO) {
+        this.error = response.mensagem;
+        return;
+      }
 
       this.showConfirmacaoNew = true;
     }
   }
 
   public onDone(): void {
-    console.log('submeteu');
     this.doneEvent.emit();
   }
 
