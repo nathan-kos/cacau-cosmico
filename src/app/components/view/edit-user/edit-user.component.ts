@@ -303,9 +303,26 @@ export class EditUserComponent implements OnInit {
     this.closeModals();
   }
 
-  public deleteCartao(): void {
+  public async deleteCartao(): Promise<void> {
     // chamada ao serviço para deletar o cartão
-    window.alert('Cartão deletado com sucesso');
+
+    if (!this.selectedCartao) {
+      return;
+    }
+
+    const response = this.serviceCartao.delete(
+      this.selectedCartao.car_usu_id,
+      this.selectedCartao.car_Id
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    await this.getCartoes();
+
+    this.closeModals();
   }
 
   public openAlterarSenhaModal(): void {

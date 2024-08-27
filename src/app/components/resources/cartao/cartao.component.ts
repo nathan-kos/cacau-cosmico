@@ -139,7 +139,20 @@ export class CartaoComponent implements OnInit {
   }
 
   public callDelete(): void {
-    window.alert('Cartão deletado com sucesso!');
+    if (!this.cartao) {
+      return;
+    }
+
+    const response = this.cartaoService.delete(
+      this.cartao.car_usu_id,
+      this.cartao.car_Id
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
     this.showConfirmacaoDelete = false;
     this.doneEvent.emit();
   }
