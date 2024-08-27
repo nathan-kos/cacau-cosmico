@@ -256,7 +256,10 @@ export class EditUserComponent implements OnInit {
     this.cartaoModalEdit = true;
   }
 
-  public closeModals(): void {
+  public async closeModals(): Promise<void> {
+    await this.getEnderecos();
+    await this.getCartoes();
+
     this.enderecoModalNew = false;
     this.cartaoModalNew = false;
     this.enderecoModalEdit = false;
