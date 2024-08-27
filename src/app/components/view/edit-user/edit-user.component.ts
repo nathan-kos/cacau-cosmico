@@ -281,9 +281,26 @@ export class EditUserComponent implements OnInit {
     this.deleteCartaoModal = true;
   }
 
-  public deleteEndereco(): void {
+  public async deleteEndereco(): Promise<void> {
     // chamada ao serviço para deletar o endereço
-    window.alert('Endereço deletado com sucesso');
+
+    if (!this.selectedEndereco) {
+      return;
+    }
+
+    const response = await this.serviceEndereco.delete(
+      this.user.usu_Id,
+      this.selectedEndereco.end_Id
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    await this.getEnderecos();
+
+    this.closeModals();
   }
 
   public deleteCartao(): void {
