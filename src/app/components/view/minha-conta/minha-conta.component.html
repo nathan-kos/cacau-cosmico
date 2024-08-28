@@ -95,6 +95,16 @@
             </table>
           </div>
           <!-- adicionar novo -->
+           <!-- pagination controller -->
+           <div class="pagination-controls">
+            <button *ngIf="enderecoPage > 1" (click)="previousPageEndereco()" aria-label="Página anterior">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <p>{{ enderecoPage }}</p>
+            <button *ngIf="enderecoPage < totalEnderecosPage" (click)="nextPageEndereco()" aria-label="Próxima página">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+            </div>
           <button (click)="openEnderecoModalNew()" class="btn-secondary">Novo Endereço</button>
         </div>
         <div id="meusCartoes" *ngIf="cartaoTab" class="center-column">
@@ -122,6 +132,16 @@
             </table>
           </div>
           <!-- adicionar novo -->
+           <!-- pagination controller -->
+           <div class="pagination-controls">
+            <button *ngIf="cartaoPage > 1" (click)="previousPageCartao()" aria-label="Página anterior">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <p>{{ cartaoPage }}</p>
+            <button *ngIf="cartaoPage < totalCartoesPage" (click)="nextPageCartao()" aria-label="Próxima página">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+            </div>
           <button (click)="openCartaoModalNew()" class="btn-secondary">Novo Cartão</button>
         </div>
         <div id="meusPedidos" *ngIf="pedidoTab" class="center-column">

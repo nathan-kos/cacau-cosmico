@@ -244,8 +244,9 @@ export class MinhaContaComponent implements OnInit {
   public selectedEndereco: Endereco | undefined;
 
   public enderecoPage: number = 1;
-  public enderecoLimit: number = 10;
+  public enderecoLimit: number = 3;
   public enderecoTotal: number = 0;
+  public totalEnderecosPage: number = 0;
 
   public async closeEnderecoModals() {
     await this.getEnderecos();
@@ -276,6 +277,7 @@ export class MinhaContaComponent implements OnInit {
 
     this.enderecos = response.results;
     this.enderecoTotal = response.total;
+    this.lastPageEndereco();
   }
 
   public openEnderecoModalEdit(endereco: Endereco) {
@@ -313,6 +315,24 @@ export class MinhaContaComponent implements OnInit {
 
     this.closeEnderecoModals();
   }
+
+  //pagination
+  public async nextPageEndereco() {
+    this.enderecoPage++;
+    await this.getEnderecos();
+  }
+
+  public async previousPageEndereco() {
+    this.enderecoPage--;
+    await this.getEnderecos();
+  }
+
+  public async lastPageEndereco() {
+    this.totalEnderecosPage = Math.ceil(
+      this.enderecoTotal / this.enderecoLimit
+    );
+  }
+
   //////////////////////////////////////
   // cartoes                         //
   /////////////////////////////////////
@@ -349,8 +369,9 @@ export class MinhaContaComponent implements OnInit {
   public selectedCartao: Cartao | undefined;
 
   public cartaoPage: number = 1;
-  public cartaoLimit: number = 10;
+  public cartaoLimit: number = 3;
   public cartaoTotal: number = 0;
+  public totalCartoesPage: number = 0;
 
   public async closeCartaoModals() {
     await this.getCartoes();
@@ -379,6 +400,7 @@ export class MinhaContaComponent implements OnInit {
 
     this.cartoes = response.results;
     this.cartaoTotal = response.total;
+    this.lastPageCartao();
   }
 
   public openCartaoModalNew() {
@@ -436,5 +458,19 @@ export class MinhaContaComponent implements OnInit {
 
   public closeContaModals() {
     this.deleteContaModal = false;
+  }
+
+  public nextPageCartao() {
+    this.cartaoPage++;
+    this.getCartoes();
+  }
+
+  public previousPageCartao() {
+    this.cartaoPage--;
+    this.getCartoes();
+  }
+
+  public lastPageCartao() {
+    this.totalCartoesPage = Math.ceil(this.cartaoTotal / this.cartaoLimit);
   }
 }
