@@ -65,6 +65,9 @@ export class EditUserComponent implements OnInit {
   public cartaoTotal: number = 0;
   public enderecoTotal: number = 0;
 
+  public cartaoTotalPages: number = 0;
+  public enderecoTotalPages: number = 0;
+
   public user: Usuario = {
     usu_Ativo: true,
     usu_CPF: '123.456.789-00',
@@ -221,6 +224,8 @@ export class EditUserComponent implements OnInit {
 
     this.enderecos = response.results;
     this.enderecoTotal = response.total;
+
+    this.setEnderecoTotalPages();
   }
 
   public async getCartoes() {
@@ -237,6 +242,8 @@ export class EditUserComponent implements OnInit {
 
     this.cartoes = response.results;
     this.cartaoTotal = response.total;
+
+    this.setCartaoTotalPages();
   }
 
   public openEnderecoModalNew(): void {
@@ -335,5 +342,35 @@ export class EditUserComponent implements OnInit {
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = date.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
+  }
+
+  public async nextPageEndereco(): Promise<void> {
+    this.enderecoPage++;
+    await this.getEnderecos();
+  }
+
+  public async previousPageEndereco(): Promise<void> {
+    this.enderecoPage--;
+    await this.getEnderecos();
+  }
+
+  public async nextPageCartao(): Promise<void> {
+    this.cartaoPage++;
+    await this.getCartoes();
+  }
+
+  public async previousPageCartao(): Promise<void> {
+    this.cartaoPage--;
+    await this.getCartoes();
+  }
+
+  public setEnderecoTotalPages(): void {
+    this.enderecoTotalPages = Math.ceil(
+      this.enderecoTotal / this.enderecoLimit
+    );
+  }
+
+  public setCartaoTotalPages(): void {
+    this.cartaoTotalPages = Math.ceil(this.cartaoTotal / this.cartaoLimit);
   }
 }
