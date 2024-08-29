@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalService } from '../../../Services/global.service';
 import { ProdutoComponent } from '../../resources/produto/produto.component';
 
 @Component({
@@ -13,7 +14,7 @@ import { ProdutoComponent } from '../../resources/produto/produto.component';
 export class HomeComponent {
   public menuVisible: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private globalService: GlobalService) {}
 
   togleMenu() {
     this.menuVisible = !this.menuVisible;
@@ -42,7 +43,9 @@ export class HomeComponent {
         this.router.navigate(['/produtos/universo-de-chocolate']);
         break;
       case 'usuario':
-        this.router.navigate(['/usuario/conta/id']);
+        this.router.navigate([
+          '/usuario/conta/' + this.globalService.defaultUsu_Id,
+        ]);
         break;
       case 'adm':
         this.router.navigate(['/usuario/listagem']);
