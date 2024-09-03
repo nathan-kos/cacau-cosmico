@@ -63,6 +63,15 @@ export class EnderecoService {
     end_Id: string
   ): Promise<Endereco | ErrorDTO> {
     try {
+      if (
+        data.end_Complemento === '' ||
+        data.end_Complemento === null ||
+        data.end_Complemento === undefined
+      ) {
+        // remove complemento if it is empty
+        delete data.end_Complemento;
+      }
+
       const response = await firstValueFrom(
         this.http.put<any>(
           `${this.globalService.baseUrl}user/${usu_Id}/endereco/${end_Id}`,
