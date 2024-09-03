@@ -6,7 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
+import { UsuarioService } from '../../../Services/usuario/usuario.service';
 import { fieldsMatchValidator } from '../../../utils/Validators/FildsMatch.validator';
 import { passwordStrengthValidator } from '../../../utils/Validators/Password.validator';
 
@@ -25,7 +27,10 @@ export class TrocarSenhaComponent {
 
   public error: string | null = null;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private usuarioService: UsuarioService
+  ) {
     this.trocarSenhaForm = this.formBuilder.group(
       {
         senhaAtual: ['', [Validators.required]],
@@ -45,7 +50,7 @@ export class TrocarSenhaComponent {
     });
   }
 
-  public onSubmit(): void {
+  public async onSubmit(): Promise<void> {
     this.error = '';
 
     if (!this.trocarSenhaForm.valid) {
@@ -89,7 +94,23 @@ export class TrocarSenhaComponent {
 
     // Chamar o serviço para trocar a senha
 
-    window.alert('Senha trocada com sucesso');
+    if (!this.usario) {
+      return;
+    }
+
+    const response = await this.usuarioService.changePassword(
+      this.usario.usu_Id,
+      {
+        usu_Senha: this.trocarSenhaForm.controls['senhaAtual'].value,
+        novaSenha: this.trocarSenhaForm.controls['novaSenha'].value,
+      }
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
     this.doneEvent.emit();
   }
 }

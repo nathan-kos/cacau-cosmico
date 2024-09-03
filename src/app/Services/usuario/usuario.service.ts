@@ -108,4 +108,29 @@ export class UsuarioService {
   }
 
   // change password
+
+  public async changePassword(
+    usu_Id: string,
+    data: {
+      usu_Senha: string;
+      novaSenha: string;
+    }
+  ): Promise<Usuario | ErrorDTO> {
+    try {
+      return await firstValueFrom(
+        this.http.put<any>(
+          `${this.globalService.baseUrl}user/${usu_Id}/senha`,
+          {
+            ...data,
+          }
+        )
+      );
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) {
+        return new ErrorDTO(error.error.message, error.status);
+      } else {
+        return new ErrorDTO('Erro desconhecido', 500);
+      }
+    }
+  }
 }
