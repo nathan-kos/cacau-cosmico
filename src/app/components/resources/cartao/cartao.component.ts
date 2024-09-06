@@ -45,6 +45,7 @@ export class CartaoComponent implements OnInit {
       validade: [{ value: '', disabled: true }, Validators.required],
       cvv: [{ value: '', disabled: true }, Validators.required],
       bandeira: [{ value: '', disabled: true }, Validators.required],
+      apelido: [{ value: '', disabled: true }, Validators.required],
     });
 
     this.cartaoForm.valueChanges.subscribe(() => {
@@ -96,7 +97,8 @@ export class CartaoComponent implements OnInit {
         this.cartaoForm.controls['numero'].value,
         this.cartaoForm.controls['validade'].value,
         this.cartaoForm.controls['cvv'].value,
-        this.cartaoForm.controls['bandeira'].value
+        this.cartaoForm.controls['bandeira'].value,
+        this.cartaoForm.controls['apelido'].value
       );
 
       let usu_Id = sessionStorage.getItem('last_usu_Id');
