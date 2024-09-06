@@ -219,6 +219,9 @@ export class MinhaContaComponent implements OnInit {
       end_Ativo: true,
       end_AtualizadoEm: '2024-10-31T00:00:00.000Z',
       end_CriadoEm: '2024-10-31T00:00:00.000Z',
+      end_Apelido: 'Apelido',
+      end_Cobranca: true,
+      end_Entrega: true,
     },
     {
       end_Bairro: 'Bairro',
@@ -234,6 +237,9 @@ export class MinhaContaComponent implements OnInit {
       end_Ativo: true,
       end_AtualizadoEm: '2024-10-31T00:00:00.000Z',
       end_CriadoEm: '2024-10-31T00:00:00.000Z',
+      end_Apelido: 'Apelido',
+      end_Cobranca: true,
+      end_Entrega: true,
     },
   ];
 
@@ -348,6 +354,7 @@ export class MinhaContaComponent implements OnInit {
       car_Ativo: true,
       car_AtualizadoEm: '2024-10-31T00:00:00.000Z',
       car_CriadoEm: '2024-10-31T00:00:00.000Z',
+      car_Apelido: 'Apelido',
     },
     {
       car_Id: '1',
@@ -360,6 +367,7 @@ export class MinhaContaComponent implements OnInit {
       car_Ativo: true,
       car_AtualizadoEm: '2024-10-31T00:00:00.000Z',
       car_CriadoEm: '2024-10-31T00:00:00.000Z',
+      car_Apelido: 'Apelido',
     },
   ];
 

@@ -13,6 +13,9 @@ class Endereco {
   end_usu_id: string;
   end_UF: UF;
   end_Ativo: boolean;
+  end_Apelido: string;
+  end_Cobranca: boolean;
+  end_Entrega: boolean;
   end_CriadoEm: string;
   end_AtualizadoEm: string;
 
@@ -29,7 +32,10 @@ class Endereco {
     end_UF: UF,
     end_Ativo: boolean,
     end_CriadoEm: string,
-    end_AtualizadoEm: string
+    end_AtualizadoEm: string,
+    end_Apelido: string,
+    end_Cobranca: boolean,
+    end_Entrega: boolean
   ) {
     this.end_Id = end_Id;
     this.end_Rua = end_Rua;
@@ -44,6 +50,9 @@ class Endereco {
     this.end_Ativo = end_Ativo;
     this.end_CriadoEm = end_CriadoEm;
     this.end_AtualizadoEm = end_AtualizadoEm;
+    this.end_Apelido = end_Apelido;
+    this.end_Cobranca = end_Cobranca;
+    this.end_Entrega = end_Entrega;
   }
 }
 

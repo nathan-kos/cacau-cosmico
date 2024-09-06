@@ -98,6 +98,9 @@ export class EditUserComponent implements OnInit {
       end_Ativo: true,
       end_AtualizadoEm: '2024-10-31T00:00:00.000Z',
       end_CriadoEm: '2024-10-31T00:00:00.000Z',
+      end_Apelido: 'Apelido',
+      end_Cobranca: true,
+      end_Entrega: true,
     },
   ];
 
@@ -113,6 +116,7 @@ export class EditUserComponent implements OnInit {
       car_Ativo: true,
       car_AtualizadoEm: '2024-10-31T00:00:00.000Z',
       car_CriadoEm: '2024-10-31T00:00:00.000Z',
+      car_Apelido: 'Apelido',
     },
     {
       car_Bandeira: Bandeira.MASTERCARD,
@@ -125,6 +129,7 @@ export class EditUserComponent implements OnInit {
       car_Ativo: true,
       car_AtualizadoEm: '2024-10-31T00:00:00.000Z',
       car_CriadoEm: '2024-10-31T00:00:00.000Z',
+      car_Apelido: 'Apelido',
     },
   ];
 

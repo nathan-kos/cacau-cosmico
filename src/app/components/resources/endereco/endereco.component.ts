@@ -237,6 +237,9 @@ export class EnderecoComponent implements OnInit {
       cidade: this.endereco.end_Cidade,
       UF: this.endereco.end_UF,
       tipo: this.endereco.end_Tipo,
+      apelido: this.endereco.end_Apelido,
+      cobranca: this.endereco.end_Cobranca,
+      entrega: this.endereco.end_Entrega,
     });
   }
 }

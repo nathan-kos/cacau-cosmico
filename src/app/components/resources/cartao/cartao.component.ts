@@ -62,6 +62,7 @@ export class CartaoComponent implements OnInit {
         validade: this.cartao.car_Validade,
         cvv: this.cartao.car_CVV,
         bandeira: this.cartao.car_Bandeira,
+        apelido: this.cartao.car_Apelido,
       });
     }
 

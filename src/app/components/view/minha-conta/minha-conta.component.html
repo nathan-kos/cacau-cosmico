@@ -64,6 +64,7 @@
             <table>
               <thead>
                 <tr>
+                  <th>Apelido</th>
                   <th>Rua</th>
                   <th>Número</th>
                   <th>Bairro</th>
@@ -74,6 +75,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let endereco of enderecos">
+                  <td>{{ endereco.end_Apelido }}</td>
                   <td>{{ endereco.end_Rua }}</td>
                   <td>{{ endereco.end_Numero }}</td>
                   <td>{{ endereco.end_Bairro }}</td>

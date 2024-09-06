@@ -9,6 +9,7 @@ class Cartao {
   car_usu_id: string;
   car_Bandeira: Bandeira;
   car_Ativo: boolean;
+  car_Apelido: string;
   car_CriadoEm: string;
   car_AtualizadoEm: string;
 
@@ -22,7 +23,8 @@ class Cartao {
     car_Bandeira: Bandeira,
     car_Ativo: boolean,
     car_CriadoEm: string,
-    car_AtualizadoEm: string
+    car_AtualizadoEm: string,
+    car_Apelido: string
   ) {
     this.car_Id = car_Id;
     this.car_Nome = car_Nome;
@@ -34,6 +36,7 @@ class Cartao {
     this.car_Ativo = car_Ativo;
     this.car_CriadoEm = car_CriadoEm;
     this.car_AtualizadoEm = car_AtualizadoEm;
+    this.car_Apelido = car_Apelido;
   }
 }
 
