@@ -70,7 +70,27 @@
         <input type="text" id="complemento" formControlName="complemento"/>
       </div>
     </div>
+    <div class="row">
+      <div class="col-8  input">
+        <label for="apelido">Apelido</label>
+        <input type="text" id="apelido" formControlName="apelido"/>
+      </div>
+      <div class="col-2 input">
+        <label for="cobranca">Cobrança</label>
+        <label class="switch">
+          <input type="checkbox" id="cobranca" formControlName="cobranca">
+          <span class="slider"></span>
+        </label>
+      </div>
 
+      <div class="col-2 input">
+        <label for="entrega">Entrega</label>
+        <label class="switch">
+          <input type="checkbox" id="entrega" formControlName="entrega">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
     <div class="center" *ngIf="!isView">
       <input type="submit" value="{{buttonText}}" class="btn-primary">
     </div>

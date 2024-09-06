@@ -68,6 +68,9 @@ export class EnderecoComponent implements OnInit {
       cidade: [{ value: '', disabled: true }, Validators.required],
       UF: [{ value: '', disabled: true }, Validators.required],
       tipo: [{ value: '', disabled: true }, Validators.required],
+      apelido: [{ value: '', disabled: true }, Validators.required],
+      cobranca: [{ value: '', disabled: true }, Validators.required],
+      entrega: [{ value: '', disabled: true }, Validators.required],
     });
 
     this.enderecoForm.valueChanges.subscribe(() => {
@@ -110,6 +113,9 @@ export class EnderecoComponent implements OnInit {
         end_Rua: this.enderecoForm.get('rua')?.value,
         end_Tipo: this.enderecoForm.get('tipo')?.value,
         end_UF: this.enderecoForm.get('UF')?.value,
+        end_Apelido: this.enderecoForm.get('apelido')?.value,
+        end_Cobranca: this.enderecoForm.get('cobranca')?.value,
+        end_Entrega: this.enderecoForm.get('entrega')?.value,
       };
 
       if (this.enderecoForm.get('complemento')?.value === '') {
