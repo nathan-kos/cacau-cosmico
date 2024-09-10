@@ -89,6 +89,11 @@ export class SignUpComponent {
       }
       if (this.signUpForm.controls['dataNascimento'].invalid) {
         this.error += 'Data de nascimento inválida<br>';
+        this.error +=
+          this.signUpForm.controls['dataNascimento'].value + 'valor';
+
+        // seta a data de nascimento para 11/11/2001
+        this.signUpForm.controls['dataNascimento'].setValue('2001-11-11');
       }
       if (this.signUpForm.controls['genero'].invalid) {
         this.error += 'Gênero inválido<br>';
