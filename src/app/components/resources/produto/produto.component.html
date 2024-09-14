@@ -1,9 +1,9 @@
 <div class="container">
-  <img src="https://img.freepik.com/vetores-premium/chocolate-cacau-comida-vetor-sobremesa-doce-ilustracao-fundo-isolado-cacau-irmao-escuro_1013341-4754.jpg" alt="chocolate">
+  <img src={{chocolate?.cho_Imagem}} alt="chocolate">
   <div class="data">
     <div class="infos">
-      <h1>{{nome}}</h1>
-      <h2>{{preco}}</h2>
+      <h1>{{chocolate?.cho_Nome}}</h1>
+      <h2>{{chocolate?.cho_Valor}}</h2>
       <app-badge [text]="'categoria'" [color]="'var(--pingado)'" [size]="'sm'" [textColor]="'var(--branco)'"></app-badge>
     </div>
     <button (click)="openProduct()">
