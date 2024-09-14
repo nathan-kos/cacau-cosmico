@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Chocolate } from '../../../DTO/chocolate/Chocolate';
+import { CarrinhoService } from '../../../Services/carrinho/carrinho.service';
 import { BadgeComponent } from '../badge/badge.component';
 
 @Component({
@@ -11,6 +12,8 @@ import { BadgeComponent } from '../badge/badge.component';
 })
 export class ProdutoComponent implements OnInit {
   @Input() chocolate: Chocolate | undefined;
+
+  constructor(private carrinhoService: CarrinhoService) {}
 
   ngOnInit() {
     if (this.chocolate === undefined) {
@@ -29,7 +32,10 @@ export class ProdutoComponent implements OnInit {
     }
   }
 
-  openProduct() {
-    window.alert('função não implementada... ainda');
+  public AdicionarAoCarrinho() {
+    if (this.chocolate === undefined) {
+      return;
+    }
+    this.carrinhoService.AdicionarChocolateAoCarrinho(this.chocolate);
   }
 }
