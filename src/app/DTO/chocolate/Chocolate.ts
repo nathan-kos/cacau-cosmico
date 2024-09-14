@@ -10,8 +10,8 @@ class Chocolate {
   cho_Peso: number;
   catergorias: Categorias[];
 
-  cho_AtualizadoEm: Date;
-  cho_CriadoEm: Date;
+  cho_AtualizadoEm: string;
+  cho_CriadoEm: string;
 
   constructor(
     cho_Id: string,
@@ -22,8 +22,8 @@ class Chocolate {
     cho_Ativo: boolean,
     cho_Peso: number,
     catergorias: Categorias[],
-    cho_AtualizadoEm: Date,
-    cho_CriadoEm: Date
+    cho_AtualizadoEm: string,
+    cho_CriadoEm: string
   ) {
     this.cho_Id = cho_Id;
     this.cho_Nome = cho_Nome;

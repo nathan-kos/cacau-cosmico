@@ -26,8 +26,8 @@ export class ProdutoComponent implements OnInit {
         cho_Ativo: false,
         cho_Peso: 0,
         catergorias: [],
-        cho_AtualizadoEm: new Date(),
-        cho_CriadoEm: new Date(),
+        cho_AtualizadoEm: '2021-09-01',
+        cho_CriadoEm: '2021-09-01',
       };
     }
   }
