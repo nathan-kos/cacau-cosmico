@@ -34,10 +34,9 @@
 
   <!-- produtos -->
   <div class="produtos">
-    <app-produto></app-produto>
-    <app-produto></app-produto>
-    <app-produto></app-produto>
-    <app-produto></app-produto>
+    <div class="product" *ngFor="let chocolate of chocolates">
+      <app-produto [chocolate]="chocolate"></app-produto>
+    </div>
   </div>
 
   <!-- footer -->

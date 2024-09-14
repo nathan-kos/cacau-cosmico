@@ -108,4 +108,20 @@ export class ChocolateService {
       }
     }
   }
+
+  public async ListByIndex(): Promise<Chocolate[] | ErrorDTO> {
+    try {
+      const response = await firstValueFrom(
+        this.http.get<any>(`${this.globalService.baseUrl}chocolate/index`)
+      );
+
+      return response;
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) {
+        return new ErrorDTO(error.error.message, error.status);
+      } else {
+        return new ErrorDTO('Erro desconhecido', 500);
+      }
+    }
+  }
 }

@@ -1,20 +1,31 @@
-import { NgIf } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Chocolate } from '../../../DTO/chocolate/Chocolate';
+import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
+import { ChocolateService } from '../../../Services/chocolate/chocolate.service';
 import { GlobalService } from '../../../Services/global.service';
 import { ProdutoComponent } from '../../resources/produto/produto.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgIf, ProdutoComponent],
+  imports: [NgIf, ProdutoComponent, NgFor],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   public menuVisible: boolean = false;
 
-  constructor(private router: Router, private globalService: GlobalService) {}
+  constructor(
+    private router: Router,
+    private globalService: GlobalService,
+    private chocolateService: ChocolateService
+  ) {}
+
+  async ngOnInit(): Promise<void> {
+    await this.getChocolates();
+  }
 
   togleMenu() {
     this.menuVisible = !this.menuVisible;
@@ -60,5 +71,67 @@ export class HomeComponent {
         this.router.navigate(['/home']);
         break;
     }
+  }
+
+  public chocolates: Chocolate[] = [
+    {
+      cho_Id: '0',
+      cho_Nome: 'Produto não encontrado',
+      cho_Descricao: 'Produto não encontrado',
+      cho_Valor: 0,
+      cho_Imagem: 'https://via.placeholder.com/150',
+      cho_Ativo: false,
+      cho_Peso: 0,
+      catergorias: [],
+      cho_AtualizadoEm: new Date(),
+      cho_CriadoEm: new Date(),
+    },
+    {
+      cho_Id: '0',
+      cho_Nome: 'Produto não encontrado',
+      cho_Descricao: 'Produto não encontrado',
+      cho_Valor: 0,
+      cho_Imagem: 'https://via.placeholder.com/150',
+      cho_Ativo: false,
+      cho_Peso: 0,
+      catergorias: [],
+      cho_AtualizadoEm: new Date(),
+      cho_CriadoEm: new Date(),
+    },
+    {
+      cho_Id: '0',
+      cho_Nome: 'Produto não encontrado',
+      cho_Descricao: 'Produto não encontrado',
+      cho_Valor: 0,
+      cho_Imagem: 'https://via.placeholder.com/150',
+      cho_Ativo: false,
+      cho_Peso: 0,
+      catergorias: [],
+      cho_AtualizadoEm: new Date(),
+      cho_CriadoEm: new Date(),
+    },
+    {
+      cho_Id: '0',
+      cho_Nome: 'Produto não encontrado',
+      cho_Descricao: 'Produto não encontrado',
+      cho_Valor: 0,
+      cho_Imagem: 'https://via.placeholder.com/150',
+      cho_Ativo: false,
+      cho_Peso: 0,
+      catergorias: [],
+      cho_AtualizadoEm: new Date(),
+      cho_CriadoEm: new Date(),
+    },
+  ];
+
+  public async getChocolates(): Promise<void> {
+    const response = await this.chocolateService.ListByIndex();
+
+    if (response instanceof ErrorDTO) {
+      console.error(response.code, response.mensagem);
+      return;
+    }
+
+    this.chocolates = response;
   }
 }
