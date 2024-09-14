@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Chocolate } from '../../../DTO/chocolate/Chocolate';
 import { BadgeComponent } from '../badge/badge.component';
 
 @Component({
@@ -8,11 +9,25 @@ import { BadgeComponent } from '../badge/badge.component';
   templateUrl: './produto.component.html',
   styleUrl: './produto.component.css',
 })
-export class ProdutoComponent {
-  @Input() id: string = '';
-  @Input() nome: string = '';
-  @Input() preco: number = 0;
-  @Input() categoria: string[] = [];
+export class ProdutoComponent implements OnInit {
+  @Input() chocolate: Chocolate | undefined;
+
+  ngOnInit() {
+    if (this.chocolate === undefined) {
+      this.chocolate = {
+        cho_Id: '0',
+        cho_Nome: 'Produto não encontrado',
+        cho_Descricao: 'Produto não encontrado',
+        cho_Valor: 0,
+        cho_Imagem: 'https://via.placeholder.com/150',
+        cho_Ativo: false,
+        cho_Peso: 0,
+        catergorias: [],
+        cho_AtualizadoEm: new Date(),
+        cho_CriadoEm: new Date(),
+      };
+    }
+  }
 
   openProduct() {
     window.alert('função não implementada... ainda');
