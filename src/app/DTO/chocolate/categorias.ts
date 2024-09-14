@@ -1,0 +1,26 @@
+enum Categorias {
+  BARRA,
+  BOMBOM,
+  TRUFA,
+  CAIXA,
+  BRANCO,
+  AMARGO,
+  AO_LEITE,
+  AMENDOIM,
+  NOZES,
+  CONFETE,
+  LICOR,
+  CONFEITADO,
+  RECHEADO,
+  SEM_ACUCAR,
+  SEM_LACTOSE,
+  CARAMELO,
+  CROCANTE,
+  MENTA,
+  AVELA,
+  COCO,
+  FRUTAS_VERMELHAS,
+  OUTROS,
+}
+
+export { Categorias };
