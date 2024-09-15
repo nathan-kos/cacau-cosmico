@@ -30,4 +30,9 @@ export class CarrinhoService {
     }
     return JSON.parse(carrinho);
   }
+
+  // limpa o carrinho
+  public LimparCarrinho() {
+    localStorage.removeItem('carrinho');
+  }
 }
