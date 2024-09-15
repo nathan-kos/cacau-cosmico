@@ -1,0 +1,229 @@
+h1, h2{
+  font-family: var(--lemon);
+  font-size: 1.5rem;
+  padding-top: 0;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+h4{
+  font-family: var(--lemon);
+  font-size: 1rem;
+}
+
+a{
+  text-decoration: none;
+  color: var(--pingado);
+  font-family: var(--lato);
+  font-size: 1.2rem;
+}
+
+th {
+  font-family: var(--lemonada);
+  font-size: 1rem;
+  border-bottom: 1px dashed var(--espresso);
+  text-align: left;
+}
+
+td {
+  font-family: var(--lato);
+  font-size: 1.2rem;
+  text-align: right;
+}
+
+p{
+  font-family: var(--lato);
+  font-size: 1.1rem;
+  color: var(--espresso);
+}
+
+.general{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  margin-top: 1rem;
+}
+
+.cima{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.3rem;
+  width: 91%;
+}
+
+.baixo{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+
+  width: 100%;
+  padding: 0.5rem;
+
+  box-sizing: border-box;
+}
+
+.multiplo_cartao{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-direction: row;
+
+  gap: 0.5rem;
+
+  height: 1rem;
+}
+
+.produtos{
+  background-color: var(--branco);
+  box-shadow: 0.1rem 0.2rem 0.2rem 0.1rem var(--pingado);
+}
+
+.produtos th{
+  font-family: var(--lemon);
+  font-size: 1rem;
+  text-align: center !important;
+  border-bottom: 0.12rem solid var(--espresso);
+}
+
+.produtos td{
+  font-family: var(--lato);
+  font-size: 1.2rem;
+  text-align: center !important;
+}
+
+.produtos tr:last-child td {
+  border-bottom: none;
+}
+
+.total tr:last-child th {
+  border-bottom: none;
+}
+
+.total tr:last-child td {
+  border-bottom: none;
+}
+.produto{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+}
+
+.sem_produto{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.chocolate_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.chocolate_title h1{
+  font-family: var(--lemon);
+  font-size: 1.5rem;
+  margin-bottom: 0 !important;
+}
+
+.title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.chocolate_infos{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.foto_chocolate{
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.chocolate_quantidade{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  background-color: var(--bege);
+  border: 0.12rem solid var(--espresso);
+  border-radius: 0.5rem;
+  height: 3rem;
+}
+
+.chocolate_quantidade p{
+  font-family: var(--lemonada);
+  font-size: 1.2rem;
+  color: var(--espresso);
+}
+
+.chocolate_quantidade button{
+  background-color: var(--bege);
+  border: none;
+  font-size: 1.5rem;
+  font-family: var(--lato);
+  color: var(--espresso);
+}
+
+.valores{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 40%;
+}
+
+.cupons{
+  width: 100%;
+}
+
+.cupom{
+  width: 25rem;
+  height: 2rem;
+  border-radius: 1rem;
+  border: none;
+  padding: 0.5rem 1.8rem 0.5rem 0.5rem;
+  font-size: 1rem;
+  font-family: var(--lato);
+  background-image: url('../../../../assets/icon/search.svg');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 1.5rem;
+  background-color: var(--bege);
+}
+
+.bg-branco{
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--branco);
+  box-shadow: 0.1rem 0.2rem 0.2rem 0.1rem var(--pingado);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
