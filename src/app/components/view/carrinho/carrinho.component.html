@@ -49,13 +49,13 @@
         <table *ngIf="enderecos.length >= 1">
           <tbody>
             <tr *ngFor="let endereco of enderecos">
-              <td>{{ endereco.end_Apelido }}</td>
-              <td>{{ endereco.end_Rua }}</td>
-              <td>{{ endereco.end_Numero }}</td>
-              <td>{{ endereco.end_CEP }}</td>
+              <td>{{ endereco.endereco.end_Apelido }}</td>
+              <td>{{ endereco.endereco.end_Rua }}</td>
+              <td>{{ endereco.endereco.end_Numero }}</td>
+              <td>{{ endereco.endereco.end_CEP }}</td>
               <td>
                 <label class="switch">
-                  <input type="checkbox" id="entrega">
+                  <input type="checkbox" id="entrega" [checked]="endereco.selecionado" (change)="onEnderecoChange(endereco)">
                   <span class="slider"></span>
                 </label>
               </td>
@@ -65,7 +65,7 @@
         <p *ngIf="enderecos.length <= 0" class="none">
             Nenhum endereço cadastrado
         </p>
-        <button class="btn-secondary">Novo endereço</button>
+        <button class="btn-secondary" (click)="abrirEnderecoModal()">Novo endereço</button>
       </div>
       <div class="center">
         <div class="title">
@@ -150,5 +150,11 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div *ngIf="enderecoModal" class="modal-overlay" (click)="fecharEnderecoModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-endereco  [isNew]="true" (doneEvent)="fecharEnderecoModal()"></app-endereco>
   </div>
 </div>

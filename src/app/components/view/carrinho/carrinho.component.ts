@@ -14,12 +14,20 @@ import { Tipo } from '../../../DTO/endereco/Tipo';
 import { UF } from '../../../DTO/endereco/UF';
 import { CarrinhoService } from '../../../Services/carrinho/carrinho.service';
 import { BadgeComponent } from '../../resources/badge/badge.component';
+import { EnderecoComponent } from '../../resources/endereco/endereco.component';
 import { HeaderComponent } from '../../resources/header/header.component';
 
 @Component({
   selector: 'app-carrinho',
   standalone: true,
-  imports: [HeaderComponent, NgFor, BadgeComponent, NgIf, ReactiveFormsModule],
+  imports: [
+    HeaderComponent,
+    NgFor,
+    BadgeComponent,
+    NgIf,
+    ReactiveFormsModule,
+    EnderecoComponent,
+  ],
   templateUrl: './carrinho.component.html',
   styleUrl: './carrinho.component.css',
 })
@@ -41,7 +49,7 @@ export class CarrinhoComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const carrinho = this.carrinhoService.ObterCarrinho();
 
     //passa de chocolate por chocolate colocando no array chocolates verificando se já existe se sim incrementa a quantidade
@@ -56,6 +64,8 @@ export class CarrinhoComponent implements OnInit {
         this.chocolates.push({ chocolate, quantidade: 1 });
       }
     });
+
+    await this.getEnderecos();
   }
 
   public finalizarCompra() {
@@ -89,44 +99,103 @@ export class CarrinhoComponent implements OnInit {
   //////////////////////////
   // endereços
   //////////////////////////
-  public enderecos: Endereco[] = [
+  public enderecos: {
+    endereco: Endereco;
+    selecionado: boolean;
+  }[] = [
     {
-      end_Id: 'fskdjflskd',
-      end_Rua: 'Rua 1',
-      end_Numero: '1',
-      end_Bairro: 'Bairro 1',
-      end_Cidade: 'Cidade 1',
-      end_Apelido: 'Casa',
-      end_Ativo: true,
-      end_AtualizadoEm: '2021-09-01',
-      end_CEP: '00000-000',
-      end_Complemento: 'Complemento 1',
-      end_CriadoEm: '2021-09-01',
-      end_Cobranca: true,
-      end_Entrega: true,
-      end_Tipo: Tipo.COBRANCA,
-      end_usu_id: 'fskdjflskd',
-      end_UF: UF.SP,
+      endereco: {
+        end_Id: 'fskdjflskd',
+        end_Rua: 'Rua 1',
+        end_Numero: '1',
+        end_Bairro: 'Bairro 1',
+        end_Cidade: 'Cidade 1',
+        end_Apelido: 'Casa',
+        end_Ativo: true,
+        end_AtualizadoEm: '2021-09-01',
+        end_CEP: '00000-000',
+        end_Complemento: 'Complemento 1',
+        end_CriadoEm: '2021-09-01',
+        end_Cobranca: true,
+        end_Entrega: true,
+        end_Tipo: Tipo.COBRANCA,
+        end_usu_id: 'fskdjflskd',
+        end_UF: UF.SP,
+      },
+      selecionado: false,
     },
     {
-      end_Id: 'fskdjflskd',
-      end_Rua: 'Rua 1',
-      end_Numero: '1',
-      end_Bairro: 'Bairro 1',
-      end_Cidade: 'Cidade 1',
-      end_Apelido: 'Casa',
-      end_Ativo: true,
-      end_AtualizadoEm: '2021-09-01',
-      end_CEP: '00000-000',
-      end_Complemento: 'Complemento 1',
-      end_CriadoEm: '2021-09-01',
-      end_Cobranca: true,
-      end_Entrega: true,
-      end_Tipo: Tipo.COBRANCA,
-      end_usu_id: 'fskdjflskd',
-      end_UF: UF.SP,
+      endereco: {
+        end_Id: 'fskdjflskd',
+        end_Rua: 'Rua 1',
+        end_Numero: '1',
+        end_Bairro: 'Bairro 1',
+        end_Cidade: 'Cidade 1',
+        end_Apelido: 'Casa',
+        end_Ativo: true,
+        end_AtualizadoEm: '2021-09-01',
+        end_CEP: '00000-000',
+        end_Complemento: 'Complemento 1',
+        end_CriadoEm: '2021-09-01',
+        end_Cobranca: true,
+        end_Entrega: true,
+        end_Tipo: Tipo.COBRANCA,
+        end_usu_id: 'fskdjflskd',
+        end_UF: UF.SP,
+      },
+      selecionado: false,
+    },
+    {
+      endereco: {
+        end_Id: 'fskdjflskd',
+        end_Rua: 'Rua 1',
+        end_Numero: '1',
+        end_Bairro: 'Bairro 1',
+        end_Cidade: 'Cidade 1',
+        end_Apelido: 'Casa',
+        end_Ativo: true,
+        end_AtualizadoEm: '2021-09-01',
+        end_CEP: '00000-000',
+        end_Complemento: 'Complemento 1',
+        end_CriadoEm: '2021-09-01',
+        end_Cobranca: true,
+        end_Entrega: true,
+        end_Tipo: Tipo.COBRANCA,
+        end_usu_id: 'fskdjflskd',
+        end_UF: UF.SP,
+      },
+      selecionado: false,
     },
   ];
+
+  onEnderecoChange(endereco: { endereco: Endereco; selecionado: boolean }) {
+    this.enderecos.forEach((e) => {
+      e.selecionado = e === endereco;
+    });
+  }
+
+  public getEnderecoSelecionado() {
+    return this.enderecos.find((e) => e.selecionado);
+  }
+
+  public async getEnderecos() {
+    //vai no backend buscar os endereços
+
+    //seta todos os endereços como não selecionados
+    this.enderecos.forEach((e) => (e.selecionado = false));
+  }
+
+  //modal de endereço
+  public enderecoModal: boolean = false;
+
+  public abrirEnderecoModal() {
+    this.enderecoModal = true;
+  }
+
+  public async fecharEnderecoModal() {
+    await this.getEnderecos();
+    this.enderecoModal = false;
+  }
 
   //////////////////////////
   // cartões
