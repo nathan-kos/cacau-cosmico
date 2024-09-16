@@ -158,3 +158,9 @@
     <app-endereco  [isNew]="true" (doneEvent)="fecharEnderecoModal()"></app-endereco>
   </div>
 </div>
+
+<div *ngIf="cartaoModal" class="modal-overlay" (click)="fecharCartaoModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-cartao (doneEvent)="fecharCartaoModal()" [isNew]="true"></app-cartao>
+  </div>
+</div>

@@ -14,6 +14,7 @@ import { Tipo } from '../../../DTO/endereco/Tipo';
 import { UF } from '../../../DTO/endereco/UF';
 import { CarrinhoService } from '../../../Services/carrinho/carrinho.service';
 import { BadgeComponent } from '../../resources/badge/badge.component';
+import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
 import { HeaderComponent } from '../../resources/header/header.component';
 
@@ -27,6 +28,7 @@ import { HeaderComponent } from '../../resources/header/header.component';
     NgIf,
     ReactiveFormsModule,
     EnderecoComponent,
+    CartaoComponent,
   ],
   templateUrl: './carrinho.component.html',
   styleUrl: './carrinho.component.css',
@@ -233,6 +235,25 @@ export class CarrinhoComponent implements OnInit {
 
   public onChangeQuantidadeCartoes(event: Event) {
     this.usarMaisDeUmCartao = (event.target as HTMLInputElement).checked;
+  }
+
+  public async getCartoes() {
+    //vai no backend buscar os cartões
+
+    //seta todos os cartões como não selecionados
+    this.cartoes.forEach((c) => (c.car_Ativo = false));
+  }
+
+  //modal de cartão
+  public cartaoModal: boolean = false;
+
+  public abrirCartaoModal() {
+    this.cartaoModal = true;
+  }
+
+  public async fecharCartaoModal() {
+    await this.getCartoes();
+    this.cartaoModal = false;
   }
 
   //////////////////
