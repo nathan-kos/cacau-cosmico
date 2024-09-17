@@ -86,7 +86,7 @@
               <td>{{ cartao.cartao.car_Apelido }}</td>
               <td>{{ cartao.cartao.car_Nome }}</td>
               <td>{{ cartao.cartao.car_Numero }}</td>
-              <td>{{ cartao.selecionado }}</td>
+              <td *ngIf="usarMaisDeUmCartao"><input type="text" [disabled]="!cartao.selecionado"></td>
               <td>
                 <label class="switch">
                   <input type="checkbox" id="entrega" [checked]="cartao.selecionado" (change)="onCartaoChange(cartao)">
@@ -99,7 +99,7 @@
         <p *ngIf="cartoes.length <= 0" class="none">
             Nenhum cartão cadastrado
         </p>
-        <button class="btn-secondary">Novo cartão</button>
+        <button class="btn-secondary" (click)="abrirCartaoModal()">Novo cartão</button>
       </div>
     </div>
     <div class="valores">
