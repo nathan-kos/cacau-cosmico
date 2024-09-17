@@ -244,6 +244,23 @@ export class CarrinhoComponent implements OnInit {
       selecionado: false,
       valor: undefined,
     },
+    {
+      cartao: {
+        car_Id: 'fskdjflskd',
+        car_Bandeira: Bandeira.VISA,
+        car_CriadoEm: '2021-09-01',
+        car_CVV: '123',
+        car_Nome: 'Nome 1',
+        car_Numero: '1234 5678 1234 5678',
+        car_usu_id: 'fskdjflskd',
+        car_Apelido: 'Cartão 3',
+        car_Ativo: true,
+        car_AtualizadoEm: '2021-09-01',
+        car_Validade: '12/2022',
+      },
+      selecionado: false,
+      valor: undefined,
+    },
   ];
 
   public usarMaisDeUmCartao: boolean = false;
@@ -291,7 +308,32 @@ export class CarrinhoComponent implements OnInit {
       } else {
         cartao.valor = 0;
       }
+
+      this.recalcularValorDeCadaCartao();
     }
+  }
+
+  public recalcularValorDeCadaCartao() {
+    const cartoesSelecionados = this.cartoes.filter((c) => c.selecionado);
+
+    if (cartoesSelecionados.length === 0) {
+      return;
+    }
+
+    //Valor para dividir é o valor total menos o valor dos cartões que não estão zerados
+    let valorTotal = this.total;
+    // passa por cada cartão selecionado e subtrai o valor dele do valor total
+    cartoesSelecionados.forEach((c) => {
+      if (c.valor != undefined) {
+        valorTotal -= c.valor;
+      }
+    });
+
+    const cartoesZerados = cartoesSelecionados.filter((c) => c.valor === 0);
+
+    const valorPorCartaoZerado = valorTotal / cartoesZerados.length;
+
+    cartoesZerados.forEach((c) => (c.valor = valorPorCartaoZerado));
   }
 
   //modal de cartão
