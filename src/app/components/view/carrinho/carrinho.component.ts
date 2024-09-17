@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -29,6 +30,7 @@ import { HeaderComponent } from '../../resources/header/header.component';
     ReactiveFormsModule,
     EnderecoComponent,
     CartaoComponent,
+    FormsModule,
   ],
   templateUrl: './carrinho.component.html',
   styleUrl: './carrinho.component.css',
@@ -72,6 +74,7 @@ export class CarrinhoComponent implements OnInit {
 
   public finalizarCompra() {
     // vai no backend finalizar a compra
+    this.mostrarValoresDosCartoes();
     window.alert('Ainda não implementado! desculpe eu dei o meu melhor!');
   }
 
@@ -258,19 +261,36 @@ export class CarrinhoComponent implements OnInit {
     this.cartoes.forEach((c) => (c.selecionado = false));
   }
 
-  onCartaoChange(cartao: { cartao: Cartao; selecionado: boolean }) {
+  onCartaoChange(cartao: {
+    cartao: Cartao;
+    selecionado: boolean;
+    valor: number | undefined;
+  }) {
     if (!this.usarMaisDeUmCartao) {
       // inverte o estado de todos os cartões menos o clicado
       this.cartoes.forEach((c) => {
         if (c !== cartao) {
           c.selecionado = false;
+          c.valor = undefined;
         } else {
           c.selecionado = !c.selecionado;
+
+          if (!c.selecionado) {
+            c.valor = undefined;
+          } else {
+            c.valor = this.total;
+          }
         }
       });
     } else {
       // Alterna o estado do cartão clicado
       cartao.selecionado = !cartao.selecionado;
+
+      if (!cartao.selecionado) {
+        cartao.valor = undefined;
+      } else {
+        cartao.valor = 0;
+      }
     }
   }
 
@@ -335,5 +355,15 @@ export class CarrinhoComponent implements OnInit {
 
   public removerCupom(cupom: any) {
     this.cupoms = this.cupoms.filter((c) => c !== cupom);
+  }
+
+  public mostrarValoresDosCartoes(): void {
+    for (let i = 0; i < this.cartoes.length; i++) {
+      if (this.cartoes[i].valor != undefined) {
+        console.log(
+          this.cartoes[i].cartao.car_Apelido + ' ' + this.cartoes[i].valor
+        );
+      }
+    }
   }
 }
