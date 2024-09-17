@@ -202,46 +202,76 @@ export class CarrinhoComponent implements OnInit {
   //////////////////////////
   // cartões
   //////////////////////////
-  public cartoes: Cartao[] = [
+  public cartoes: {
+    cartao: Cartao;
+    selecionado: boolean;
+    valor: number | undefined;
+  }[] = [
     {
-      car_Id: 'fskdjflskd',
-      car_Bandeira: Bandeira.VISA,
-      car_CriadoEm: '2021-09-01',
-      car_CVV: '123',
-      car_Nome: 'Nome 1',
-      car_Numero: '1234 5678 1234 5678',
-      car_usu_id: 'fskdjflskd',
-      car_Apelido: 'Cartão 1',
-      car_Ativo: true,
-      car_AtualizadoEm: '2021-09-01',
-      car_Validade: '12/2022',
+      cartao: {
+        car_Id: 'fskdjflskd',
+        car_Bandeira: Bandeira.VISA,
+        car_CriadoEm: '2021-09-01',
+        car_CVV: '123',
+        car_Nome: 'Nome 1',
+        car_Numero: '1234 5678 1234 5678',
+        car_usu_id: 'fskdjflskd',
+        car_Apelido: 'Cartão 1',
+        car_Ativo: true,
+        car_AtualizadoEm: '2021-09-01',
+        car_Validade: '12/2022',
+      },
+      selecionado: false,
+      valor: undefined,
     },
     {
-      car_Id: 'fskdjflskd',
-      car_Bandeira: Bandeira.VISA,
-      car_CriadoEm: '2021-09-01',
-      car_CVV: '123',
-      car_Nome: 'Nome 1',
-      car_Numero: '1234 5678 1234 5678',
-      car_usu_id: 'fskdjflskd',
-      car_Apelido: 'Cartão 1',
-      car_Ativo: true,
-      car_AtualizadoEm: '2021-09-01',
-      car_Validade: '12/2022',
+      cartao: {
+        car_Id: 'fskdjflskd',
+        car_Bandeira: Bandeira.VISA,
+        car_CriadoEm: '2021-09-01',
+        car_CVV: '123',
+        car_Nome: 'Nome 1',
+        car_Numero: '1234 5678 1234 5678',
+        car_usu_id: 'fskdjflskd',
+        car_Apelido: 'Cartão 2',
+        car_Ativo: true,
+        car_AtualizadoEm: '2021-09-01',
+        car_Validade: '12/2022',
+      },
+      selecionado: false,
+      valor: undefined,
     },
   ];
 
   public usarMaisDeUmCartao: boolean = false;
 
-  public onChangeQuantidadeCartoes(event: Event) {
-    this.usarMaisDeUmCartao = (event.target as HTMLInputElement).checked;
+  public onChangeQuantidadeCartoes() {
+    this.usarMaisDeUmCartao = !this.usarMaisDeUmCartao;
+    // desseleciona todos os cartões
+    this.cartoes.forEach((c) => (c.selecionado = false));
   }
 
   public async getCartoes() {
     //vai no backend buscar os cartões
 
     //seta todos os cartões como não selecionados
-    this.cartoes.forEach((c) => (c.car_Ativo = false));
+    this.cartoes.forEach((c) => (c.selecionado = false));
+  }
+
+  onCartaoChange(cartao: { cartao: Cartao; selecionado: boolean }) {
+    if (!this.usarMaisDeUmCartao) {
+      // inverte o estado de todos os cartões menos o clicado
+      this.cartoes.forEach((c) => {
+        if (c !== cartao) {
+          c.selecionado = false;
+        } else {
+          c.selecionado = !c.selecionado;
+        }
+      });
+    } else {
+      // Alterna o estado do cartão clicado
+      cartao.selecionado = !cartao.selecionado;
+    }
   }
 
   //modal de cartão

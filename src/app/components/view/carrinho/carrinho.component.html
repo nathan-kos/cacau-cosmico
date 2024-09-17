@@ -72,7 +72,7 @@
           <h2>Escolha o cartão de crédito</h2>
           <div class="multiplo_cartao" *ngIf="cartoes.length >= 2">
             <label class="switch">
-              <input type="checkbox" id="entrega">
+              <input type="checkbox" id="entrega" [checked]="usarMaisDeUmCartao" (change)="onChangeQuantidadeCartoes()">
               <span class="slider"></span>
             </label>
             <p>
@@ -83,17 +83,13 @@
         <table *ngIf="cartoes.length >= 1">
           <tbody>
             <tr *ngFor="let cartao of cartoes">
-              <td>{{ cartao.car_Apelido }}</td>
-              <td>{{ cartao.car_Nome }}</td>
-              <td>{{ cartao.car_Numero }}</td>
-              <!-- <td>
-                <form [formGroup]="valorCartaoForm" (ngSubmit)="adicionarValorCartao()">
-                  <input type="number" formControlName="valor" class="valor_cartao">
-                </form>
-              </td> -->
+              <td>{{ cartao.cartao.car_Apelido }}</td>
+              <td>{{ cartao.cartao.car_Nome }}</td>
+              <td>{{ cartao.cartao.car_Numero }}</td>
+              <td>{{ cartao.selecionado }}</td>
               <td>
                 <label class="switch">
-                  <input type="checkbox" id="entrega">
+                  <input type="checkbox" id="entrega" [checked]="cartao.selecionado" (change)="onCartaoChange(cartao)">
                   <span class="slider"></span>
                 </label>
               </td>
