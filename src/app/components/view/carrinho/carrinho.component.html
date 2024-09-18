@@ -72,7 +72,7 @@
           <h2>Escolha o cartão de crédito</h2>
           <div class="multiplo_cartao" *ngIf="cartoes.length >= 2">
             <label class="switch">
-              <input type="checkbox" id="entrega" [checked]="usarMaisDeUmCartao" (change)="onChangeQuantidadeCartoes()">
+              <input type="checkbox" id="entrega" [checked]="usarMaisDeUmCartao" (change)="onChangeQuantidadeCartoes()" [disabled]="getTotal() < 20">
               <span class="slider"></span>
             </label>
             <p>
@@ -149,14 +149,28 @@
   </div>
 </div>
 
+<!-- endereco -->
 <div *ngIf="enderecoModal" class="modal-overlay" (click)="fecharEnderecoModal()">
   <div class="modal" (click)="$event.stopPropagation()">
     <app-endereco  [isNew]="true" (doneEvent)="fecharEnderecoModal()"></app-endereco>
   </div>
 </div>
 
+<div *ngIf="enderecoNaoSelecionadoModal" class="modal-overlay" (click)="fecharEnderecoNaoSelecionadoModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-confirmacao [text]="'Selecione um endereço para continuar'" (cancelEvent)="fecharEnderecoNaoSelecionadoModal()" (confirmEvent)="fecharEnderecoNaoSelecionadoModal()"></app-confirmacao>
+  </div>
+</div>
+
+<!-- cartão -->
 <div *ngIf="cartaoModal" class="modal-overlay" (click)="fecharCartaoModal()">
   <div class="modal" (click)="$event.stopPropagation()">
     <app-cartao (doneEvent)="fecharCartaoModal()" [isNew]="true"></app-cartao>
+  </div>
+</div>
+
+<div *ngIf="cartaoNaoSelecionadoModal" class="modal-overlay" (click)="fecharCartaoNaoSelecionadoModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-confirmacao [text]="'Selecione ao menos um cartão para continuar'" (cancelEvent)="fecharCartaoNaoSelecionadoModal()" (confirmEvent)="fecharCartaoNaoSelecionadoModal()"></app-confirmacao>
   </div>
 </div>

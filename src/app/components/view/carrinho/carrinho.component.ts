@@ -20,6 +20,7 @@ import { EnderecoService } from '../../../Services/endereco/endereco.service';
 import { GlobalService } from '../../../Services/global.service';
 import { BadgeComponent } from '../../resources/badge/badge.component';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
+import { ConfirmacaoComponent } from '../../resources/confirmacao/confirmacao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
 import { HeaderComponent } from '../../resources/header/header.component';
 
@@ -35,6 +36,7 @@ import { HeaderComponent } from '../../resources/header/header.component';
     EnderecoComponent,
     CartaoComponent,
     FormsModule,
+    ConfirmacaoComponent,
   ],
   templateUrl: './carrinho.component.html',
   styleUrl: './carrinho.component.css',
@@ -83,7 +85,19 @@ export class CarrinhoComponent implements OnInit {
   public finalizarCompra() {
     // vai no backend finalizar a compra
     this.mostrarValoresDosCartoes();
-    window.alert('Ainda não implementado! desculpe eu dei o meu melhor!');
+
+    const endereco = this.getEnderecoSelecionado();
+    const cartoes = this.cartoes.filter((c) => c.selecionado);
+
+    if (!endereco) {
+      this.abrirEnderecoNaoSelecionadoModal();
+      return;
+    }
+
+    if (cartoes.length === 0) {
+      this.abrirCartaoNaoSelecionadoModal();
+      return;
+    }
   }
 
   public usu_Id = this.globalService.defaultUsu_Id;
@@ -221,8 +235,12 @@ export class CarrinhoComponent implements OnInit {
   ];
 
   onEnderecoChange(endereco: { endereco: Endereco; selecionado: boolean }) {
-    this.enderecos.forEach((e) => {
-      e.selecionado = e === endereco;
+    this.enderecos.forEach((c) => {
+      if (c !== endereco) {
+        c.selecionado = false;
+      } else {
+        c.selecionado = !c.selecionado;
+      }
     });
   }
 
@@ -249,14 +267,23 @@ export class CarrinhoComponent implements OnInit {
 
   //modal de endereço
   public enderecoModal: boolean = false;
+  public enderecoNaoSelecionadoModal: boolean = false;
 
   public abrirEnderecoModal() {
     this.enderecoModal = true;
   }
 
+  public abrirEnderecoNaoSelecionadoModal() {
+    this.enderecoNaoSelecionadoModal = true;
+  }
+
   public async fecharEnderecoModal() {
     await this.getEnderecos();
     this.enderecoModal = false;
+  }
+
+  public fecharEnderecoNaoSelecionadoModal() {
+    this.enderecoNaoSelecionadoModal = false;
   }
 
   //////////////////////////
@@ -380,6 +407,12 @@ export class CarrinhoComponent implements OnInit {
     }
   }
 
+  public showError() {
+    if (this.getTotal() < 20) {
+      window.alert('O valor mínimo para compra é de R$ 20,00');
+    }
+  }
+
   public recalcularValorDeCadaCartao() {
     const cartoesSelecionados = this.cartoes.filter((c) => c.selecionado);
 
@@ -388,7 +421,7 @@ export class CarrinhoComponent implements OnInit {
     }
 
     //Valor para dividir é o valor total menos o valor dos cartões que não estão zerados
-    let valorTotal = this.total;
+    let valorTotal = this.getTotal();
     // passa por cada cartão selecionado e subtrai o valor dele do valor total
     cartoesSelecionados.forEach((c) => {
       if (c.valor != undefined) {
@@ -405,14 +438,23 @@ export class CarrinhoComponent implements OnInit {
 
   //modal de cartão
   public cartaoModal: boolean = false;
+  public cartaoNaoSelecionadoModal: boolean = false;
 
   public abrirCartaoModal() {
     this.cartaoModal = true;
   }
 
+  public abrirCartaoNaoSelecionadoModal() {
+    this.cartaoNaoSelecionadoModal = true;
+  }
+
   public async fecharCartaoModal() {
     await this.getCartoes();
     this.cartaoModal = false;
+  }
+
+  public fecharCartaoNaoSelecionadoModal() {
+    this.cartaoNaoSelecionadoModal = false;
   }
 
   //////////////////
