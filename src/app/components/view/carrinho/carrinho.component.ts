@@ -13,7 +13,11 @@ import { Chocolate } from '../../../DTO/chocolate/Chocolate';
 import { Endereco } from '../../../DTO/endereco/Endereco';
 import { Tipo } from '../../../DTO/endereco/Tipo';
 import { UF } from '../../../DTO/endereco/UF';
+import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
 import { CarrinhoService } from '../../../Services/carrinho/carrinho.service';
+import { CartaoService } from '../../../Services/cartao/cartao.service';
+import { EnderecoService } from '../../../Services/endereco/endereco.service';
+import { GlobalService } from '../../../Services/global.service';
 import { BadgeComponent } from '../../resources/badge/badge.component';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { EnderecoComponent } from '../../resources/endereco/endereco.component';
@@ -42,7 +46,10 @@ export class CarrinhoComponent implements OnInit {
 
   constructor(
     private carrinhoService: CarrinhoService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private globalService: GlobalService,
+    private enderecoService: EnderecoService,
+    private cartaoService: CartaoService
   ) {
     this.cupomForm = this.formBuilder.group({
       cupom: ['', Validators.required],
@@ -54,6 +61,7 @@ export class CarrinhoComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.setSessionUsu_Id();
     const carrinho = this.carrinhoService.ObterCarrinho();
 
     //passa de chocolate por chocolate colocando no array chocolates verificando se já existe se sim incrementa a quantidade
@@ -78,6 +86,12 @@ export class CarrinhoComponent implements OnInit {
     window.alert('Ainda não implementado! desculpe eu dei o meu melhor!');
   }
 
+  public usu_Id = this.globalService.defaultUsu_Id;
+
+  public setSessionUsu_Id() {
+    // seta na sessão o usu_Id
+    sessionStorage.setItem('last_usu_Id', this.usu_Id);
+  }
   ////////////////////
   // carrinho
   ////////////////////
@@ -94,11 +108,40 @@ export class CarrinhoComponent implements OnInit {
   }
 
   public getSubtotal() {
-    return this.chocolates.reduce(
-      (acc, chocolate) =>
-        acc + chocolate.chocolate.cho_Valor * chocolate.quantidade,
-      0
+    return this.formatarValorMonetario(
+      this.chocolates.reduce(
+        (acc, chocolate) =>
+          acc + chocolate.chocolate.cho_Valor * chocolate.quantidade,
+        0
+      )
     );
+  }
+
+  public getFrete() {
+    return this.formatarValorMonetario(
+      this.enderecos.find((e) => e.selecionado)?.frete || 0
+    );
+  }
+
+  public getValorCupom() {
+    //return this.cupoms.reduce((acc, cupom) => acc + cupom.valor, 0);
+    return 30;
+  }
+
+  public getTotal() {
+    // Calcula o total com no máximo duas casas decimais, arredondando para cima
+    const total = this.formatarValorMonetario(
+      this.getSubtotal() + this.getFrete() - this.getValorCupom()
+    );
+    return total;
+  }
+
+  public formatarValor(valor: number) {
+    return valor.toFixed(2).replace('.', ',');
+  }
+
+  private formatarValorMonetario(valor: number): number {
+    return parseFloat(valor.toFixed(2));
   }
 
   //////////////////////////
@@ -107,6 +150,7 @@ export class CarrinhoComponent implements OnInit {
   public enderecos: {
     endereco: Endereco;
     selecionado: boolean;
+    frete: number;
   }[] = [
     {
       endereco: {
@@ -128,6 +172,7 @@ export class CarrinhoComponent implements OnInit {
         end_UF: UF.SP,
       },
       selecionado: false,
+      frete: 10,
     },
     {
       endereco: {
@@ -149,6 +194,7 @@ export class CarrinhoComponent implements OnInit {
         end_UF: UF.SP,
       },
       selecionado: false,
+      frete: 15,
     },
     {
       endereco: {
@@ -170,6 +216,7 @@ export class CarrinhoComponent implements OnInit {
         end_UF: UF.SP,
       },
       selecionado: false,
+      frete: 20,
     },
   ];
 
@@ -185,9 +232,19 @@ export class CarrinhoComponent implements OnInit {
 
   public async getEnderecos() {
     //vai no backend buscar os endereços
+    const response = await this.enderecoService.getAll(this.usu_Id, 100, 1);
 
-    //seta todos os endereços como não selecionados
-    this.enderecos.forEach((e) => (e.selecionado = false));
+    if (response instanceof ErrorDTO) {
+      window.alert(response.mensagem);
+      return;
+    }
+
+    this.enderecos = response.results.map((endereco) => ({
+      endereco,
+      selecionado: false,
+      // calcula o frete aleatoriamente para cada endereço entre 10 e 30
+      frete: Math.floor(Math.random() * 20) + 10,
+    }));
   }
 
   //modal de endereço
@@ -274,8 +331,18 @@ export class CarrinhoComponent implements OnInit {
   public async getCartoes() {
     //vai no backend buscar os cartões
 
-    //seta todos os cartões como não selecionados
-    this.cartoes.forEach((c) => (c.selecionado = false));
+    const response = await this.cartaoService.getAll(this.usu_Id, 100, 1);
+
+    if (response instanceof ErrorDTO) {
+      window.alert(response.mensagem);
+      return;
+    }
+
+    this.cartoes = response.results.map((cartao) => ({
+      cartao,
+      selecionado: false,
+      valor: undefined,
+    }));
   }
 
   onCartaoChange(cartao: {

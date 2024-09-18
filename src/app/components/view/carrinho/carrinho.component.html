@@ -125,19 +125,19 @@
           <tbody>
             <tr>
               <th>Subtotal</th>
-              <td>{{ getSubtotal() }}</td>
+              <td>R${{ formatarValor(getSubtotal()) }}</td>
             </tr>
             <tr>
               <th>Frete</th>
-              <td>{{ frete }}</td>
+              <td>R${{ formatarValor(getFrete()) }}</td>
             </tr>
             <tr *ngIf="cupomTotal > 0">
               <th>Cupom</th>
-              <td>{{ cupomTotal }}</td>
+              <td>R${{ formatarValor(getValorCupom()) }}</td>
             </tr>
             <tr>
               <th>Total</th>
-              <td>{{ total }}</td>
+              <td>R${{ formatarValor(getTotal()) }}</td>
             </tr>
           </tbody>
         </table>
