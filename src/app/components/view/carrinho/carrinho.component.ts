@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { NgxMaskDirective } from 'ngx-mask';
 import { Bandeira } from '../../../DTO/cartao/Bandeira';
 import { Cartao } from '../../../DTO/cartao/Cartão';
 import { Chocolate } from '../../../DTO/chocolate/Chocolate';
@@ -37,6 +38,7 @@ import { HeaderComponent } from '../../resources/header/header.component';
     CartaoComponent,
     FormsModule,
     ConfirmacaoComponent,
+    NgxMaskDirective,
   ],
   templateUrl: './carrinho.component.html',
   styleUrl: './carrinho.component.css',
