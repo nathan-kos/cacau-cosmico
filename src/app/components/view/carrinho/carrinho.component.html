@@ -89,7 +89,7 @@
               <td *ngIf="usarMaisDeUmCartao"><input type="text" [(ngModel)]="cartao.valor" [disabled]="!cartao.selecionado" mask="separator.2" prefix="R$ "thousandSeparator="." decimalMarker=","></td>
               <td>
                 <label class="switch">
-                  <input type="checkbox" id="entrega" [checked]="cartao.selecionado" (change)="onCartaoChange(cartao)">
+                  <input type="checkbox" id="entrega" [checked]="cartao.selecionado" (change)="onCartaoChange(cartao)" [disabled]="getTotal() <= 0" >
                   <span class="slider"></span>
                 </label>
               </td>

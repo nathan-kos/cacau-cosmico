@@ -96,9 +96,24 @@ export class CarrinhoComponent implements OnInit {
       return;
     }
 
-    if (cartoes.length === 0) {
+    if (cartoes.length === 0 && this.getTotal() > 0) {
       this.abrirCartaoNaoSelecionadoModal();
       return;
+    }
+
+    if (this.usarMaisDeUmCartao) {
+      //verifica se todos os cartões estão com valor acima de 10
+      for (let i = 0; i < this.cartoes.length; i++) {
+        if (this.cartoes[i].selecionado) {
+          if (
+            this.cartoes[i].valor == undefined ||
+            this.cartoes[i].valor! < 10
+          ) {
+            window.alert('O valor mínimo para cada cartão é de R$ 10,00');
+            return;
+          }
+        }
+      }
     }
   }
 
@@ -141,7 +156,7 @@ export class CarrinhoComponent implements OnInit {
 
   public getValorCupom() {
     //return this.cupoms.reduce((acc, cupom) => acc + cupom.valor, 0);
-    return 30;
+    return 15;
   }
 
   public getTotal() {
@@ -149,6 +164,11 @@ export class CarrinhoComponent implements OnInit {
     const total = this.formatarValorMonetario(
       this.getSubtotal() + this.getFrete() - this.getValorCupom()
     );
+
+    if (total < 0) {
+      return 0;
+    }
+
     return total;
   }
 
