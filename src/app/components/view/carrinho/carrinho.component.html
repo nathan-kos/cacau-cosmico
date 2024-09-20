@@ -110,13 +110,20 @@
         <form [formGroup]="cupomForm" (ngSubmit)="buscarCupom()">
           <input type="search" formControlName="cupom" class="cupom">
         </form>
+        <p>{{cupomErro}}</p>
         <div class="cupons_aplicados" *ngIf="cupoms.length >= 1">
           <h3>Cupons aplicados</h3>
-          <div *ngFor="let cupom of cupoms">
-            <p>{{cupom.cup_Codigo}}</p>
-            <p>{{ cupom.cup_Valor }}</p>
-            <button (click)="removerCupom(cupom)">Remover</button>
-          </div>
+          <table>
+            <tbody>
+              <tr *ngFor="let cupom of cupoms">
+                <td>{{ cupom.cup_Codigo }}</td>
+                <td>R${{ formatarValor(cupom.cup_Valor) }}</td>
+                <td>
+                  <button (click)="removerCupom(cupom)"><i class="ri-delete-bin-line"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
       <div class="bg-branco">

@@ -11,12 +11,14 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { Bandeira } from '../../../DTO/cartao/Bandeira';
 import { Cartao } from '../../../DTO/cartao/Cartão';
 import { Chocolate } from '../../../DTO/chocolate/Chocolate';
+import { cupom } from '../../../DTO/Cupom/cupom';
 import { Endereco } from '../../../DTO/endereco/Endereco';
 import { Tipo } from '../../../DTO/endereco/Tipo';
 import { UF } from '../../../DTO/endereco/UF';
 import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
 import { CarrinhoService } from '../../../Services/carrinho/carrinho.service';
 import { CartaoService } from '../../../Services/cartao/cartao.service';
+import { CupomService } from '../../../Services/cupom/cupom.service';
 import { EnderecoService } from '../../../Services/endereco/endereco.service';
 import { GlobalService } from '../../../Services/global.service';
 import { BadgeComponent } from '../../resources/badge/badge.component';
@@ -53,7 +55,8 @@ export class CarrinhoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private globalService: GlobalService,
     private enderecoService: EnderecoService,
-    private cartaoService: CartaoService
+    private cartaoService: CartaoService,
+    private cupomService: CupomService
   ) {
     this.cupomForm = this.formBuilder.group({
       cupom: ['', Validators.required],
@@ -155,8 +158,8 @@ export class CarrinhoComponent implements OnInit {
   }
 
   public getValorCupom() {
-    //return this.cupoms.reduce((acc, cupom) => acc + cupom.valor, 0);
-    return 15;
+    return this.cupoms.reduce((acc, cupom) => acc + cupom.cup_Valor, 0);
+    // return 15;
   }
 
   public getTotal() {
@@ -509,11 +512,11 @@ export class CarrinhoComponent implements OnInit {
 
   public cupomForm: FormGroup;
 
-  public cupoms: any[] = [];
+  public cupoms: cupom[] = [];
   public cupomErro: string | undefined;
   public cupomTotal: number = 1;
 
-  public buscarCupom() {
+  public async buscarCupom() {
     // vai no backend buscar o cupom
 
     const codigo = this.cupomForm.get('cupom')?.value;
@@ -523,7 +526,26 @@ export class CarrinhoComponent implements OnInit {
       return;
     }
 
-    window.alert('Ainda não implementado! desculpe eu dei o meu melhor!');
+    const cupom = await this.cupomService.FindByCodigo(codigo);
+
+    if (cupom instanceof ErrorDTO) {
+      this.cupomErro = cupom.mensagem;
+      this.cupomErro = 'Cupom inválido!';
+      return;
+    }
+
+    if (cupom.cup_Ativo === false) {
+      this.cupomErro = 'Cupom inválido!';
+      return;
+    }
+
+    //verifica se já não foi adicionado
+    if (this.cupoms.find((c) => c.cup_Id === cupom.cup_Id)) {
+      this.cupomErro = 'Cupom já adicionado!';
+      return;
+    }
+
+    this.cupoms.push(cupom);
   }
 
   public removerCupom(cupom: any) {
