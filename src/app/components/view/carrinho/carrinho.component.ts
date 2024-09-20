@@ -93,6 +93,7 @@ export class CarrinhoComponent implements OnInit {
 
     const endereco = this.getEnderecoSelecionado();
     const cartoes = this.cartoes.filter((c) => c.selecionado);
+    const cupoms = this.cupoms;
 
     if (!endereco) {
       this.abrirEnderecoNaoSelecionadoModal();
@@ -118,6 +119,18 @@ export class CarrinhoComponent implements OnInit {
         }
       }
     }
+
+    const cartoesToSend: { car_Id: string; valor: number }[] = cartoes.map(
+      (c) => ({ car_Id: c.cartao.car_Id, valor: c.valor || 0 })
+    );
+
+    const cupomsToSend: string[] = cupoms.map((c) => c.cup_Id);
+
+    const chocolateToSend: { cho_Id: string; quantidade: number }[] =
+      this.chocolates.map((c) => ({
+        cho_Id: c.chocolate.cho_Id,
+        quantidade: c.quantidade,
+      }));
   }
 
   public usu_Id = this.globalService.defaultUsu_Id;
