@@ -1,0 +1,48 @@
+<app-header></app-header>
+<div class="center">
+  <div class="content">
+    <div class="top">
+      <h1>Pedidos</h1>
+      <div class="botoes">
+        <button class="btn btn-primary" (click)="changeStatus('PAGAMENTO_REALIZADO')">Pagamento realizado</button>
+        <button class="btn btn-primary" (click)="changeStatus('PAGAMENTO_REJEITADO')">Pagamento rejeitado</button>
+        <button class="btn btn-primary" (click)="changeStatus('EM_TRANSPORTE')">Em transporte</button>
+        <button class="btn btn-primary" (click)="changeStatus('ENTREGUE')">Entregue</button>
+        <button class="btn btn-primary" (click)="changeStatus('CANCELADO')">Cancelado</button>
+      </div>
+    </div>
+    <div class="tabela">
+      <table>
+        <thead>
+          <tr>
+            <th>Número</th>
+            <th>Valor</th>
+            <th>Usuário</th>
+            <th>CPF</th>
+            <th>Detalhes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pedido of pedidos">
+            <td>{{ pedido.pedido.ped_Id }}</td>
+            <td>{{ pedido.pedido.ped_ValorTotal }}</td>
+            <td>{{ pedido.usuario.usu_Nome }}</td>
+            <td>{{ pedido.usuario.usu_CPF }}</td>
+            <td>
+              <i class="ri-eye-line" (click)="openModal(pedido.pedido)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination-controls">
+      <button *ngIf="pedidoPage > 1" (click)="previousPage()" aria-label="Página anterior">
+        <i class="ri-arrow-left-s-line"></i>
+      </button>
+      <p>{{ pedidoPage }}</p>
+      <button *ngIf="pedidoPage < totalPedidoPage" (click)="nextPage()" aria-label="Próxima página">
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
+      </div>
+  </div>
+</div>
