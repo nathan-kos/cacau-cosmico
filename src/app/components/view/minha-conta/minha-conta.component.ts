@@ -14,9 +14,11 @@ import { Endereco } from '../../../DTO/endereco/Endereco';
 import { Tipo } from '../../../DTO/endereco/Tipo';
 import { UF } from '../../../DTO/endereco/UF';
 import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
+import { Pedido } from '../../../DTO/Pedido/Pedido';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
 import { CartaoService } from '../../../Services/cartao/cartao.service';
 import { EnderecoService } from '../../../Services/endereco/endereco.service';
+import { PedidoService } from '../../../Services/pedido/pedido.service';
 import { UsuarioService } from '../../../Services/usuario/usuario.service';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { ConfirmacaoComponent } from '../../resources/confirmacao/confirmacao.component';
@@ -57,6 +59,7 @@ export class MinhaContaComponent implements OnInit {
     await this.getEnderecos();
     await this.getCartoes();
     this.setUserForm();
+    await this.getPedidos();
   }
 
   constructor(
@@ -65,7 +68,8 @@ export class MinhaContaComponent implements OnInit {
     private service: UsuarioService,
     private router: Router,
     private enderecoService: EnderecoService,
-    private cartaoService: CartaoService
+    private cartaoService: CartaoService,
+    private pedidoService: PedidoService
   ) {
     // user form
 
@@ -442,9 +446,64 @@ export class MinhaContaComponent implements OnInit {
     this.closeCartaoModals();
   }
 
-  // pedidos
+  ///////////////////
+  // pedidos       //
+  ///////////////////
 
-  // deletar conta
+  public pedidos: Pedido[] = [];
+  public pedidoPage: number = 1;
+  public pedidoLimit: number = 4;
+  public pedidoTotal: number = 0;
+  public totalPedidosPage: number = 0;
+
+  public async getPedidos() {
+    // busca no backend
+    const usu_Id = this.route.snapshot.paramMap.get('id');
+
+    if (!usu_Id) {
+      return;
+    }
+
+    const response = await this.pedidoService.list(
+      usu_Id,
+      this.pedidoPage,
+      this.pedidoLimit
+    );
+
+    if (response instanceof ErrorDTO) {
+      this.error = response.mensagem;
+      return;
+    }
+
+    this.pedidos = response.results;
+    this.pedidoTotal = response.total;
+
+    this.lastPagePedido();
+  }
+
+  public openPedido() {
+    window.alert('Ainda não implementado');
+  }
+
+  // pagination
+  public async nextPagePedido() {
+    this.pedidoPage++;
+    await this.getPedidos();
+  }
+
+  public async previousPagePedido() {
+    this.pedidoPage--;
+    await this.getPedidos();
+  }
+
+  public async lastPagePedido() {
+    this.totalPedidosPage = Math.ceil(this.pedidoTotal / this.pedidoLimit);
+  }
+
+  //////////////////////
+  // deletar conta   //
+  /////////////////////
+
   public async deleteAccount() {
     // deleta no backend
     const id = this.route.snapshot.paramMap.get('id');
