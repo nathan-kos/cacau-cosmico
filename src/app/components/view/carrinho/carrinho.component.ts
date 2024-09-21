@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgxMaskDirective } from 'ngx-mask';
 import { Bandeira } from '../../../DTO/cartao/Bandeira';
 import { Cartao } from '../../../DTO/cartao/Cartão';
@@ -16,11 +17,13 @@ import { Endereco } from '../../../DTO/endereco/Endereco';
 import { Tipo } from '../../../DTO/endereco/Tipo';
 import { UF } from '../../../DTO/endereco/UF';
 import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
+import { CreatePedidoDTO } from '../../../DTO/Pedido/CreatePedidoDTO';
 import { CarrinhoService } from '../../../Services/carrinho/carrinho.service';
 import { CartaoService } from '../../../Services/cartao/cartao.service';
 import { CupomService } from '../../../Services/cupom/cupom.service';
 import { EnderecoService } from '../../../Services/endereco/endereco.service';
 import { GlobalService } from '../../../Services/global.service';
+import { PedidoService } from '../../../Services/pedido/pedido.service';
 import { BadgeComponent } from '../../resources/badge/badge.component';
 import { CartaoComponent } from '../../resources/cartao/cartao.component';
 import { ConfirmacaoComponent } from '../../resources/confirmacao/confirmacao.component';
@@ -56,7 +59,9 @@ export class CarrinhoComponent implements OnInit {
     private globalService: GlobalService,
     private enderecoService: EnderecoService,
     private cartaoService: CartaoService,
-    private cupomService: CupomService
+    private cupomService: CupomService,
+    private pedidoService: PedidoService,
+    private router: Router
   ) {
     this.cupomForm = this.formBuilder.group({
       cupom: ['', Validators.required],
@@ -85,9 +90,10 @@ export class CarrinhoComponent implements OnInit {
     });
 
     await this.getEnderecos();
+    await this.getCartoes();
   }
 
-  public finalizarCompra() {
+  public async finalizarCompra() {
     // vai no backend finalizar a compra
     this.mostrarValoresDosCartoes();
 
@@ -120,17 +126,44 @@ export class CarrinhoComponent implements OnInit {
       }
     }
 
-    const cartoesToSend: { car_Id: string; valor: number }[] = cartoes.map(
-      (c) => ({ car_Id: c.cartao.car_Id, valor: c.valor || 0 })
+    const cartoesToSend: { car_Id: string; car_Valor: number }[] = cartoes.map(
+      (c) => ({ car_Id: c.cartao.car_Id, car_Valor: c.valor || 0 })
     );
 
-    const cupomsToSend: string[] = cupoms.map((c) => c.cup_Id);
+    const cupomsToSend: { cup_Id: string }[] = cupoms.map((c) => ({
+      cup_Id: c.cup_Id,
+    }));
 
     const chocolateToSend: { cho_Id: string; quantidade: number }[] =
       this.chocolates.map((c) => ({
         cho_Id: c.chocolate.cho_Id,
         quantidade: c.quantidade,
       }));
+
+    const data: CreatePedidoDTO = {
+      cartoes: cartoesToSend,
+      chocolates: chocolateToSend,
+      cupons: cupomsToSend,
+      end_Id: endereco.endereco.end_Id,
+      frete: this.getFrete(),
+      usu_Id: this.usu_Id,
+    };
+
+    console.log(cartoesToSend);
+
+    // envia o pedido para o backend
+    const response = await this.pedidoService.create(data);
+
+    if (response instanceof ErrorDTO) {
+      window.alert(response.mensagem);
+      return;
+    } else {
+      window.alert('Pedido realizado com sucesso!');
+      //limpa o carrinho
+      this.limparCarrinho();
+      //redireciona para a minha conta
+      this.router.navigate(['/minha-conta']);
+    }
   }
 
   public usu_Id = this.globalService.defaultUsu_Id;
@@ -142,12 +175,6 @@ export class CarrinhoComponent implements OnInit {
   ////////////////////
   // carrinho
   ////////////////////
-
-  public subtotal: number = 100;
-
-  public total: number = 100;
-
-  public frete: number = 10;
 
   public limparCarrinho() {
     this.carrinhoService.LimparCarrinho();
@@ -280,6 +307,8 @@ export class CarrinhoComponent implements OnInit {
         c.selecionado = !c.selecionado;
       }
     });
+
+    this.resetarValorCartoes();
   }
 
   public getEnderecoSelecionado() {
@@ -427,7 +456,7 @@ export class CarrinhoComponent implements OnInit {
           if (!c.selecionado) {
             c.valor = undefined;
           } else {
-            c.valor = this.total;
+            c.valor = this.getTotal() - this.getValorCupom();
           }
         }
       });
@@ -474,6 +503,14 @@ export class CarrinhoComponent implements OnInit {
     cartoesZerados.forEach((c) => (c.valor = valorPorCartaoZerado));
   }
 
+  public resetarValorCartoes() {
+    //reseta o valor de todos os cartões e deseleciona todos
+    this.cartoes.forEach((c) => {
+      c.valor = undefined;
+      c.selecionado = false;
+    });
+  }
+
   //modal de cartão
   public cartaoModal: boolean = false;
   public cartaoNaoSelecionadoModal: boolean = false;
@@ -512,11 +549,15 @@ export class CarrinhoComponent implements OnInit {
       );
 
       this.carrinhoService.RemoverChocolateDoCarrinho(produto.chocolate);
+      this.resetarValorCartoes();
     }
   }
 
   public moreProduto(produto: { chocolate: Chocolate; quantidade: number }) {
     produto.quantidade++;
+    //adiciona o chocolate no carrinho
+    this.carrinhoService.AdicionarChocolateAoCarrinho(produto.chocolate);
+    this.resetarValorCartoes();
   }
 
   //////////////////////////
@@ -559,10 +600,12 @@ export class CarrinhoComponent implements OnInit {
     }
 
     this.cupoms.push(cupom);
+    this.resetarValorCartoes();
   }
 
   public removerCupom(cupom: any) {
     this.cupoms = this.cupoms.filter((c) => c !== cupom);
+    this.resetarValorCartoes();
   }
 
   public mostrarValoresDosCartoes(): void {
