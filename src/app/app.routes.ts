@@ -6,6 +6,7 @@ import { ListUsersComponent } from './components/view/list-users/list-users.comp
 import { ListingComponent } from './components/view/listing/listing.component';
 import { MinhaContaComponent } from './components/view/minha-conta/minha-conta.component';
 import { NotFoundComponent } from './components/view/not-found/not-found.component';
+import { PedidosComponent } from './components/view/pedidos/pedidos.component';
 import { SignUpComponent } from './components/view/sign-up/sign-up.component';
 
 export const routes: Routes = [
@@ -60,6 +61,12 @@ export const routes: Routes = [
   {
     path: 'carrinho',
     component: CarrinhoComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'pedido/listagem',
+    component: PedidosComponent,
     pathMatch: 'full',
   },
 
