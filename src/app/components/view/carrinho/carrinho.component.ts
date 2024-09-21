@@ -456,7 +456,7 @@ export class CarrinhoComponent implements OnInit {
           if (!c.selecionado) {
             c.valor = undefined;
           } else {
-            c.valor = this.getTotal() - this.getValorCupom();
+            c.valor = this.getTotal();
           }
         }
       });
