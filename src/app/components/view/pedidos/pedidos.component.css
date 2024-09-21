@@ -9,3 +9,8 @@ h1{
 
   margin-bottom: 1rem;
 }
+
+.activeted{
+  background-color: var(--pingado);
+  color: var(--branco);
+}

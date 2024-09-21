@@ -22,6 +22,7 @@ export class PedidosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.changeStatus(this.statusSelected);
     this.getPedidos();
   }
 
@@ -41,27 +42,47 @@ export class PedidosComponent implements OnInit {
     switch (status) {
       case 'PAGAMENTO_REALIZADO':
         this.statusSelected = StatusPedidos.PAGAMENTO_REALIZADO;
+        this.setClass('PAGAMENTO_REALIZADO');
         break;
       case 'PAGAMENTO_REJEITADO':
         this.statusSelected = StatusPedidos.PAGAMENTO_REJEITADO;
+        this.setClass('PAGAMENTO_REJEITADO');
         break;
       case 'EM_TRANSPORTE':
         this.statusSelected = StatusPedidos.EM_TRANSPORTE;
+        this.setClass('EM_TRANSPORTE');
         break;
       case 'ENTREGUE':
         this.statusSelected = StatusPedidos.ENTREGUE;
+        this.setClass('ENTREGUE');
         break;
       case 'CANCELADO':
         this.statusSelected = StatusPedidos.CANCELADO;
+        this.setClass('CANCELADO');
         break;
       default:
         this.statusSelected = StatusPedidos.PAGAMENTO_REALIZADO;
+        this.setClass('PAGAMENTO_REALIZADO');
         break;
     }
 
     this.pedidoPage = 1;
     this.pedidos = [];
     this.getPedidos();
+  }
+
+  public setClass(id: string): void {
+    document
+      .getElementById('PAGAMENTO_REALIZADO')
+      ?.classList.remove('activeted');
+    document
+      .getElementById('PAGAMENTO_REJEITADO')
+      ?.classList.remove('activeted');
+    document.getElementById('EM_TRANSPORTE')?.classList.remove('activeted');
+    document.getElementById('ENTREGUE')?.classList.remove('activeted');
+    document.getElementById('CANCELADO')?.classList.remove('activeted');
+
+    document.getElementById(id)?.classList.add('activeted');
   }
 
   public async getPedidos(): Promise<void> {
