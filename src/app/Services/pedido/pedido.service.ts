@@ -5,6 +5,7 @@ import { ErrorDTO } from '../../DTO/Error/ErrorDTO';
 import { IPaginatedResponse } from '../../DTO/Pagination/IPaginatedResponse';
 import { CreatePedidoDTO } from '../../DTO/Pedido/CreatePedidoDTO';
 import { Pedido } from '../../DTO/Pedido/Pedido';
+import { StatusPedidos } from '../../DTO/Pedido/StatusPedidos';
 import { GlobalService } from '../global.service';
 
 @Injectable({
@@ -52,6 +53,33 @@ export class PedidoService {
       const response = await firstValueFrom(
         this.http.get<any>(
           `${this.globalService.baseUrl}pedido/user/${usu_Id}`,
+          {
+            params: {
+              page: page.toString(),
+              limit: limit.toString(),
+            },
+          }
+        )
+      );
+      return response;
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) {
+        return new ErrorDTO(error.error.message, error.status);
+      } else {
+        return new ErrorDTO('Erro desconhecido', 500);
+      }
+    }
+  }
+
+  public async listByStatus(
+    status: StatusPedidos,
+    page: number,
+    limit: number
+  ): Promise<IPaginatedResponse<Pedido> | ErrorDTO> {
+    try {
+      const response = await firstValueFrom(
+        this.http.get<any>(
+          `${this.globalService.baseUrl}pedido/status/${status}`,
           {
             params: {
               page: page.toString(),
