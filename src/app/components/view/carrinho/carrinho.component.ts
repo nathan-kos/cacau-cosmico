@@ -162,7 +162,7 @@ export class CarrinhoComponent implements OnInit {
       //limpa o carrinho
       this.limparCarrinho();
       //redireciona para a minha conta
-      this.router.navigate(['/minha-conta']);
+      this.router.navigate(['/usuario/conta/' + this.usu_Id]);
     }
   }
 
