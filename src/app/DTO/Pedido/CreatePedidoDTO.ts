@@ -2,7 +2,7 @@ class CreatePedidoDTO {
   usu_Id: string;
   end_Id: string;
   frete: number;
-  cartoes: { car_Id: string; var_Valor: number }[];
+  cartoes: { car_Id: string; car_Valor: number }[];
   chocolates: { cho_Id: string; quantidade: number }[];
   cupons: { cup_Id: string }[];
 
@@ -10,7 +10,7 @@ class CreatePedidoDTO {
     usu_Id: string,
     end_Id: string,
     frete: number,
-    cartoes: { car_Id: string; var_Valor: number }[],
+    cartoes: { car_Id: string; car_Valor: number }[],
     chocolates: { cho_Id: string; quantidade: number }[],
     cupons: { cup_Id: string }[]
   ) {
@@ -22,3 +22,5 @@ class CreatePedidoDTO {
     this.cupons = cupons;
   }
 }
+
+export { CreatePedidoDTO };

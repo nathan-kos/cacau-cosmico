@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { ErrorDTO } from '../../DTO/Error/ErrorDTO';
 import { IPaginatedResponse } from '../../DTO/Pagination/IPaginatedResponse';
+import { CreatePedidoDTO } from '../../DTO/Pedido/CreatePedidoDTO';
 import { Pedido } from '../../DTO/Pedido/Pedido';
 import { GlobalService } from '../global.service';
 
