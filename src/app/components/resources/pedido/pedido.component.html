@@ -60,7 +60,7 @@
           <tbody>
             <tr *ngFor="let chocolate of pedido?.cho">
               <td>{{ chocolate.chocolate.cho_Nome }}</td>
-              <td>{{ chocolate.chocolate.cho_Valor }}</td>
+              <td>{{ formatarValor(chocolate.chocolate.cho_Valor) }}</td>
               <td>{{ chocolate.chp_Quantidade }}</td>
               <td>{{ setTotal(chocolate) }}</td>
             </tr>
@@ -109,6 +109,103 @@
           </tbody>
         </table>
       </div>
+    </div>
+    <div class="edereco">
+      <h2>Endereço de entrega</h2>
+      <form [formGroup]="enderecoForm">
+        <div class="grid">
+          <div class="row">
+            <div class="col-4 input">
+              <label for="cep">CEP</label>
+              <input type="text" id="cep" formControlName="CEP" mask="99.999-999"/>
+            </div>
+            <div class="col-6 input">
+              <label for="rua">Rua</label>
+              <input type="text" id="rua" formControlName="rua"/>
+            </div>
+            <div class="col-2 input">
+              <label for="numero">Número</label>
+              <input type="text" id="numero" formControlName="numero" mask="0*"/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-5 input">
+              <label for="bairro">Bairro</label>
+              <input type="text" id="bairro" formControlName="bairro"/>
+            </div>
+            <div class="col-5 input">
+              <label for="cidade">Cidade</label>
+              <input type="text" id="cidade" formControlName="cidade"/>
+            </div>
+            <div class="col-2 input">
+              <label for="UF">UF</label>
+              <select id="UF" formControlName="UF">
+                <option value="AC">AC</option>
+                <option value="AL">AL</option>
+                <option value="AP">AP</option>
+                <option value="AM">AM</option>
+                <option value="BA">BA</option>
+                <option value="CE">CE</option>
+                <option value="DF">DF</option>
+                <option value="ES">ES</option>
+                <option value="GO">GO</option>
+                <option value="MA">MA</option>
+                <option value="MT">MT</option>
+                <option value="MS">MS</option>
+                <option value="MG">MG</option>
+                <option value="PA">PA</option>
+                <option value="PB">PB</option>
+                <option value="PR">PR</option>
+                <option value="PE">PE</option>
+                <option value="PI">PI</option>
+                <option value="RJ">RJ</option>
+                <option value="RN">RN</option>
+                <option value="RS">RS</option>
+                <option value="RO">RO</option>
+                <option value="RR">RR</option>
+                <option value="SC">SC</option>
+                <option value="SP">SP</option>
+                <option value="SE">SE</option>
+                <option value="TO">TO</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4 input">
+              <label for="tipo">Tipo</label>
+              <select name="tipo" id="tipo" formControlName="tipo">
+                <option value="RESIDENCIAL">Residencial</option>
+                <option value="PREDIO">Comercial</option>
+              </select>
+            </div>
+            <div class="col-8 input">
+              <label for="complemento">Complemento</label>
+              <input type="text" id="complemento" formControlName="complemento"/>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8  input">
+              <label for="apelido">Apelido</label>
+              <input type="text" id="apelido" formControlName="apelido"/>
+            </div>
+            <div class="col-2 input">
+              <label for="cobranca">Cobrança</label>
+              <label class="switch">
+                <input type="checkbox" id="cobranca" formControlName="cobranca">
+                <span class="slider"></span>
+              </label>
+            </div>
+
+            <div class="col-2 input">
+              <label for="entrega">Entrega</label>
+              <label class="switch">
+                <input type="checkbox" id="entrega" formControlName="entrega">
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </div>

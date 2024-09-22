@@ -26,6 +26,7 @@ export class PedidoComponent implements OnInit {
   pedido: Pedido | undefined;
 
   public pedidoForm: FormGroup;
+  public enderecoForm: FormGroup;
   public usuario: Usuario | undefined;
 
   public error: string | undefined;
@@ -43,6 +44,20 @@ export class PedidoComponent implements OnInit {
       valor: [{ value: '', disabled: true }],
       CPF: [{ value: '', disabled: true }],
       nome: [{ value: '', disabled: true }],
+    });
+
+    this.enderecoForm = this.formBuilder.group({
+      rua: [{ value: '', disabled: true }],
+      numero: [{ value: '', disabled: true }],
+      complemento: [{ value: '', disabled: true }],
+      bairro: [{ value: '', disabled: true }],
+      cidade: [{ value: '', disabled: true }],
+      UF: [{ value: '', disabled: true }],
+      CEP: [{ value: '', disabled: true }],
+      apelido: [{ value: '', disabled: true }],
+      cobranca: [{ value: '', disabled: true }],
+      entrega: [{ value: '', disabled: true }],
+      tipo: [{ value: '', disabled: true }],
     });
   }
 
@@ -67,6 +82,7 @@ export class PedidoComponent implements OnInit {
 
     this.pedido = response;
     await this.setPedidoForm();
+    this.setEnderecoForm();
   }
 
   public async getUser() {
@@ -126,5 +142,26 @@ export class PedidoComponent implements OnInit {
     return this.formatarValor(
       chocolate.chp_Quantidade * chocolate.chocolate.cho_Valor
     );
+  }
+
+  //endereco
+  public setEnderecoForm() {
+    if (!this.pedido) {
+      return;
+    }
+
+    this.enderecoForm.setValue({
+      rua: this.pedido.endereco.end_Rua,
+      numero: this.pedido.endereco.end_Numero,
+      complemento: this.pedido.endereco.end_Complemento,
+      bairro: this.pedido.endereco.end_Bairro,
+      cidade: this.pedido.endereco.end_Cidade,
+      UF: this.pedido.endereco.end_UF,
+      CEP: this.pedido.endereco.end_CEP,
+      apelido: this.pedido.endereco.end_Apelido,
+      cobranca: this.pedido.endereco.end_Cobranca,
+      entrega: this.pedido.endereco.end_Entrega,
+      tipo: this.pedido.endereco.end_Tipo,
+    });
   }
 }
