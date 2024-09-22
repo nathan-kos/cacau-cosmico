@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { PedidoComponent } from './components/resources/pedido/pedido.component';
 import { CarrinhoComponent } from './components/view/carrinho/carrinho.component';
 import { EditUserComponent } from './components/view/edit-user/edit-user.component';
 import { HomeComponent } from './components/view/home/home.component';
@@ -67,6 +68,12 @@ export const routes: Routes = [
   {
     path: 'pedido/listagem',
     component: PedidosComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'pedido/:id',
+    component: PedidoComponent,
     pathMatch: 'full',
   },
 
