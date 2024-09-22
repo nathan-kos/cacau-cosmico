@@ -97,4 +97,24 @@ export class PedidoService {
       }
     }
   }
+
+  public async changeStatus(
+    ped_Id: string,
+    ped_Status: StatusPedidos
+  ): Promise<Pedido | ErrorDTO> {
+    try {
+      const response = await firstValueFrom(
+        this.http.put<any>(`${this.globalService.baseUrl}pedido/${ped_Id}`, {
+          ped_Status,
+        })
+      );
+      return response;
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) {
+        return new ErrorDTO(error.error.message, error.status);
+      } else {
+        return new ErrorDTO('Erro desconhecido', 500);
+      }
+    }
+  }
 }
