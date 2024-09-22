@@ -1,5 +1,6 @@
 import { CartaoPedido } from '../cartaoPedido/CartaoPedido';
 import { ChocolatePedido } from '../chocolatePedido/ChocolatePedido';
+import { CupomPedido } from '../cupomPedido/cupomPedido';
 import { Endereco } from '../endereco/Endereco';
 import { StatusPedidos } from './StatusPedidos';
 
@@ -18,6 +19,7 @@ class Pedido {
 
   cho: ChocolatePedido[];
   car: CartaoPedido[];
+  cup: CupomPedido[];
 
   constructor(
     ped_Id: string,
@@ -31,7 +33,8 @@ class Pedido {
     ped_AtualizadoEm: string,
     endereco: Endereco,
     cho: ChocolatePedido[],
-    car: CartaoPedido[]
+    car: CartaoPedido[],
+    cup: CupomPedido[]
   ) {
     this.ped_Id = ped_Id;
     this.ped_usu_id = ped_usu_id;
@@ -45,6 +48,7 @@ class Pedido {
     this.endereco = endereco;
     this.cho = cho;
     this.car = car;
+    this.cup = cup;
   }
 }
 
