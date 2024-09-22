@@ -29,7 +29,7 @@
             <td>{{ pedido.usuario.usu_Nome }}</td>
             <td>{{ pedido.usuario.usu_CPF }}</td>
             <td>
-              <i class="ri-eye-line" (click)="openModal(pedido.pedido)"></i>
+              <i class="ri-eye-line" (click)="openPedido(pedido.pedido.ped_Id)"></i>
             </td>
           </tr>
         </tbody>

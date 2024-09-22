@@ -1,5 +1,6 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
 import { Pedido } from '../../../DTO/Pedido/Pedido';
 import { StatusPedidos } from '../../../DTO/Pedido/StatusPedidos';
@@ -7,18 +8,20 @@ import { Usuario } from '../../../DTO/Usuario/Usuario';
 import { PedidoService } from '../../../Services/pedido/pedido.service';
 import { UsuarioService } from '../../../Services/usuario/usuario.service';
 import { HeaderComponent } from '../../resources/header/header.component';
+import { PedidoComponent } from '../../resources/pedido/pedido.component';
 
 @Component({
   selector: 'app-pedidos',
   standalone: true,
-  imports: [HeaderComponent, NgFor, NgIf],
+  imports: [HeaderComponent, NgFor, NgIf, PedidoComponent],
   templateUrl: './pedidos.component.html',
   styleUrl: './pedidos.component.css',
 })
 export class PedidosComponent implements OnInit {
   constructor(
     private pedidoService: PedidoService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -119,18 +122,8 @@ export class PedidosComponent implements OnInit {
     });
   }
 
-  // modal functions
-  public showModal: boolean = false;
-  public selectedPedido: Pedido | null = null;
-
-  public openModal(pedido: Pedido): void {
-    this.selectedPedido = pedido;
-    this.showModal = true;
-  }
-
-  public closeModal(): void {
-    this.getPedidos();
-    this.showModal = false;
+  public openPedido(id: string): void {
+    this.router.navigate(['/pedido/' + id]);
   }
 
   // pagination functions
