@@ -1,0 +1,48 @@
+<app-header></app-header>
+<div class="center">
+  <div class="content">
+    <h1>Pedido</h1>
+    <form [formGroup]="pedidoForm" (ngSubmit)="updatePedido()">
+      <div class="grid">
+        <div class="row">
+          <div class="col-10 input">
+            <label for="numero">Número</label>
+            <input type="text" id="numero" name="numero" formControlName="numero">
+          </div>
+          <div class="col-2 input">
+            <label for="valor">Valor</label>
+            <input type="text" name="Valor" id="valor" formControlName="valor">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6 input">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" formControlName="nome">
+          </div>
+          <div class="col-6 input">
+            <label for="CPF">CPF</label>
+            <input type="text" name="CPF" id="CPF" formControlName="CPF">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 input">
+            <label for="status">Status</label>
+            <select id="status" name="status" formControlName="status">
+              <option value="PAGAMENTO_REALIZADO">Pagemento realizado</option>
+              <option value="PAGAMENTO_REJEITADO">Pagemento rejeitado</option>
+              <option value="M_TRANSPORTE">Em transporte</option>
+              <option value="ENTREGUE">Entregue</option>
+              <option value="CANCELADO">Cancelado</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="center">
+        <input type="submit" value="Salvar" class="btn-primary">
+      </div>
+      <div>
+        <p>{{error}}</p>
+      </div>
+    </form>
+  </div>
+</div>
