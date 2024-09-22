@@ -30,7 +30,7 @@
             <select id="status" name="status" formControlName="status">
               <option value="PAGAMENTO_REALIZADO">Pagemento realizado</option>
               <option value="PAGAMENTO_REJEITADO">Pagemento rejeitado</option>
-              <option value="M_TRANSPORTE">Em transporte</option>
+              <option value="EM_TRANSPORTE">Em transporte</option>
               <option value="ENTREGUE">Entregue</option>
               <option value="CANCELADO">Cancelado</option>
             </select>
@@ -63,6 +63,25 @@
               <td>{{ chocolate.chocolate.cho_Valor }}</td>
               <td>{{ chocolate.chp_Quantidade }}</td>
               <td>{{ setTotal(chocolate) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="cupons">
+      <h2>Cupons</h2>
+      <div class="tabela">
+        <table>
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cupom of pedido?.cup">
+              <td>{{ cupom.cupom.cup_Codigo }}</td>
+              <td>{{ cupom.cupom.cup_Valor }}</td>
             </tr>
           </tbody>
         </table>
