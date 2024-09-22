@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { PedidoComponent } from './components/resources/pedido/pedido.component';
+import { AdminComponent } from './components/view/admin/admin.component';
 import { CarrinhoComponent } from './components/view/carrinho/carrinho.component';
 import { EditUserComponent } from './components/view/edit-user/edit-user.component';
 import { HomeComponent } from './components/view/home/home.component';
@@ -74,6 +75,12 @@ export const routes: Routes = [
   {
     path: 'pedido/:id',
     component: PedidoComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'admin',
+    component: AdminComponent,
     pathMatch: 'full',
   },
 
