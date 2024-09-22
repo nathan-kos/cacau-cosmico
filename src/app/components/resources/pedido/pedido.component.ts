@@ -1,3 +1,4 @@
+import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -6,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ChocolatePedido } from '../../../DTO/chocolatePedido/ChocolatePedido';
 import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
 import { Pedido } from '../../../DTO/Pedido/Pedido';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
@@ -16,7 +18,7 @@ import { HeaderComponent } from '../header/header.component';
 @Component({
   selector: 'app-pedido',
   standalone: true,
-  imports: [ReactiveFormsModule, HeaderComponent],
+  imports: [ReactiveFormsModule, HeaderComponent, NgFor],
   templateUrl: './pedido.component.html',
   styleUrl: './pedido.component.css',
 })
@@ -118,5 +120,11 @@ export class PedidoComponent implements OnInit {
 
   public formatarValor(valor: number) {
     return valor.toFixed(2).replace('.', ',');
+  }
+
+  public setTotal(chocolate: ChocolatePedido) {
+    return this.formatarValor(
+      chocolate.chp_Quantidade * chocolate.chocolate.cho_Valor
+    );
   }
 }

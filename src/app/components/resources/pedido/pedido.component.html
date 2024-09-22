@@ -44,5 +44,29 @@
         <p>{{error}}</p>
       </div>
     </form>
+
+    <div class="chocolates">
+      <h2>Chocolates</h2>
+      <div class="tabela">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Valor</th>
+              <th>Quantidade</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let chocolate of pedido?.cho">
+              <td>{{ chocolate.chocolate.cho_Nome }}</td>
+              <td>{{ chocolate.chocolate.cho_Valor }}</td>
+              <td>{{ chocolate.chp_Quantidade }}</td>
+              <td>{{ setTotal(chocolate) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </div>
