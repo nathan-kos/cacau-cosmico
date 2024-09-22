@@ -1,0 +1,10 @@
+h1, h2{
+  font-family: var(--lemon);
+}
+
+.infos{
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px 0;
+  gap: 6rem;
+}
