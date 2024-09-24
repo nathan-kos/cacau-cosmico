@@ -398,3 +398,7 @@ input:checked + .slider:before {
 input:disabled + .slider {
   background-color: #ddd;
 }
+
+i{
+  cursor: pointer;
+}
