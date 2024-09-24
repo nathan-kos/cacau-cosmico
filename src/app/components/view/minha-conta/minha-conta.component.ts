@@ -481,8 +481,8 @@ export class MinhaContaComponent implements OnInit {
     this.lastPagePedido();
   }
 
-  public openPedido() {
-    window.alert('Ainda não implementado');
+  public openPedido(pedido: Pedido) {
+    this.router.navigate(['pedido/' + pedido.ped_Id]);
   }
 
   // pagination
