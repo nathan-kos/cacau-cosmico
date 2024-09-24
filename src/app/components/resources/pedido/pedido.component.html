@@ -56,6 +56,8 @@
               <th>Valor</th>
               <th>Quantidade</th>
               <th>Total</th>
+              <th *ngIf="!isAdm">Troca</th>
+              <th *ngIf="!isAdm">Devolução</th>
             </tr>
           </thead>
           <tbody>
@@ -64,6 +66,8 @@
               <td>{{ formatarValor(chocolate.chocolate.cho_Valor) }}</td>
               <td>{{ chocolate.chp_Quantidade }}</td>
               <td>{{ setTotal(chocolate) }}</td>
+              <td *ngIf="!isAdm"> <i class="ri-arrow-left-right-line" (click)="trocar()"></i></td>
+              <td *ngIf="!isAdm"> <i class="ri-text-wrap" (click)="devolver()"></i></td>
             </tr>
           </tbody>
         </table>

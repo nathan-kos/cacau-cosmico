@@ -85,6 +85,12 @@ export const routes: Routes = [
   },
 
   {
+    path: 'admin/pedido/:id',
+    component: PedidoComponent,
+    pathMatch: 'full',
+  },
+
+  {
     path: '**',
     component: NotFoundComponent,
   },

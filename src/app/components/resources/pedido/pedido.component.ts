@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -18,7 +18,7 @@ import { HeaderComponent } from '../header/header.component';
 @Component({
   selector: 'app-pedido',
   standalone: true,
-  imports: [ReactiveFormsModule, HeaderComponent, NgFor],
+  imports: [ReactiveFormsModule, HeaderComponent, NgFor, NgIf],
   templateUrl: './pedido.component.html',
   styleUrl: './pedido.component.css',
 })
@@ -31,6 +31,8 @@ export class PedidoComponent implements OnInit {
 
   public error: string | undefined;
 
+  public isAdm: boolean = false;
+
   constructor(
     private pedidoService: PedidoService,
     private formBuilder: FormBuilder,
@@ -38,13 +40,29 @@ export class PedidoComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {
-    this.pedidoForm = this.formBuilder.group({
-      numero: [{ value: '', disabled: true }],
-      status: ['', Validators.required],
-      valor: [{ value: '', disabled: true }],
-      CPF: [{ value: '', disabled: true }],
-      nome: [{ value: '', disabled: true }],
-    });
+    if (this.route.snapshot.url.some((segment) => segment.path === 'admin')) {
+      this.isAdm = true;
+    } else {
+      this.isAdm = false;
+    }
+
+    if (this.isAdm) {
+      this.pedidoForm = this.formBuilder.group({
+        numero: [{ value: '', disabled: true }],
+        status: ['', Validators.required],
+        valor: [{ value: '', disabled: true }],
+        CPF: [{ value: '', disabled: true }],
+        nome: [{ value: '', disabled: true }],
+      });
+    } else {
+      this.pedidoForm = this.formBuilder.group({
+        numero: [{ value: '', disabled: true }],
+        status: [{ value: '', disabled: true }],
+        valor: [{ value: '', disabled: true }],
+        CPF: [{ value: '', disabled: true }],
+        nome: [{ value: '', disabled: true }],
+      });
+    }
 
     this.enderecoForm = this.formBuilder.group({
       rua: [{ value: '', disabled: true }],
@@ -62,6 +80,12 @@ export class PedidoComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    if (this.route.snapshot.url.some((segment) => segment.path === 'admin')) {
+      this.isAdm = true;
+    } else {
+      this.isAdm = false;
+    }
+
     await this.getPedido();
   }
 
@@ -163,5 +187,14 @@ export class PedidoComponent implements OnInit {
       entrega: this.pedido.endereco.end_Entrega,
       tipo: this.pedido.endereco.end_Tipo,
     });
+  }
+
+  // troca e devolução
+  public async trocar() {
+    window.alert('Ainda não implementado');
+  }
+
+  public async devolver() {
+    window.alert('Ainda não implementado');
   }
 }
