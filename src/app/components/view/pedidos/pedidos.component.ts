@@ -135,7 +135,7 @@ export class PedidosComponent implements OnInit {
   }
 
   public openPedido(id: string): void {
-    this.router.navigate(['/pedido/' + id]);
+    this.router.navigate(['admin/pedido/' + id]);
   }
 
   // pagination functions
