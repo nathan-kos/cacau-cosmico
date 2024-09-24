@@ -114,10 +114,22 @@ export class PedidosComponent implements OnInit {
         window.alert(response.mensagem);
         return;
       } else {
-        this.pedidos.push({
-          pedido: pedido,
-          usuario: response,
-        });
+        const index = this.pedidos.findIndex(
+          (p) => p.pedido.ped_Id === pedido.ped_Id
+        );
+        if (index !== -1) {
+          // Substitui o pedido existente
+          this.pedidos[index] = {
+            pedido: pedido,
+            usuario: response,
+          };
+        } else {
+          // Adiciona o novo pedido se não existir
+          this.pedidos.push({
+            pedido: pedido,
+            usuario: response,
+          });
+        }
       }
     });
   }
