@@ -158,7 +158,6 @@ export class CarrinhoComponent implements OnInit {
       window.alert(response.mensagem);
       return;
     } else {
-      window.alert('Pedido realizado com sucesso!');
       //limpa o carrinho
       this.limparCarrinho();
       //redireciona para a minha conta
