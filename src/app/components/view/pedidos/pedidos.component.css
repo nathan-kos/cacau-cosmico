@@ -1,0 +1,16 @@
+h1{
+  font-family: var(--lemon);
+}
+
+.botoes{
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+
+  margin-bottom: 1rem;
+}
+
+.activeted{
+  background-color: var(--pingado);
+  color: var(--branco);
+}

@@ -1,11 +1,15 @@
 import { Routes } from '@angular/router';
+import { PedidoComponent } from './components/resources/pedido/pedido.component';
+import { AdminComponent } from './components/view/admin/admin.component';
+import { CarrinhoComponent } from './components/view/carrinho/carrinho.component';
 import { EditUserComponent } from './components/view/edit-user/edit-user.component';
 import { HomeComponent } from './components/view/home/home.component';
 import { ListUsersComponent } from './components/view/list-users/list-users.component';
 import { ListingComponent } from './components/view/listing/listing.component';
-import { NotFoundComponent } from './components/view/not-found/not-found.component';
-import { SignUpComponent } from './components/view/sign-up/sign-up.component';
 import { MinhaContaComponent } from './components/view/minha-conta/minha-conta.component';
+import { NotFoundComponent } from './components/view/not-found/not-found.component';
+import { PedidosComponent } from './components/view/pedidos/pedidos.component';
+import { SignUpComponent } from './components/view/sign-up/sign-up.component';
 
 export const routes: Routes = [
   {
@@ -53,6 +57,36 @@ export const routes: Routes = [
   {
     path: 'usuario/editar/:id',
     component: EditUserComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'carrinho',
+    component: CarrinhoComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'pedido/listagem',
+    component: PedidosComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'pedido/:id',
+    component: PedidoComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'admin',
+    component: AdminComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'admin/pedido/:id',
+    component: PedidoComponent,
     pathMatch: 'full',
   },
 

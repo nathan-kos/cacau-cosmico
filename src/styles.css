@@ -336,3 +336,69 @@ tfoot td {
   justify-content: center;
   align-items: center;
 }
+
+/* Estilo da estrutura do switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  margin-left: 10px; /* Ajusta o espaçamento se necessário */
+}
+
+/* Esconde o checkbox padrão */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* Estilo do slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+
+/* Estilo da bolinha */
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* Quando o checkbox está marcado */
+input:checked + .slider {
+  background-color: var(--pingado);
+}
+
+/* Movimenta a bolinha para a direita quando ativado */
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+/* Efeito de foco no switch */
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px var(--pingado);
+}
+
+/* Estilo adicional opcional para o estado de desativado */
+input:disabled + .slider {
+  background-color: #ddd;
+}
+
+i{
+  cursor: pointer;
+}

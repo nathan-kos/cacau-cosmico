@@ -1,0 +1,183 @@
+<app-header></app-header>
+<div class="general">
+  <div class="cima">
+    <div class="chocolate_title">
+      <h1>Meu Carrinho</h1>
+      <button (click)="limparCarrinho()" class="btn-secondary">Limpar carrinho</button>
+    </div>
+    <table class="produtos" *ngIf="chocolates.length >= 1">
+      <thead class="cabecalho_chocolate">
+        <th>Produto</th>
+        <th>Valor</th>
+        <th>Quantidade</th>
+        <th>Total</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let produto of chocolates">
+          <td>
+            <div class="chocolate_infos">
+              <img src="{{ produto.chocolate.cho_Imagem }}" alt="Imagem do chocolate" class="foto_chocolate">
+              <div>
+                <h4>{{ produto.chocolate.cho_Nome }}</h4>
+                <div class="categorias" *ngFor="let categoria of produto.chocolate.catergorias">
+                  <app-badge [categoria]="categoria"></app-badge>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td>{{ produto.chocolate.cho_Valor }}</td>
+          <td>
+            <div class="chocolate_quantidade">
+              <button (click)="lessProduto(produto)">-</button>
+              <p>{{produto.quantidade}}</p>
+              <button (click)="moreProduto(produto)">+</button>
+            </div>
+          </td>
+          <td>{{ produto.quantidade * produto.chocolate.cho_Valor }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="sem_produto" *ngIf="chocolates.length < 1">
+      <h2>Seu carrinho está vazio</h2>
+      <a href="/produtos">Clique aqui para adicionar produtos</a>
+    </div>
+  </div>
+  <div class="baixo">
+    <div class="options">
+      <div class="center">
+        <h2>Escolha o endereço de entrega</h2>
+        <table *ngIf="enderecos.length >= 1">
+          <tbody>
+            <tr *ngFor="let endereco of enderecos">
+              <td>{{ endereco.endereco.end_Apelido }}</td>
+              <td>{{ endereco.endereco.end_Rua }}</td>
+              <td>{{ endereco.endereco.end_Numero }}</td>
+              <td>{{ endereco.endereco.end_CEP }}</td>
+              <td>
+                <label class="switch">
+                  <input type="checkbox" id="entrega" [checked]="endereco.selecionado" (change)="onEnderecoChange(endereco)">
+                  <span class="slider"></span>
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p *ngIf="enderecos.length <= 0" class="none">
+            Nenhum endereço cadastrado
+        </p>
+        <button class="btn-secondary" (click)="abrirEnderecoModal()">Novo endereço</button>
+      </div>
+      <div class="center">
+        <div class="title">
+          <h2>Escolha o cartão de crédito</h2>
+          <div class="multiplo_cartao" *ngIf="cartoes.length >= 2">
+            <label class="switch">
+              <input type="checkbox" id="entrega" [checked]="usarMaisDeUmCartao" (change)="onChangeQuantidadeCartoes()" [disabled]="getTotal() < 20">
+              <span class="slider"></span>
+            </label>
+            <p>
+              Usar mais de um cartão
+            </p>
+          </div>
+        </div>
+        <table *ngIf="cartoes.length >= 1">
+          <tbody>
+            <tr *ngFor="let cartao of cartoes">
+              <td>{{ cartao.cartao.car_Apelido }}</td>
+              <td>{{ cartao.cartao.car_Nome }}</td>
+              <td>{{ cartao.cartao.car_Numero }}</td>
+              <td *ngIf="usarMaisDeUmCartao"><input type="text" [(ngModel)]="cartao.valor" [disabled]="!cartao.selecionado" mask="separator.2" prefix="R$ "thousandSeparator="." decimalMarker=","></td>
+              <td>
+                <label class="switch">
+                  <input type="checkbox" id="entrega" [checked]="cartao.selecionado" (change)="onCartaoChange(cartao)" [disabled]="getTotal() <= 0" >
+                  <span class="slider"></span>
+                </label>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p *ngIf="cartoes.length <= 0" class="none">
+            Nenhum cartão cadastrado
+        </p>
+        <button class="btn-secondary" (click)="abrirCartaoModal()">Novo cartão</button>
+      </div>
+    </div>
+    <div class="valores">
+      <div class="bg-branco">
+        <h2>
+          Cupom
+        </h2>
+        <form [formGroup]="cupomForm" (ngSubmit)="buscarCupom()">
+          <input type="search" formControlName="cupom" class="cupom">
+        </form>
+        <p>{{cupomErro}}</p>
+        <div class="cupons_aplicados" *ngIf="cupoms.length >= 1">
+          <h3>Cupons aplicados</h3>
+          <table>
+            <tbody>
+              <tr *ngFor="let cupom of cupoms">
+                <td>{{ cupom.cup_Codigo }}</td>
+                <td>R${{ formatarValor(cupom.cup_Valor) }}</td>
+                <td>
+                  <button (click)="removerCupom(cupom)"><i class="ri-delete-bin-line"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="bg-branco">
+        <h2>Total</h2>
+        <table class="total">
+          <tbody>
+            <tr>
+              <th>Subtotal</th>
+              <td>R${{ formatarValor(getSubtotal()) }}</td>
+            </tr>
+            <tr>
+              <th>Frete</th>
+              <td>R${{ formatarValor(getFrete()) }}</td>
+            </tr>
+            <tr *ngIf="cupomTotal > 0">
+              <th>Cupom</th>
+              <td>R${{ formatarValor(getValorCupom()) }}</td>
+            </tr>
+            <tr>
+              <th>Total</th>
+              <td>R${{ formatarValor(getTotal()) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <button class="btn-secondary" (click)="finalizarCompra()">Finalizar compra</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- endereco -->
+<div *ngIf="enderecoModal" class="modal-overlay" (click)="fecharEnderecoModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-endereco  [isNew]="true" (doneEvent)="fecharEnderecoModal()"></app-endereco>
+  </div>
+</div>
+
+<div *ngIf="enderecoNaoSelecionadoModal" class="modal-overlay" (click)="fecharEnderecoNaoSelecionadoModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-confirmacao [text]="'Selecione um endereço para continuar'" (cancelEvent)="fecharEnderecoNaoSelecionadoModal()" (confirmEvent)="fecharEnderecoNaoSelecionadoModal()"></app-confirmacao>
+  </div>
+</div>
+
+<!-- cartão -->
+<div *ngIf="cartaoModal" class="modal-overlay" (click)="fecharCartaoModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-cartao (doneEvent)="fecharCartaoModal()" [isNew]="true"></app-cartao>
+  </div>
+</div>
+
+<div *ngIf="cartaoNaoSelecionadoModal" class="modal-overlay" (click)="fecharCartaoNaoSelecionadoModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-confirmacao [text]="'Selecione ao menos um cartão para continuar'" (cancelEvent)="fecharCartaoNaoSelecionadoModal()" (confirmEvent)="fecharCartaoNaoSelecionadoModal()"></app-confirmacao>
+  </div>
+</div>

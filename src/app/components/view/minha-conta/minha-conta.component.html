@@ -142,6 +142,37 @@
         </div>
         <div id="meusPedidos" *ngIf="pedidoTab" class="center-column">
           <h2>Pedidos</h2>
+          <div class="tabela">
+            <table>
+              <thead>
+                <tr>
+                  <th>Valor</th>
+                  <th>Status</th>
+                  <th>Endereco</th>
+                  <th>Detalhes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let pedido of pedidos">
+                  <td>R${{ pedido.ped_ValorTotal }}</td>
+                  <td>{{ pedido.ped_Status }}</td>
+                  <td>{{ pedido.endereco.end_Apelido }}</td>
+                  <td>
+                    <i class="ri-eye-line" (click)="openPedido(pedido)"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="pagination-controls">
+            <button *ngIf="pedidoPage > 1" (click)="previousPagePedido()" aria-label="Página anterior">
+              <i class="ri-arrow-left-s-line"></i>
+            </button>
+            <p>{{ pedidoPage }}</p>
+            <button *ngIf="pedidoPage < totalPedidosPage" (click)="nextPagePedido()" aria-label="Próxima página">
+              <i class="ri-arrow-right-s-line"></i>
+            </button>
+            </div>
         </div>
       </div>
     </div>
