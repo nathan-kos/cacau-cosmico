@@ -2,7 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { ErrorDTO } from '../../DTO/Error/ErrorDTO';
+import { IPaginatedResponse } from '../../DTO/Pagination/IPaginatedResponse';
 import { CreateTrocaDevolucao } from '../../DTO/TrocaDevolucao/CreateTrocaDevolucaoDTO';
+import { TrocaDevolucao } from '../../DTO/TrocaDevolucao/TrocaDevolucao';
 import { TrocaDevolucaoStatus } from '../../DTO/TrocaDevolucao/TrocaDevolucaoStatus';
 import { GlobalService } from '../global.service';
 
@@ -12,7 +14,9 @@ import { GlobalService } from '../global.service';
 export class TrocaDevolucaoService {
   constructor(private http: HttpClient, private globalService: GlobalService) {}
 
-  public async create(data: CreateTrocaDevolucao) {
+  public async create(
+    data: CreateTrocaDevolucao
+  ): Promise<TrocaDevolucao | ErrorDTO> {
     try {
       const response = await firstValueFrom(
         this.http.post<any>(
@@ -30,7 +34,7 @@ export class TrocaDevolucaoService {
     }
   }
 
-  public async aceitar(tde_Id: string) {
+  public async aceitar(tde_Id: string): Promise<TrocaDevolucao | ErrorDTO> {
     try {
       const response = await firstValueFrom(
         this.http.put<any>(
@@ -48,7 +52,7 @@ export class TrocaDevolucaoService {
     }
   }
 
-  public async recusar(tde_Id: string) {
+  public async recusar(tde_Id: string): Promise<TrocaDevolucao | ErrorDTO> {
     try {
       const response = await firstValueFrom(
         this.http.put<any>(
@@ -66,11 +70,21 @@ export class TrocaDevolucaoService {
     }
   }
 
-  public async listByStatus(status: TrocaDevolucaoStatus) {
+  public async listByStatus(
+    status: TrocaDevolucaoStatus,
+    page: number,
+    limit: number
+  ): Promise<IPaginatedResponse<TrocaDevolucao> | ErrorDTO> {
     try {
       const response = await firstValueFrom(
         this.http.get<any>(
-          `${this.globalService.baseUrl}troca-devolucao/status/${status}`
+          `${this.globalService.baseUrl}troca-devolucao/status/${status}`,
+          {
+            params: {
+              page: page.toString(),
+              limit: limit.toString(),
+            },
+          }
         )
       );
       return response;
@@ -83,7 +97,9 @@ export class TrocaDevolucaoService {
     }
   }
 
-  public async listByChoPed(tde_cho_ped_id: string) {
+  public async findByChoPed(
+    tde_cho_ped_id: string
+  ): Promise<TrocaDevolucao | ErrorDTO> {
     try {
       const response = await firstValueFrom(
         this.http.get<any>(
