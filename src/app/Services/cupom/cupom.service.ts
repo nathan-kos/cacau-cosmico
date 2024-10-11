@@ -14,7 +14,7 @@ export class CupomService {
   public async FindByCodigo(codigo: string): Promise<cupom | ErrorDTO> {
     try {
       const response = await firstValueFrom(
-        this.http.get<any>(`${this.globalService.baseUrl}cupom/${codigo}`)
+        this.http.get<any>(`${this.globalService.baseUrl}cupom/code/${codigo}`)
       );
 
       return response;
