@@ -66,8 +66,8 @@
               <td>{{ formatarValor(chocolate.chocolate.cho_Valor) }}</td>
               <td>{{ chocolate.chp_Quantidade }}</td>
               <td>{{ setTotal(chocolate) }}</td>
-              <td *ngIf="!isAdm"> <i class="ri-arrow-left-right-line" (click)="trocar()"></i></td>
-              <td *ngIf="!isAdm"> <i class="ri-text-wrap" (click)="devolver()"></i></td>
+              <td *ngIf="!isAdm"> <i class="ri-arrow-left-right-line" (click)="trocar(chocolate, chocolate.chocolate.cho_Id)"></i></td>
+              <td *ngIf="!isAdm"> <i class="ri-text-wrap" (click)="devolver(chocolate, chocolate.chocolate.cho_Id)"></i></td>
             </tr>
           </tbody>
         </table>
@@ -214,5 +214,11 @@
         </div>
       </form>
     </div>
+  </div>
+</div>
+
+<div *ngIf="showTrocaDevolucao" class="modal-overlay" (click)="closeTrocaDevolucao()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <app-troca-devolucao [troca]="troca" [chocolatePedido]="selectedChocoPed" [cho_Id]="selectedChoco"></app-troca-devolucao>
   </div>
 </div>

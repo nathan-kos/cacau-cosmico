@@ -20,7 +20,7 @@ export class TrocaDevolucaoService {
     try {
       const response = await firstValueFrom(
         this.http.post<any>(
-          `${this.globalService.baseUrl}troca-devolucao`,
+          `${this.globalService.baseUrl}troca-devolucao/${data.tde_cho_ped_id}`,
           data
         )
       );
@@ -103,7 +103,7 @@ export class TrocaDevolucaoService {
     try {
       const response = await firstValueFrom(
         this.http.get<any>(
-          `${this.globalService.baseUrl}troca-devolucao/${tde_cho_ped_id}`
+          `${this.globalService.baseUrl}troca-devolucao/chocolate-pedido/${tde_cho_ped_id}`
         )
       );
       return response;

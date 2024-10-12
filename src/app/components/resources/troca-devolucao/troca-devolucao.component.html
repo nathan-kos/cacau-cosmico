@@ -1,0 +1,67 @@
+<div>
+  <h2 *ngIf="troca">Troca</h2>
+  <h2 *ngIf="!troca">Devolução</h2>
+  <div class="find" *ngIf="hasAlreadyRequested">
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Valor</th>
+          <th>Quantidade</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ chocolate!.cho_Nome }}</td>
+          <td>{{ formatarValor(chocolate!.cho_Valor) }}</td>
+          <td>{{ trocaDevolucao!.tde_Quantidade }}</td>
+          <td>{{ trocaDevolucao!.tde_Status }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="cupom-container">
+      <div *ngIf="cupom" class="cupom">
+        <h2 class="cupom-codigo">{{cupom.cup_Codigo}}</h2>
+        <h2 class="cupom-valor">{{formatarValor(cupom.cup_Valor)}}</h2>
+      </div>
+      <div *ngIf="!cupom" class="cupom cupom-vazio">
+        <h2>...</h2>
+        <h2>...</h2>
+      </div>
+    </div>
+  </div>
+  <div class="notFind" *ngIf="!hasAlreadyRequested">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Valor</th>
+          <th>Quantidade</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ chocolate!.cho_Nome }}</td>
+          <td>{{ formatarValor(chocolate!.cho_Valor) }}</td>
+          <td>{{ chocolatePedido?.chp_Quantidade }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <form *ngIf="trocaForm" [formGroup]="trocaForm" (ngSubmit)="onSubmit()" class="form">
+      <div class="grid">
+        <div class="row">
+          <div class="col-12 input">
+            <label for="Quantidade">Quantidade</label>
+            <input type="number" id="Quantidade" max="{{chocolatePedido!.chp_Quantidade}}" min="1" formControlName="quantidade">
+          </div>
+        </div>
+        <div class="center">
+          <input type="submit" value="Enviar" class="btn-primary">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -14,11 +14,18 @@ import { Usuario } from '../../../DTO/Usuario/Usuario';
 import { PedidoService } from '../../../Services/pedido/pedido.service';
 import { UsuarioService } from '../../../Services/usuario/usuario.service';
 import { HeaderComponent } from '../header/header.component';
+import { TrocaDevolucaoComponent } from '../troca-devolucao/troca-devolucao.component';
 
 @Component({
   selector: 'app-pedido',
   standalone: true,
-  imports: [ReactiveFormsModule, HeaderComponent, NgFor, NgIf],
+  imports: [
+    ReactiveFormsModule,
+    HeaderComponent,
+    NgFor,
+    NgIf,
+    TrocaDevolucaoComponent,
+  ],
   templateUrl: './pedido.component.html',
   styleUrl: './pedido.component.css',
 })
@@ -190,11 +197,31 @@ export class PedidoComponent implements OnInit {
   }
 
   // troca e devolução
-  public async trocar() {
-    window.alert('Ainda não implementado');
+
+  public showTrocaDevolucao: boolean = false;
+
+  public troca: boolean | undefined;
+
+  public selectedChocoPed: ChocolatePedido | undefined;
+
+  public selectedChoco: string | undefined;
+
+  public async trocar(tde_cho_ped_id: ChocolatePedido, cho_Id: string) {
+    this.troca = true;
+    this.selectedChocoPed = tde_cho_ped_id;
+    this.selectedChoco = cho_Id;
+    this.showTrocaDevolucao = true;
   }
 
-  public async devolver() {
-    window.alert('Ainda não implementado');
+  public async devolver(tde_cho_ped_id: ChocolatePedido, cho_Id: string) {
+    this.troca = false;
+    this.selectedChocoPed = tde_cho_ped_id;
+    this.selectedChoco = cho_Id;
+    this.showTrocaDevolucao = true;
+  }
+
+  public closeTrocaDevolucao() {
+    this.troca = undefined;
+    this.showTrocaDevolucao = false;
   }
 }

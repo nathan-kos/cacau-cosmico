@@ -1,0 +1,54 @@
+.cupom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+
+.cupom {
+  width: 300px;
+  padding: 20px;
+  border: 2px dashed #000;
+  border-radius: 10px;
+  background-color: var(--branco);
+  text-align: center;
+  font-family: var(--inter);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.cupom-codigo {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: var(--expresso);
+}
+
+.cupom-valor {
+  font-size: 20px;
+  color: #4CAF50;
+}
+
+.cupom-vazio h2 {
+  color: #ccc;
+}
+
+.cupom::before,
+.cupom::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #f9f9f9;
+  border: 2px solid #000;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cupom::before {
+  left: -12px; /* Ajustar para a borda esquerda */
+}
+
+.cupom::after {
+  right: -12px; /* Ajustar para a borda direita */
+}
