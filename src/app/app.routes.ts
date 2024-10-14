@@ -10,6 +10,7 @@ import { MinhaContaComponent } from './components/view/minha-conta/minha-conta.c
 import { NotFoundComponent } from './components/view/not-found/not-found.component';
 import { PedidosComponent } from './components/view/pedidos/pedidos.component';
 import { SignUpComponent } from './components/view/sign-up/sign-up.component';
+import { TrocaDevolucoesComponent } from './components/view/troca-devolucoes/troca-devolucoes.component';
 
 export const routes: Routes = [
   {
@@ -87,6 +88,12 @@ export const routes: Routes = [
   {
     path: 'admin/pedido/:id',
     component: PedidoComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'troca-devolucao/listagem',
+    component: TrocaDevolucoesComponent,
     pathMatch: 'full',
   },
 

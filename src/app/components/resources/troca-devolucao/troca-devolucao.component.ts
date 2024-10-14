@@ -93,7 +93,9 @@ export class TrocaDevolucaoComponent implements OnInit {
 
   private async setFind() {
     //se achou, procura o cupom
-    const cupom = await this.cupomService.FindById(this.trocaDevolucao!.tde_Id);
+    const cupom = await this.cupomService.FindByChoPedId(
+      this.chocolatePedido!.chp_Id
+    );
 
     if (cupom instanceof ErrorDTO) {
       return;

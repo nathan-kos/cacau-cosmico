@@ -1,0 +1,58 @@
+<app-header></app-header>
+<div class="center">
+  <div class="content">
+    <div class="top">
+      <h1>Trocas e devoluções</h1>
+      <div class="botoes">
+        <div>
+          <button id="TROCA_SOLICITADA" class="btn btn-primary" (click)="changeStatus('TROCA_SOLICITADA')">Troca solicitada</button>
+          <button id="TROCA_ACEITA" class="btn btn-primary" (click)="changeStatus('TROCA_ACEITA')">Troca aceita</button>
+          <button id="TROCA_RECUSADA" class="btn btn-primary" (click)="changeStatus('TROCA_RECUSADA')">Troca recusada</button>
+          <button id="TROCA_REALIZADA" class="btn btn-primary" (click)="changeStatus('TROCA_REALIZADA')">Troca realizada</button>
+        </div>
+        <div>
+          <button id="DEVOLUCAO_SOLICITADA" class="btn btn-primary" (click)="changeStatus('DEVOLUCAO_SOLICITADA')">Devolução solicitada</button>
+          <button id="DEVOLUCAO_ACEITA" class="btn btn-primary" (click)="changeStatus('DEVOLUCAO_ACEITA')">Devolução aceita</button>
+          <button id="DEVOLUCAO_RECUSADA" class="btn btn-primary" (click)="changeStatus('DEVOLUCAO_RECUSADA')">Devolução recusada</button>
+          <button id="DEVOLUCAO_REALIZADA" class="btn btn-primary" (click)="changeStatus('DEVOLUCAO_REALIZADA')">Devolução realizada</button>
+        </div>
+      </div>
+    </div>
+    <div class="tabela">
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Chocolate</th>
+            <th>Quantidade</th>
+            <th>Valor</th>
+            <th *ngIf="showActions()">Aceitar</th>
+            <th *ngIf="showActions()">Recusar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let troca of trocasDevolucaos">
+            <td>{{ troca.usuario.usu_Nome }}</td>
+            <td>{{ troca.usuario.usu_CPF }}</td>
+            <td>{{ troca.chocolatePedido.chocolate.cho_Nome }}</td>
+            <td>{{ troca.tde_Quantidade }}</td>
+            <td>{{ formatarValor(troca.tde_Quantidade * troca.chocolatePedido.chocolate.cho_Valor) }}</td>
+            <td *ngIf="showActions()"><i class="ri-check-line" (click)="aceitar(troca.tde_Id)"></i></td>
+            <td *ngIf="showActions()"><i class="ri-close-line" (click)="recusar(troca.tde_Id)"></i></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="pagination-controls">
+      <button *ngIf="page > 1" (click)="previousPage()" aria-label="Página anterior">
+        <i class="ri-arrow-left-s-line"></i>
+      </button>
+      <p>{{ page }}</p>
+      <button *ngIf="page < totalPages" (click)="nextPage()" aria-label="Próxima página">
+        <i class="ri-arrow-right-s-line"></i>
+      </button>
+      </div>
+  </div>
+</div>
+
