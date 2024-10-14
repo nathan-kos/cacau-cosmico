@@ -40,4 +40,24 @@ export class CupomService {
       return new ErrorDTO('Erro desconhecido', 500);
     }
   }
+
+  public async FindByChoPedId(
+    tde_cho_ped_id: string
+  ): Promise<cupom | ErrorDTO> {
+    try {
+      console.log(tde_cho_ped_id);
+      const response = await firstValueFrom(
+        this.http.get<any>(
+          `${this.globalService.baseUrl}cupom/chocolatePedido/${tde_cho_ped_id}`
+        )
+      );
+
+      return response;
+    } catch (error) {
+      if (error instanceof HttpErrorResponse) {
+        return new ErrorDTO(error.error.message, error.status);
+      }
+      return new ErrorDTO('Erro desconhecido', 500);
+    }
+  }
 }

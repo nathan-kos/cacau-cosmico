@@ -5,6 +5,7 @@ import { ErrorDTO } from '../../DTO/Error/ErrorDTO';
 import { IPaginatedResponse } from '../../DTO/Pagination/IPaginatedResponse';
 import { CreateTrocaDevolucao } from '../../DTO/TrocaDevolucao/CreateTrocaDevolucaoDTO';
 import { TrocaDevolucao } from '../../DTO/TrocaDevolucao/TrocaDevolucao';
+import { TrocaDevolucaoDetalhada } from '../../DTO/TrocaDevolucao/TrocaDevolucaoDetalhadaDTO';
 import { TrocaDevolucaoStatus } from '../../DTO/TrocaDevolucao/TrocaDevolucaoStatus';
 import { GlobalService } from '../global.service';
 
@@ -74,7 +75,7 @@ export class TrocaDevolucaoService {
     status: TrocaDevolucaoStatus,
     page: number,
     limit: number
-  ): Promise<IPaginatedResponse<TrocaDevolucao> | ErrorDTO> {
+  ): Promise<IPaginatedResponse<TrocaDevolucaoDetalhada> | ErrorDTO> {
     try {
       const response = await firstValueFrom(
         this.http.get<any>(
