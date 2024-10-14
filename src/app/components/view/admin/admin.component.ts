@@ -21,10 +21,6 @@ export class AdminComponent {
   }
 
   public goToDevolucoes() {
-    window.alert('Em construção');
-  }
-
-  public goToTrocas() {
-    window.alert('Em construção');
+    this.router.navigate(['troca-devolucao/listagem']);
   }
 }
