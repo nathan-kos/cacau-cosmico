@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
         ]);
         break;
       case 'adm':
-        this.router.navigate(['/usuario/listagem']);
+        this.router.navigate(['/admin']);
         break;
       case 'home':
         this.router.navigate(['home']);
