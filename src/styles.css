@@ -240,6 +240,17 @@ tfoot td {
   width: 15rem;
 }
 
+.btn-small-primary{
+  border-radius: 7px;
+  font-family: var(--lemon);
+  font-size: 1rem;
+  color: var(--branco);
+  padding: 0.5rem 1rem;
+  background-color: var(--cappuccino);
+  margin-top: 1rem;
+  width: 8rem;
+}
+
 .btn-small-secondary{
   border-radius: 7px;
   font-family: var(--lemon);

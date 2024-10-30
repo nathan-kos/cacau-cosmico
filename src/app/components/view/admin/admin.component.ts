@@ -23,4 +23,8 @@ export class AdminComponent {
   public goToDevolucoes() {
     this.router.navigate(['troca-devolucao/listagem']);
   }
+
+  public goToRelatorio() {
+    this.router.navigate(['relatorio']);
+  }
 }
