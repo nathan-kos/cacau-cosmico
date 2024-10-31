@@ -13,7 +13,10 @@
         <input type="date" name="dataFinal" [(ngModel)]="dataFinal">
       </div>
 
-      <button class="btn-small-primary">Visualizar</button>
+      <button class="btn-small-primary" (click)="getRelatorio()">Visualizar</button>
+    </div>
+    <div class="chart">
+      <canvas id="lineChart"></canvas>
     </div>
   </div>
 </div>
