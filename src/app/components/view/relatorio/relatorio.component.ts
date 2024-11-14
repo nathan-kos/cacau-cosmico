@@ -79,7 +79,7 @@ export class RelatorioComponent implements OnInit {
     scales: {
       y: {
         min: 0,
-        max: 20,
+        max: 50,
         ticks: {
           stepSize: 1,
         },
