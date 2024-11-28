@@ -110,13 +110,17 @@ export class TrocaDevolucaoComponent implements OnInit {
   }
 
   public async onSubmit() {
-    const quantidade = this.trocaForm!.get('quantidade')?.value;
+    let quantidade = this.trocaForm!.get('quantidade')?.value;
 
     console.log(quantidade);
 
     if (!quantidade) {
       window.alert('Informe uma quantidade válida');
       return;
+    }
+
+    if (quantidade instanceof Object) {
+      quantidade = 1;
     }
 
     if (quantidade > this.chocolatePedido!.chp_Quantidade || quantidade < 1) {
@@ -136,7 +140,6 @@ export class TrocaDevolucaoComponent implements OnInit {
       window.alert(trocaDevolucao.code + ' ' + trocaDevolucao.mensagem);
       return;
     } else {
-      window.alert('Troca ou devolução solicitada com Sucesso');
       this.router.navigate(['/usuario/conta/' + this.usu_Id]);
     }
   }
