@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ChocolatePedido } from '../../../DTO/chocolatePedido/ChocolatePedido';
 import { ErrorDTO } from '../../../DTO/Error/ErrorDTO';
 import { Pedido } from '../../../DTO/Pedido/Pedido';
+import { StatusPedidos } from '../../../DTO/Pedido/StatusPedidos';
 import { Usuario } from '../../../DTO/Usuario/Usuario';
 import { PedidoService } from '../../../Services/pedido/pedido.service';
 import { UsuarioService } from '../../../Services/usuario/usuario.service';
@@ -207,6 +208,11 @@ export class PedidoComponent implements OnInit {
   public selectedChoco: string | undefined;
 
   public async trocar(tde_cho_ped_id: ChocolatePedido, cho_Id: string) {
+    if (this.pedido?.ped_Status != StatusPedidos.ENTREGUE) {
+      window.alert('Somente pedidos entregues podem ser trocados');
+      return;
+    }
+
     this.troca = true;
     this.selectedChocoPed = tde_cho_ped_id;
     this.selectedChoco = cho_Id;
@@ -214,6 +220,11 @@ export class PedidoComponent implements OnInit {
   }
 
   public async devolver(tde_cho_ped_id: ChocolatePedido, cho_Id: string) {
+    if (this.pedido?.ped_Status != StatusPedidos.ENTREGUE) {
+      window.alert('Somente pedidos entregues podem ser trocados');
+      return;
+    }
+
     this.troca = false;
     this.selectedChocoPed = tde_cho_ped_id;
     this.selectedChoco = cho_Id;
