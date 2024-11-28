@@ -4,6 +4,7 @@ import { AdminComponent } from './components/view/admin/admin.component';
 import { CarrinhoComponent } from './components/view/carrinho/carrinho.component';
 import { EditUserComponent } from './components/view/edit-user/edit-user.component';
 import { HomeComponent } from './components/view/home/home.component';
+import { IaComponent } from './components/view/ia/ia.component';
 import { ListUsersComponent } from './components/view/list-users/list-users.component';
 import { ListingComponent } from './components/view/listing/listing.component';
 import { MinhaContaComponent } from './components/view/minha-conta/minha-conta.component';
@@ -101,6 +102,12 @@ export const routes: Routes = [
   {
     path: 'relatorio',
     component: RelatorioComponent,
+    pathMatch: 'full',
+  },
+
+  {
+    path: 'recomendacao',
+    component: IaComponent,
     pathMatch: 'full',
   },
 

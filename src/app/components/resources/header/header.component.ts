@@ -55,6 +55,9 @@ export class HeaderComponent {
       case 'carrinho':
         this.router.navigate(['/carrinho']);
         break;
+      case 'chat':
+        this.router.navigate(['/recomendacao']);
+        break;
       default:
         this.router.navigate(['/home']);
         break;
